@@ -23,9 +23,9 @@ const Page = () => {
 
     return (
         <main className="h-[calc(100%-50px)] grid place-items-center overflow-hidden">
-            <div className="grid gap-8">
-                <motion.h1 initial="hidden" animate="visible" variants={h1Variants} className="text-7xl font-bold">SanderCokart.com</motion.h1>
-                <motion.h2 initial="hidden" animate="visible" variants={h2Variants} className="text-4xl font-bold">
+            <div className="grid grid-rows-[1fr,1fr] gap-8 text-center h-full font-bold">
+                <motion.h1 initial="hidden" animate="visible" variants={h1Variants} className="landscape:text-[4vw] portrait:text-[4vh] self-end">SanderCokart.com</motion.h1>
+                <motion.h2 initial="hidden" animate="visible" variants={h2Variants} className="landscape:text-[4vw] portrait:text-[4vh]">
                     <Typewriter typeSpeed={70}
                                 deleteSpeed={50}
                                 delaySpeed={1000}
