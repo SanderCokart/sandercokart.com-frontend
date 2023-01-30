@@ -4,11 +4,11 @@ import {Header} from './header';
 
 export default function Layout({ children }: PropsWithChildren) {
     return (
-        <html lang="en" data-theme="">
+        <html lang="en" data-theme="dark">
         <head>
             <title>SanderCokart.com</title>
         </head>
-        <body className="h-[calc(100vh-50px)] min-h-[calc(100vh-50px)] bg-white text-black dark:bg-black dark:text-white">
+        <body className="body bg-white text-black dark:bg-black dark:text-white mb-[50px] sm:mb-0">
         <Header/>
         {children}
         <Footer/>
