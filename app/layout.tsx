@@ -1,8 +1,9 @@
-import {PropsWithChildren} from 'react';
 import {Footer} from './footer';
 import {Header} from './header';
+import type {ReactNode} from 'react';
+import '@/styles/globals.scss';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en" data-theme="dark">
         <head>
