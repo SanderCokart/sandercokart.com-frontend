@@ -3,9 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        './pages/**/*.{js,ts,jsx,tsx}',
-        './components/**/*.{js,ts,jsx,tsx}',
-        './app/**/*.{js,ts,jsx,tsx}',
+        './src/**/*.{js,ts,jsx,tsx}'
     ],
     theme: {
         extend: {
@@ -25,10 +23,11 @@ module.exports = {
             'lg': '1024px',
             'xl': '1280px',
             '2xl': '1536px'
-        },
+        }
     },
     plugins: [
-        require('@tailwindcss/typography')
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/line-clamp')
     ],
     darkMode: ['class', '[data-theme="dark"]']
 };

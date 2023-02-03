@@ -1,4 +1,3 @@
-'use client';
 import {motion, Variants} from 'framer-motion';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
@@ -12,7 +11,7 @@ const variants: Variants = {
     }
 };
 
-export function Footer() {
+export default function Footer() {
     const isDesktop = useMediaQuery({ from: 'sm', option: 'up' });
     return (
         <footer className="h-[50px] w-full grid place-items-center font-bold overflow-hidden">
