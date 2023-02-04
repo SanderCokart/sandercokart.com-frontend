@@ -1,9 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {PostFrontMatter} from '@/types/data/FrontMatter';
+import axios from 'axios';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const data: PostFrontMatter[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then((r) => r.json());
-
+    const data = await axios.get<PostFrontMatter[]>(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then(res => res.data);
     if (req.query.query) {
         return res.status(200).json([
             ...data.filter(post => {

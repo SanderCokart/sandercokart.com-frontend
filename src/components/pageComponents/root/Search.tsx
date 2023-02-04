@@ -5,6 +5,7 @@ import type {PostFrontMatter} from '@/types/data/FrontMatter';
 import Link from 'next/link';
 import Image from 'next/image';
 import {useState, useRef, MouseEvent} from 'react';
+import axios from 'axios';
 
 function SearchNotification(props: { text: string }) {
     return <div className="bg-black rounded-b-2xl absolute top-full left-0 min-h-[100px] max-h-[60vh] overflow-auto w-full grid place-items-center">
@@ -15,7 +16,7 @@ function SearchNotification(props: { text: string }) {
 }
 
 function Results({ search, debounced, reset, autoFocus }: { search: string, reset: () => void, debounced: string, autoFocus: () => void }) {
-    const { data: searchResults } = useSWR<PostFrontMatter[]>(debounced ? `${process.env.NEXT_PUBLIC_API_URL}/search?query=${debounced}` : null, (url) => fetch(url).then((res) => res.json()).then((data) => data));
+    const { data: searchResults } = useSWR<PostFrontMatter[]>(debounced ? `${process.env.NEXT_PUBLIC_API_URL}/search?query=${debounced}` : null, (url) => axios.get(url).then((res) => res.data));
 
     const onClick = () => {
         reset();
@@ -48,7 +49,7 @@ function Results({ search, debounced, reset, autoFocus }: { search: string, rese
 }
 
 function Tags({ setSearchTags, autoFocus }: { setSearchTags: (tag: string) => void, autoFocus: () => void }) {
-    const { data } = useSWR<string[]>(`${process.env.NEXT_PUBLIC_API_URL}/tags`, (url) => fetch(url).then((res) => res.json()).then((data) => data));
+    const { data } = useSWR<string[]>(`${process.env.NEXT_PUBLIC_API_URL}/tags`, (url) => axios.get(url).then((res) => res.data));
 
     const onClick = (e: MouseEvent, tag: string) => {
         e.preventDefault();
