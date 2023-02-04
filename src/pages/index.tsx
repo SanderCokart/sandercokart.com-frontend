@@ -16,7 +16,7 @@ const Index = ({ posts }: HomePageProps) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const posts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/frontmatter`).then(res => res.json());
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then(res => res.json());
     return { props: { posts }, revalidate: 1 };
 };
 

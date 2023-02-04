@@ -2,26 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-code {
-  counter-reset: line;
-}
+@layer base {
+  code {
+    counter-reset: line;
+  }
 
-code > .line::before {
-  counter-increment: line;
-  content: counter(line);
+  code > .line::before {
+    counter-increment: line;
+    content: counter(line);
 
-  /* Other styling */
-  display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
-  text-align: right;
-  color: gray;
-}
+    /* Other styling */
+    display: inline-block;
+    width: 1rem;
+    margin-right: 2rem;
+    text-align: right;
+    color: gray;
+  }
 
-code[data-line-numbers-max-digits="2"] > .line::before {
-  width: 2rem;
-}
+  code[data-line-numbers-max-digits="2"] > .line::before {
+    width: 2rem;
+  }
 
-code[data-line-numbers-max-digits="3"] > .line::before {
-  width: 3rem;
+  code[data-line-numbers-max-digits="3"] > .line::before {
+    width: 3rem;
+  }
+
+  input[type=search]::-webkit-search-cancel-button {
+    appearance: none;
+  }
 }

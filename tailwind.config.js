@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,6 +8,13 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['var(--font-roboto)', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                accent: colors.red['900'],
+                hover: colors.red['800'],
+            },
             width: {
                 ...defaultTheme.screens
             },
@@ -27,7 +35,7 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/typography'),
-        require('@tailwindcss/line-clamp')
+        require('@tailwindcss/line-clamp'),
     ],
     darkMode: ['class', '[data-theme="dark"]']
 };

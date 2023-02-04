@@ -6,9 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mantine/hooks": "^5.10.3",
     "@mdx-js/loader": "^2.2.1",
     "@mdx-js/react": "^2.2.1",
+    "@next/font": "^13.1.6",
     "@next/mdx": "^13.1.6",
+    "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
     "classnames": "^2.3.2",
@@ -30,7 +33,8 @@
     "remark-mdx-code-meta": "^2.0.0",
     "sass": "^1.57.1",
     "shiki": "^0.14.0",
-    "swiper": "^9.0.2"
+    "swiper": "^9.0.2",
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
