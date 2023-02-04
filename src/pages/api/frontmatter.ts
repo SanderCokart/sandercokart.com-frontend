@@ -2,7 +2,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import m from 'front-matter';
 import fs from 'fs';
-import {PostFrontMatter} from '@/types/data/FrontMatter';
+import type {PostFrontMatter} from '@/types/data/FrontMatter';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     const postFileNames = fs.readdirSync('./src/pages/blog/posts');

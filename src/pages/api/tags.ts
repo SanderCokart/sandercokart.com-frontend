@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {PostFrontMatter} from '@/types/data/FrontMatter';
+import type {PostFrontMatter} from '@/types/data/FrontMatter';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const data: PostFrontMatter[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then((r) => r.json());

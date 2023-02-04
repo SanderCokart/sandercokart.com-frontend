@@ -1,5 +1,5 @@
 import {GetStaticProps} from 'next';
-import {PostFrontMatter} from '@/types/data/FrontMatter';
+import type {PostFrontMatter} from '@/types/data/FrontMatter';
 import Posts from '@/components/pageComponents/home/Posts';
 
 interface HomePageProps {
@@ -17,7 +17,7 @@ const Index = ({ posts }: HomePageProps) => {
 
 export const getStaticProps: GetStaticProps = async () => {
     const posts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then(res => res.json());
-    return { props: { posts }, revalidate: 1 };
+    return { props: { posts }, revalidate: 1};
 };
 
 export default Index;
