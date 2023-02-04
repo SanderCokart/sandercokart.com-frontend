@@ -15,7 +15,7 @@ function NavItem({ text, Icon, link }: { Icon: IconType, text: string, link: str
 
 export default function Navigation() {
     return (
-        <header className="sm:relative sm:sticky sm:top-0 sm:bg-red-900">
+        <header className="sm:relative sm:sticky sm:top-0 sm:bg-red-900 z-10">
             <nav className="fixed font-bold bottom-0 h-[50px] w-full sm:static">
                 <ul className="grid h-full grid-cols-1 sm:flex">
                     <NavItem link="/" Icon={FaHome} text="Home"/>

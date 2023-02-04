@@ -1,6 +1,6 @@
 import {PropsWithChildren} from 'react';
 import Link from 'next/link';
-import {FaBackspace, FaArrowLeft} from 'react-icons/fa';
+import {FaArrowLeft} from 'react-icons/fa';
 
 function GoBack() {
     return (
