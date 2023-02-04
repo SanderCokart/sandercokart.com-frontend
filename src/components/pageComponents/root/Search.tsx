@@ -24,7 +24,7 @@ function Results({ search, debounced, reset, autoFocus }: { search: string, rese
 
     if (search.length === 0) return null;
 
-    if (search !== debounced && !searchResults?.length) return <SearchNotification text="Searching..."/>;
+    if (search !== debounced) return <SearchNotification text="Searching..."/>;
 
     if (searchResults?.length === 0) return <SearchNotification text="No results found"/>;
 
@@ -82,7 +82,7 @@ export default function Search() {
 const SearchBox = () => {
     const [search, setSearch] = useState('');
     const [showTags, setShowTags] = useState(false);
-    const [debounced] = useDebouncedValue(search, 500);
+    const [debounced] = useDebouncedValue(search, 1000);
     const ref = useRef<HTMLInputElement>(null);
 
     const reset = () => {
@@ -105,7 +105,9 @@ const SearchBox = () => {
                    onBlur={() => setShowTags(false)}
                    onFocus={() => setShowTags(true)}
                    ref={ref}
-                   onChange={(e) => setSearch(e.target.value)}
+                   onChange={(e) => {
+                       setSearch(e.target.value);
+                   }}
                    value={search}
                    autoFocus
                    placeholder="Search..."
