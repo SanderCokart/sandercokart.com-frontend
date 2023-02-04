@@ -22,11 +22,11 @@ function Results({ search, debounced, reset, autoFocus }: { search: string, rese
         reset();
     };
 
-    if (!search.length) return null;
+    if (search.length === 0) return null;
 
     if (search !== debounced && !searchResults?.length) return <SearchNotification text="Searching..."/>;
 
-    if (!searchResults?.length) return <SearchNotification text="No results found"/>;
+    if (searchResults?.length === 0) return <SearchNotification text="No results found"/>;
 
     return (
         <ul className="bg-black rounded-b-2xl absolute top-full left-0 min-h-[100px] max-h-[60vh] overflow-auto w-full p-2">
