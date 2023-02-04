@@ -1,9 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import type {PostFrontMatter} from '@/types/data/FrontMatter';
-import axios from 'axios';
+import {getPostsWithFrontmatter} from '@/functions/api/frontmatter';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const data: PostFrontMatter[] = await axios.get<PostFrontMatter[]>(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then(r => r.data);
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+    const data = getPostsWithFrontmatter();
 
     const tags = data.flatMap((post) => {
         return post.tags;

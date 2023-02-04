@@ -7,7 +7,7 @@ interface HomePageProps {
     posts: PostFrontMatter[];
 }
 
-const Index = ({ posts }: HomePageProps) => {
+const Home = ({ posts }: HomePageProps) => {
     return (
         <main className="p-8 min-h-[calc(100vh-100px)]">
             <h1 className="text-4xl font-bold">Posts</h1>
@@ -21,4 +21,4 @@ export const getStaticProps: GetStaticProps = async () => {
     return { props: { posts }, revalidate: 1 };
 };
 
-export default Index;
+export default Home;
