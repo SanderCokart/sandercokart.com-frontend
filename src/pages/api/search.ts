@@ -5,7 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data: PostFrontMatter[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontmatter`).then((r) => r.json());
 
     if (req.query.query) {
-        res.json([
+        return res.status(200).json([
             ...data.filter(post => {
                 const regex = new RegExp(req.query.query as string, 'gi');
 
@@ -14,5 +14,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ]);
     }
 
-    res.status(200).json({});
+    return res.status(200).json({});
 }
