@@ -1,7 +1,7 @@
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {PostFrontMatter} from '@/types/data/FrontMatter';
 import Link from 'next/link';
 import Image from 'next/image';
+import {PostFrontMatter} from '@/types/data/FrontMatter';
 
 interface PostsProps {
     posts: PostFrontMatter[];
