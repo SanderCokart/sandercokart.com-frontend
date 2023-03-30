@@ -13,7 +13,7 @@ import {fade} from '@/constants/animations/fade';
 import useDev from '@/hooks/useDev';
 import useMounted from '@/hooks/useMounted';
 
-import DemoImage from '@/public/static/images/516-500x300.jpg';
+import DemoImage from '@/public/static/images/test1.jpg';
 
 const breakpoints: SwiperProps['breakpoints'] = {
     0: {
