@@ -88,7 +88,7 @@ export default function ContactUs() {
                         onClick={insertTemplate}/>
                 </div>
                 <div className="flex flex-col md:flex-row items-baseline gap-8">
-                    <button className="w-48 shrink-0 rounded-xl self-center sm:self-baseline p-3 font-bold text-white transition-transform bg-secondaryLight hover:scale-110 active:scale-90"
+                    <button className="w-48 shrink-0 rounded-xl self-center sm:self-baseline p-3 font-bold text-white transition-transform bg-secondary hover:scale-110 active:scale-90"
                             type="submit">
                         {t('home:send')}
                     </button>
@@ -97,7 +97,7 @@ export default function ContactUs() {
                         c(
                             'grow text-center text-xl bg-zinc-200 dark:bg-zinc-800 rounded-md p-4 font-bold empty:hidden',
                             {
-                                'text-primaryLight dark:text-secondaryLight': response?.status === 'success',
+                                'text-primary dark:text-secondary': response?.status === 'success',
                                 'text-white border-red-600 border-2': response?.status === 'error'
                             }
                         )

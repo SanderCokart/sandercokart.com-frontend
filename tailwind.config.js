@@ -5,39 +5,33 @@ const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content:  [
-        './app/**/*.{js,ts,jsx,tsx}',
-        './pages/**/*.{js,ts,jsx,tsx}',
-        './lib/**/*.{js,ts,jsx,tsx}'],
+        './app/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './lib/**/*.{js,ts,jsx,tsx}'],
     darkMode: ['class'],
     theme:    {
         extend: {
             animation:      {
                 'ring-pulse-primary':   'ring-pulse-primary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                 'ring-pulse-secondary': 'ring-pulse-secondary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-            },
-            keyframes:      {
-                'ring-pulse-primary':   {
-                    '0%':   {boxShadow: `0 0 0 0 ${colors.violet[700]}AA`},
-                    '100%': {boxShadow: `0 0 0 6px ${colors.violet[700]}00`}
-                },
-                'ring-pulse-secondary': {
-                    '0%':   {boxShadow: `0 0 0 0 ${colors.green[400]}AA`},
-                    '100%': {boxShadow: `0 0 0 6px ${colors.green[400]}00`}
+            }, keyframes:   ({theme}) => ({
+                'ring-pulse-primary':      {
+                    '0%':   {boxShadow: `0 0 0 0 ${theme('colors.primary')}AA`},
+                    '100%': {boxShadow: `0 0 0 6px ${theme('colors.primary')}00`}
+                }, 'ring-pulse-secondary': {
+                    '0%':   {boxShadow: `0 0 0 0 ${theme('colors.secondary')}AA`},
+                    '100%': {boxShadow: `0 0 0 6px ${theme('colors.secondary')}00`}
                 }
-            },
-            fontFamily:     {
-                sans:      [...fontFamily.sans],
-                'digital': 'var(--fontLetsGoDigital)'
+            }), fontFamily: {
+                sans:      ['var(--font-roboto)', ...fontFamily.sans],
+                'code':    'var(--font-cascadia-code)',
+                'digital': 'var(--font-digital)'
             }, colors:      {
-                primary:        colors.violet[700],
-                primaryLight:   colors.violet[500],
-                primaryDark:    colors.violet[900],
-                secondary:      colors.green[700],
-                secondaryLight: colors.green[400],
-                secondaryDark:  colors.green[900],
-                react:          '#61dafb',
-                laravel:        '#ff2d20',
-                vue:            '#42b883'
+                primary:       colors.blue[500],
+                primaryDark:   colors.blue[900],
+                secondary:     colors.amber[400],
+                secondaryDark: colors.amber[600],
+                react:         '#61dafb',
+                laravel:       '#ff2d20',
+                vue:           '#42b883'
             }, screens:     {
                 'sm':  '640px',
                 'md':  '768px',
@@ -56,16 +50,14 @@ module.exports = {
                 'vue':       `0 0px 10px ${theme('colors.vue')}`,
                 'next':      `0 0px 10px #fff`,
                 'primary':   `0 0px 10px ${theme('colors.primary')}`,
-                'secondary': `0 0px 10px ${theme('colors.secondaryLight')}`
+                'secondary': `0 0px 10px ${theme('colors.secondary')}`
             }), textShadow: ({theme}) => ({
                 'react':   `0 0 50px ${theme('colors.react')}`,
                 'laravel': `0 0px 50px ${theme('colors.laravel')}`,
                 'vue':     `0 0px 50px ${theme('colors.vue')}`,
                 'next':    `0 0px 50px #fff`,
                 'none':    'none'
-            }),
-            minWidth:       {...screens}, maxWidth: {...screens}, width: {...screens},
-            minHeight:      {
+            }), minWidth:   {...screens}, maxWidth: {...screens}, width: {...screens}, minHeight: {
                 'desktop': 'calc(100vh - 68px)',
                 'between': 'calc(100vh - 68px - 44px)',
                 'mobile':  'calc(100vh - 56px - 44px)'
@@ -73,6 +65,7 @@ module.exports = {
         }
     },
     plugins:  [
+        require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),
         plugin(function ({matchUtilities, theme}) {
@@ -81,6 +74,5 @@ module.exports = {
                     textShadow: value
                 })
             }, {values: theme('textShadow')});
-        })
-    ]
+        })]
 };

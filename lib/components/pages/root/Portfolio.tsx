@@ -23,7 +23,7 @@ function Figure({ figure: { caption, image } }: { figure: { image: StaticImageDa
                    width="960"
                    onClick={() => openLightbox({ image })}
             />
-            <figcaption className="absolute right-0 bottom-0 left-0 mx-auto overflow-clip rounded-t-full px-4 py-1 text-center text-xs font-bold text-black text-white bg-primaryLight/75 dark:bg-primaryDark/75 dark:text-white md:w-min md:whitespace-nowrap md:px-8 md:py-2 md:text-base">
+            <figcaption className="absolute right-0 bottom-0 left-0 mx-auto overflow-clip rounded-t-full px-4 py-1 text-center text-xs font-bold text-black text-white bg-primary/75 dark:bg-primaryDark/75 dark:text-white md:w-min md:whitespace-nowrap md:px-8 md:py-2 md:text-base">
                 {caption}
             </figcaption>
         </figure>
@@ -52,7 +52,7 @@ function Project({ project: { title, figures, description } }: { project: Projec
                         pagination={{ el: paginationRef.current, clickable: true }}
                         slidesPerView={1}>
                     <button
-                        className="absolute top-16 bottom-16 left-0 z-10 origin-left rounded-r-full p-2 text-xs text-white transition-all bg-primaryLight/50 enabled:hover:bg-primaryLight/75 active:scale-95 disabled:bg-zinc-900/50 dark:bg-primaryDark/50 sm:text-base md:top-20 md:bottom-20 md:text-lg dark:disabled:bg-zinc-900/50"
+                        className="absolute top-16 bottom-16 left-0 z-10 origin-left rounded-r-full p-2 text-xs text-white transition-all bg-primary/50 enabled:hover:bg-primary/75 active:scale-95 disabled:bg-zinc-900/50 dark:bg-primaryDark/50 sm:text-base md:top-20 md:bottom-20 md:text-lg dark:disabled:bg-zinc-900/50"
                         id="previous-slide"
                         name="Previous image"
                         type="button">
@@ -66,7 +66,7 @@ function Project({ project: { title, figures, description } }: { project: Projec
                     ))}
 
                     <button
-                        className="absolute top-16 right-0 bottom-16 z-10 z-20 origin-right rounded-l-full p-2 text-xs text-white transition-all bg-primaryLight/50 enabled:hover:bg-primaryLight/75 active:scale-95 disabled:bg-zinc-900/50 dark:bg-primaryDark/50 sm:text-base md:top-20 md:bottom-20 md:text-lg dark:disabled:bg-zinc-900/50"
+                        className="absolute top-16 right-0 bottom-16 z-10 z-20 origin-right rounded-l-full p-2 text-xs text-white transition-all bg-primary/50 enabled:hover:bg-primary/75 active:scale-95 disabled:bg-zinc-900/50 dark:bg-primaryDark/50 sm:text-base md:top-20 md:bottom-20 md:text-lg dark:disabled:bg-zinc-900/50"
                         id="next-slide"
                         name="Next image"
                         type="button">
@@ -92,7 +92,7 @@ const Portfolio = () => {
                 navigation={{ nextEl: '#next-outer-slide', prevEl: '#previous-outer-slide' }}
                 slidesPerView={1}>
                 <button
-                    className="absolute text-xs md:text-base disabled:opacity-50 text-center [clip-path:polygon(15%_0,100%_0,100%_100%,15%_100%,0_50%)] font-bold bottom-8 left-6 bg-primary text-white py-2 pl-8 pr-4 enabled:active:scale-90 transition-transform enabled:hover:bg-primaryLight rounded-r-lg transition-colors"
+                    className="absolute text-xs md:text-base disabled:opacity-50 text-center [clip-path:polygon(15%_0,100%_0,100%_100%,15%_100%,0_50%)] font-bold bottom-8 left-6 bg-primary text-white py-2 pl-8 pr-4 enabled:active:scale-90 transition-transform enabled:hover:bg-primary rounded-r-lg transition-colors"
                     id="previous-outer-slide"
                     type="button">
                     {t('home:previous-project')}
@@ -112,7 +112,7 @@ const Portfolio = () => {
                         <div className="grid place-items-center h-[50%]">
                             <h3 className="mb-4 text-center text-2xl font-bold md:text-4xl">{t('home:more-on-github')}</h3>
 
-                            <Link className="animate-bounce text-9xl transition-colors hover:text-secondaryLight" href="https://github.com/stars/SanderCokart/lists/projects">
+                            <Link className="animate-bounce text-9xl transition-colors hover:text-secondary" href="https://github.com/stars/SanderCokart/lists/projects">
                                 <FaGithub/>
                             </Link>
 
@@ -122,7 +122,7 @@ const Portfolio = () => {
             </Swiper>
 
             <button
-                className="absolute text-xs md:text-base disabled:opacity-50 text-center [clip-path:polygon(85%_0%,100%_50%,85%_100%,0%_100%,0%_0%)] font-bold bottom-8 right-6 bg-primary text-white py-2 pl-4 pr-8 enabled:active:scale-90 transition-transform enabled:hover:bg-primaryLight rounded-l-lg transition-colors"
+                className="absolute text-xs md:text-base disabled:opacity-50 text-center [clip-path:polygon(85%_0%,100%_50%,85%_100%,0%_100%,0%_0%)] font-bold bottom-8 right-6 bg-primary text-white py-2 pl-4 pr-8 enabled:active:scale-90 transition-transform enabled:hover:bg-primary rounded-l-lg transition-colors"
                 id="next-outer-slide"
                 type="button">
                 {t('home:next-project')}

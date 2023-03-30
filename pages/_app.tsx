@@ -1,13 +1,14 @@
 import 'swiper/scss';
 import 'swiper/scss/pagination';
+import "swiper/css/effect-coverflow";
 import '@/styles/globals.scss';
 import type {AppProps} from 'next/app';
 import type {PropsWithChildren} from 'react';
 
-import localFont from '@next/font/local';
 import Axios from 'axios';
-import {appWithTranslation} from 'next-i18next';
 import {ThemeProvider} from 'next-themes';
+import {Roboto} from 'next/font/google';
+import localFont from 'next/font/local';
 import Head from 'next/head';
 import {ModalProvider} from 'react-simple-modal-provider';
 
@@ -17,8 +18,24 @@ import RootLayout from '@/layouts/RootLayout';
 
 const fontLetsGoDigital = localFont({
     src: '../public/fonts/LetsGoDigital.ttf',
-    variable: '--fontLetsGoDigital',
+    variable: '--font-digital',
     weight: '400',
+    style: 'normal',
+    preload: true
+});
+
+const fontCascadiaCode = localFont({
+    src: '../public/fonts/CascadiaCode.ttf',
+    variable: '--font-cascadia-code',
+    weight: '400',
+    style: 'normal',
+    preload: false
+});
+
+const fontRoboto = Roboto({
+    variable: '--font-roboto',
+    weight: '400',
+    subsets: ['latin'],
     style: 'normal',
     preload: true
 });
@@ -38,7 +55,7 @@ function Providers({ children }: PropsWithChildren) {
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <div className={`${fontLetsGoDigital.variable} font-sans`}>
+        <div className={`${fontLetsGoDigital.variable} ${fontRoboto.variable} ${fontCascadiaCode.variable} font-sans`}>
             <Providers>
                 <RootLayout>
                     <Head>
@@ -52,4 +69,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
 }
 
-export default appWithTranslation(MyApp);
+export default MyApp;
