@@ -57,7 +57,7 @@ module.exports = {
                 'vue':     `0 0px 50px ${theme('colors.vue')}`,
                 'next':    `0 0px 50px #fff`,
                 'none':    'none'
-            }), minWidth:   {...screens}, maxWidth: {...screens}, width: {...screens}, minHeight: {
+            }), minHeight:  {
                 'desktop': 'calc(100vh - 68px)',
                 'between': 'calc(100vh - 68px - 44px)',
                 'mobile':  'calc(100vh - 56px - 44px)'
@@ -66,7 +66,6 @@ module.exports = {
     },
     plugins:  [
         require('@tailwindcss/line-clamp'),
-        require('@tailwindcss/aspect-ratio'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),
         plugin(function ({matchUtilities, theme}) {
@@ -75,5 +74,14 @@ module.exports = {
                     textShadow: value
                 })
             }, {values: theme('textShadow')});
-        })]
+        }),
+        //w-screen-{theme.screens}
+        plugin(function ({matchUtilities, theme}) {
+            matchUtilities({
+                'w-screen': (value) => ({
+                    width: value
+                })
+            }, {values: theme('screens')});
+        })
+    ]
 };

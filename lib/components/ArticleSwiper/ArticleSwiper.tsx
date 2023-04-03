@@ -36,7 +36,7 @@ const breakpoints: SwiperProps['breakpoints'] = {
 const ArticleSwiper = ({ title, articles }: { title: string, articles: ArticleModel[] }) => {
     return (
         <section className="relative z-10">
-            <h1 className="flex items-center justify-center gap-32 overflow-hidden py-2 text-center bg-secondary font-digital dark:bg-secondaryDark dark:text-white md:text-4xl">
+            <h1 className="flex items-center justify-center gap-32 overflow-hidden py-1 md:py-2 text-center bg-secondary font-digital dark:bg-secondaryDark dark:text-white text-xl md:text-4xl">
                 {title}
             </h1>
             <div className="relative md:px-10">

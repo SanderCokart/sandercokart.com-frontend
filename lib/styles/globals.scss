@@ -37,7 +37,7 @@
   }
 
   .prose-all {
-    @apply prose prose-xl dark:prose-invert xl:prose-2xl;
+    @apply prose dark:prose-invert max-w-none;
   }
 
   .min-h-section {
@@ -68,7 +68,7 @@
   }
 
   .section-no-height {
-    @apply my-12 mx-auto max-w-4xl scroll-mt-16 md:scroll-mt-24;
+    @apply my-12 mx-auto max-w-screen-4xl scroll-mt-16 md:scroll-mt-24;
   }
 
   .section-no-padding {

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-const UseMounted = (callback: () => void) => {
+const UseMounted = (callback?: () => void) => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);

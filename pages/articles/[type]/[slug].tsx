@@ -23,22 +23,28 @@ const ArticlePage = ({ article }: BlogPostPageProps) => {
     };
 
     return (
-        <main className="section prose-all">
-            <button className="mb-2 flex items-center gap-2 label hover:bg-secondary" onClick={goBack}><FaChevronLeft/> Go back</button>
-            <div className="relative not-prose aspect-[3/2]">
-                <div className="absolute inset-0 z-10 m-16">
-                    <h1 className={c(
-                        'font-bold label p-1 rounded bg-secondary/75 dark:bg-secondaryDark/75 text-white',
-                        'md:text-8xl line-clamp-4'
-                    )}>{article.title}</h1>
-                </div>
-                <Image fill priority alt={article.banner.file_name} src={article.banner.original_url} style={{ objectFit: 'cover' }}/>
-                <div className="absolute inset-x-0 bottom-0 flex justify-between p-2">
-                    <span className="label">Published: {article.published_at}</span>
-                    <span className="capitalize label">{article.type.name}</span>
+        <main className="section">
+            <div className="max-w-screen-lg  mx-auto p-2 md:p-0">
+                <button className="mb-2 flex text-xl md:text-2xl items-center gap-2 label hover:bg-secondary" onClick={goBack}><FaChevronLeft/> Go back</button>
+                <div className="relative aspect-[3/2]">
+                    <div className="absolute inset-0 flex items-center z-10 m-16">
+                        <h1 className={c(
+                            'font-bold label p-1 rounded bg-secondary/75 dark:bg-secondaryDark/75 text-white',
+                            'md:text-8xl line-clamp-4'
+                        )}>{article.title}</h1>
+                    </div>
+                    <Image fill priority alt={article.banner.file_name} src={article.banner.original_url} style={{ objectFit: 'cover' }}/>
+                    <div className="absolute inset-x-0 bottom-0 flex justify-between p-2 text-xs md:text-xl">
+                        <span className="label">Published: {article.published_at}</span>
+                        <span className="capitalize label">{article.type.name}</span>
+                    </div>
                 </div>
             </div>
-            <MDXRemote {...article.body}/>
+            <article className="prose-all p-4 md:p-0">
+                <div className="max-w-screen-lg mx-auto">
+                    <MDXRemote {...article.body}/>
+                </div>
+            </article>
         </main>
     );
 };

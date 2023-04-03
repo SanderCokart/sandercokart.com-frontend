@@ -15,7 +15,7 @@ const Footer = () => {
         <footer className="flex flex-col justify-center font-mono text-lg text-white bg-primary fond-bold dark:bg-primaryDark"
                 id="footer">
             <section className="mx-auto flex gap-32 p-8 text-base sm:text-xl">
-                <nav aria-label="footer" className="hidden md:flex justify-between w-sm">
+                <nav aria-label="footer" className="hidden md:flex justify-between w-screen-sm">
                     <div className="flex flex-col gap-4">
                         <h2 className="text-center text-secondary">Pages</h2>
                         <ul className="flex flex-col gap-2">
