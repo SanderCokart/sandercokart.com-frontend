@@ -74,6 +74,10 @@
   .section-no-padding {
     @apply mx-auto scroll-mt-16 md:scroll-mt-24 min-h-section;
   }
+
+  .label {
+    @apply block px-2 font-bold text-black bg-secondary dark:bg-secondaryDark dark:text-white [box-shadow:_0_2px_0_0_#000];
+  }
 }
 
 .swiper-pagination-bullet {
