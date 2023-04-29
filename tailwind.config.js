@@ -22,16 +22,20 @@ module.exports = {
                 }
             }), fontFamily: {
                 sans:      ['var(--font-roboto)', ...fontFamily.sans],
-                'code':    'var(--font-cascadia-code)',
+                'code':    'var(--font-cascadia-mono)',
                 'digital': 'var(--font-digital)'
             }, colors:      {
-                primary:       colors.blue[500],
-                primaryDark:   colors.blue[900],
-                secondary:     colors.amber[400],
-                secondaryDark: colors.amber[600],
-                react:         '#61dafb',
-                laravel:       '#ff2d20',
-                vue:           '#42b883'
+                bodyLight:          colors.slate[100],
+                bodyLightSecondary: colors.slate[200],
+                bodyDark:           colors.slate[900],
+                bodyDarkSecondary:  colors.slate[800],
+                primary:            colors.blue[500],
+                primaryDark:        colors.blue[900],
+                secondary:          colors.amber[400],
+                secondaryDark:      colors.amber[600],
+                react:              '#61dafb',
+                laravel:            '#ff2d20',
+                vue:                '#42b883'
             }, screens:     {
                 'sm':  '640px',
                 'md':  '768px',

@@ -1,12 +1,22 @@
+import type {ArticleModel, CourseModel} from '@/types/ModelTypes';
 import type {GetStaticProps} from 'next';
 
+import {articleRoute, coursesRoute, articlesRoute, tipsRoute, tipRoute} from '@/routes/local-routes';
+import c from 'classnames';
 import {motion} from 'framer-motion';
 import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import {SwiperSlide} from 'swiper/react';
 
-import ArticleSwiper from '@/components/ArticleSwiper';
+import ArticleFigure from '@/components/ArticleFigure';
+import CourseFigure from '@/components/CourseFigure';
+import {GenericSwiper} from '@/components/Swipers';
 import TouchTipNotification from '@/components/TouchTipNotification';
 
+import type {SuccessResponse} from '@/functions/axios';
 import axios from '@/functions/axios';
+import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
 
 const Meta = () => (
     <Head>
@@ -52,9 +62,17 @@ const Meta = () => (
 );
 
 interface HomePageProps {
-    general: any;
-    courses: any;
-    tips: any;
+    general: ArticleModel[];
+    courses: CourseModel[];
+    tips: ArticleModel[];
+}
+
+function MoreButton({ text, route }: { text: string, route: string }) {
+    return (
+        <div className="grid place-items-center my-4">
+            <Link className="label font-bold" href={route}>More {text}</Link>
+        </div>
+    );
 }
 
 const HomePage = ({ general, courses, tips }: HomePageProps) => {
@@ -62,7 +80,7 @@ const HomePage = ({ general, courses, tips }: HomePageProps) => {
         hidden: {},
         show: {
             transition: {
-                staggerChildren: .25,
+                staggerChildren: .5,
                 staggerDirection: -1
             }
         }
@@ -79,17 +97,41 @@ const HomePage = ({ general, courses, tips }: HomePageProps) => {
                 <TouchTipNotification/>
                 <motion.div
                     animate="show"
+                    className="flex flex-col select-none"
                     initial="hidden"
                     variants={container}
                 >
-                    <motion.div className="relative" variants={item}>
-                        <ArticleSwiper articles={general} title="General"/>
+                    <motion.div className="relative z-10" variants={item}>
+                        <GenericSwiper title="General">
+                            {general.map((article) => (
+                                <SwiperSlide key={article.id} className="aspect-video border-4 border-primary dark:border-primaryDark w-full overflow-hidden md:rounded sm:w-[min(578px,100%)]">
+                                    <ArticleFigure article={article} route={articleRoute(article)}/>
+                                </SwiperSlide>
+                            ))}
+                            <MoreButton route={articlesRoute()} text="articles"/>
+                        </GenericSwiper>
                     </motion.div>
-                    <motion.div className="relative" variants={item}>
-                        <ArticleSwiper articles={courses} title="Courses"/>
+                    <motion.div className="relative z-10" variants={item}>
+
+                        <GenericSwiper title="Courses">
+                            {courses.map((course) => (
+                                <SwiperSlide key={course.id} className="aspect-video border-4 border-primary dark:border-primaryDark w-full overflow-hidden md:rounded sm:w-[min(578px,100%)]">
+                                    <CourseFigure course={course}/>
+                                </SwiperSlide>
+                            ))}
+                            <MoreButton route="" text="courses"/>
+                        </GenericSwiper>
+
                     </motion.div>
-                    <motion.div className="relative" variants={item}>
-                        <ArticleSwiper articles={tips} title="Tips"/>
+                    <motion.div className="relative z-10" variants={item}>
+                        <GenericSwiper title="Tips">
+                            {tips.map((tip) => (
+                                <SwiperSlide key={tip.id} className="aspect-video border-4 border-primary dark:border-primaryDark w-full overflow-hidden md:rounded sm:w-[min(578px,100%)]">
+                                    <ArticleFigure article={tip} route={tipRoute(tip)}/>
+                                </SwiperSlide>
+                            ))}
+                            <MoreButton route={tipsRoute()} text="tips"/>
+                        </GenericSwiper>
                     </motion.div>
                 </motion.div>
             </main>
@@ -100,6 +142,54 @@ const HomePage = ({ general, courses, tips }: HomePageProps) => {
 export default HomePage;
 
 export const getStaticProps: GetStaticProps = async () => {
-    const { data: { articles } } = await axios.simpleGet('/articles');
-    return { props: { ...articles } };
+    const { data: { articles: general } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/general');
+    const { data: { articles: tips } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/tips');
+    const { data: { courses } } = await axios.simpleGet<null, SuccessResponse<{ courses: ArticleModel[] }>>('/courses');
+    return { props: { general, courses, tips } };
+};
+
+const Figure = ({ article }: { article: ArticleModel }) => {
+    return (
+        <Link className=" group" href={articleRoute(article)}>
+            <figure className="relative h-full w-full overflow-hidden">
+                <Image fill
+                       alt={article.title}
+                       className="transition-transform group-hover:scale-110"
+                       src={article.banner.original_url}
+                       style={{ objectFit: 'cover' }}
+                />
+                <div className="absolute inset-0 backdrop-blur-[2px] group-hover:backdrop-blur-none"></div>
+
+                <figcaption className={c(
+                    'absolute inset-x-0 bottom-0 group-hover:opacity-0 transition-opacity',
+                    'flex flex-col justify-between h-full',
+                    'text-white bg-black/25'
+                )}>
+
+                    <h1 className={c(
+                        'transition-opacity label bg-secondary dark:bg-secondaryDark',
+                        'capitalize text-sm md:text-xl font-black font-code line-clamp-2 text-black dark:text-white'
+                    )}>
+                        {article.title}
+                    </h1>
+
+                    <div className="flex flex-col">
+                        <p className={c(
+                            'label',
+                            'bg-black/75',
+                            'text-xs md:text-base text-white font-normal font-code line-clamp-1'
+                        )}>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa dolorem exercitationem fugit harum illo laudantiumsssss
+                        </p>
+
+                        <span className={c(
+                            /*TODO FIX LABEL ALIGN use grid maybe*/
+                            'label',
+                            'text-center text-xs font-code text-black'
+                        )}>Published: {calculatePublishedTimestamp(article.published_at, true)}</span>
+                    </div>
+                </figcaption>
+            </figure>
+        </Link>
+    );
 };

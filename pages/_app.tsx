@@ -1,7 +1,8 @@
 import 'swiper/scss';
 import 'swiper/scss/pagination';
-import "swiper/css/effect-coverflow";
+import 'swiper/css/effect-coverflow';
 import '@/styles/globals.scss';
+import '@code-hike/mdx/dist/index.css';
 import type {AppProps} from 'next/app';
 import type {PropsWithChildren} from 'react';
 
@@ -11,8 +12,11 @@ import {Roboto} from 'next/font/google';
 import localFont from 'next/font/local';
 import Head from 'next/head';
 import {ModalProvider} from 'react-simple-modal-provider';
+import {SWRConfig} from 'swr';
 
 import {Lightbox} from '@/components/modals';
+
+import axios from '@/functions/axios';
 
 import RootLayout from '@/layouts/RootLayout';
 
@@ -24,9 +28,9 @@ const fontLetsGoDigital = localFont({
     preload: true
 });
 
-const fontCascadiaCode = localFont({
-    src: '../public/fonts/CascadiaCode.ttf',
-    variable: '--font-cascadia-code',
+const fontCascadiaMono = localFont({
+    src: '../public/fonts/CascadiaMono.ttf',
+    variable: '--font-cascadia-mono',
     weight: '400',
     style: 'normal',
     preload: false
@@ -43,19 +47,25 @@ const fontRoboto = Roboto({
 Axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 Axios.defaults.withCredentials = true;
 
+const fetcher = (url: string, config: object) => axios.simpleGet(url, config).then(({ data }) => {
+    return data;
+});
+
 function Providers({ children }: PropsWithChildren) {
     return (
-        <ThemeProvider attribute="class">
-            <ModalProvider value={[Lightbox]}>
-                {children}
-            </ModalProvider>
-        </ThemeProvider>
+        <SWRConfig value={{ fetcher }}>
+            <ThemeProvider attribute="class">
+                <ModalProvider value={[Lightbox]}>
+                    {children}
+                </ModalProvider>
+            </ThemeProvider>
+        </SWRConfig>
     );
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <div className={`${fontLetsGoDigital.variable} ${fontRoboto.variable} ${fontCascadiaCode.variable} font-sans`}>
+        <div className={`${fontLetsGoDigital.variable} ${fontRoboto.variable} ${fontCascadiaMono.variable} font-sans`}>
             <Providers>
                 <RootLayout>
                     <Head>

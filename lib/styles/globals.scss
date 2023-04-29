@@ -33,11 +33,11 @@
 
 @layer utilities {
   .body {
-    @apply dark:bg-slate-900 bg-slate-200;
+    @apply bg-slate-200 dark:bg-slate-900;
   }
 
   .prose-all {
-    @apply prose dark:prose-invert max-w-none;
+    @apply max-w-none prose dark:prose-invert;
   }
 
   .min-h-section {
@@ -49,37 +49,106 @@
   }
 
   .text-link {
-    @apply hover:text-secondary active:text-secondaryDark transition-colors;
+    @apply transition-colors hover:text-secondary active:text-secondaryDark;
   }
 }
 
 
 @layer components {
   .base-input {
-    @apply w-full rounded-xl focus:ring-primary focus:border-primary p-3 text-xl text-black sm:text-2xl focus:drop-shadow-primary transition-all;
+    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
   }
 
   .title {
-    @apply text-center text-5xl font-bold mb-4;
+    @apply mb-4 text-center text-5xl font-bold;
   }
 
   .section {
-    @apply py-12 mx-auto scroll-mt-16 md:scroll-mt-24 min-h-section;
+    @apply mx-auto scroll-mt-16 py-12 min-h-section md:scroll-mt-24;
   }
 
   .section-no-height {
-    @apply my-12 mx-auto max-w-screen-4xl scroll-mt-16 md:scroll-mt-24;
+    @apply mx-auto my-12 scroll-mt-16 max-w-screen-4xl md:scroll-mt-24;
   }
 
   .section-no-padding {
-    @apply mx-auto scroll-mt-16 md:scroll-mt-24 min-h-section;
+    @apply mx-auto scroll-mt-16 min-h-section md:scroll-mt-24;
   }
 
   .label {
-    @apply block px-2 font-bold text-black bg-secondary dark:bg-secondaryDark dark:text-white [box-shadow:_0_2px_0_0_#000];
+    @apply block py-1 px-4 text-black bg-secondary dark:bg-secondaryDark dark:text-white [box-shadow:_0_2px_0_0_#000];
+  }
+
+
+  .article {
+    @apply leading-relaxed;
+
+    p {
+      @apply mb-4 md:text-xl;
+    }
+
+    h1 {
+      @apply mb-4 text-5xl font-bold label;
+    }
+
+    h2 {
+      @apply mb-4 w-min whitespace-nowrap text-3xl font-bold label;
+    }
+
+    h3 {
+      @apply mb-4 w-min whitespace-nowrap text-2xl font-bold label;
+    }
+
+    table {
+      @apply w-full table-auto overflow-auto max-h-[80vh];
+    }
+
+    th, td {
+      @apply px-4 py-2
+      border-4 border border-bodyLight
+      dark:border-bodyDark;
+    }
+
+    tr {
+      @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark;
+    }
+
+    th {
+      @apply border-separate border-4 border text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
+    }
+
+    img {
+      @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
+    }
+
+    #table-of-contents {
+      @apply w-full;
+      + ul {
+        @apply flex flex-col gap-1;
+        ul {
+          @apply ml-4 list-disc;
+        }
+
+        > li a {
+          @apply font-bold no-underline text-primary;
+        }
+      }
+    }
   }
 }
 
 .swiper-pagination-bullet {
-  @apply w-2 md:w-3 h-2 md:h-3 bg-secondary ring-1 ring-primary;
+  @apply h-2 w-2 ring-1 bg-secondary ring-primary md:h-3 md:w-3;
+}
+
+.contains-task-list {
+  @apply flex flex-col gap-1 justify-center mb-4;
+  input[type="checkbox"] {
+    @apply h-6 w-6 rounded;
+  }
+}
+
+.ch-codeblock, .ch-codegroup {
+  max-height: 80vh;
+  overflow: auto;
 }

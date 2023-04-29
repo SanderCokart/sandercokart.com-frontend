@@ -94,6 +94,7 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
     handleErrorMessage?: MessageHandler;
 }
 
+//if something is passed to RESPONSE assume its a success response
 interface CustomAxiosInstance extends AxiosInstance {
     simpleGet<DATA = any, RESPONSE = CustomApiResponse<DATA>>(url: string, config?: CustomAxiosRequestConfig): Promise<RESPONSE>;
 
@@ -113,8 +114,8 @@ export type CustomApiResponse<DATA = any> =
     | ClientErrorResponse
     | DefaultErrorResponse;
 
-export interface SuccessResponse<T> {
-    data: T;
+export interface SuccessResponse<DATA> {
+    data: DATA;
     error: null;
     status: number;
     type: 'success';

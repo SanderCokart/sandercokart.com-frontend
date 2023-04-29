@@ -1,5 +1,6 @@
-import type {ArticleModel} from '@/types/ModelTypes';
+import type {CourseModel} from '@/types/ModelTypes';
 
+import {courseRoute} from '@/routes/local-routes';
 import c from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,32 +9,18 @@ import {Keyboard, Navigation, Pagination, Autoplay} from 'swiper';
 import type {SwiperProps} from 'swiper/react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-const breakpoints: SwiperProps['breakpoints'] = {
-    0: {
-        slidesPerView: 1.1,
-        spaceBetween: 0
-    },
-    640: {
-        slidesPerView: 1.1,
-        spaceBetween: 0
-    },
-    768: {
-        slidesPerView: 2.1,
-        spaceBetween: 0
-    },
-    // 1024: {
-    //     slidesPerView: 2
-    // },
-    1280: {
-        slidesPerView: 3.1,
-        spaceBetween: 0
-    }
-    // 1536: {
-    //     slidesPerView: 4
-    // }
-};
+import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
 
-const ArticleSwiper = ({ title, articles }: { title: string, articles: ArticleModel[] }) => {
+const CourseSwiper = ({ title, courses }: { title: string, courses: CourseModel[] }) => {
+    const breakpoints: SwiperProps['breakpoints'] = {
+        0: {
+            slidesPerGroup: 1
+        },
+        640: {
+            slidesPerGroup: 2
+        }
+    };
+
     return (
         <section className="relative z-10">
             <h1 className="flex items-center justify-center gap-32 overflow-hidden py-1 md:py-2 text-center bg-secondary font-digital dark:bg-secondaryDark dark:text-white text-xl md:text-4xl">
@@ -42,11 +29,11 @@ const ArticleSwiper = ({ title, articles }: { title: string, articles: ArticleMo
             <div className="relative md:px-10">
                 <Swiper breakpoints={breakpoints}
                         className="md:static"
-                        cssMode={true}
                         keyboard={{ onlyInViewport: true }}
                         modules={[Keyboard, Navigation, Pagination, Autoplay]}
                         navigation={{ prevEl: '#previous-slide', nextEl: '#next-slide' }}
                         preventInteractionOnTransition={true}
+                        slidesPerView="auto"
                 >
                     <button
                         className={c(
@@ -62,9 +49,9 @@ const ArticleSwiper = ({ title, articles }: { title: string, articles: ArticleMo
                         <FaArrowLeft/>
                     </button>
 
-                    {articles.map((article) => (
-                        <SwiperSlide key={article.id}>
-                            <Figure article={article}/>
+                    {courses.map((course) => (
+                        <SwiperSlide key={course.id} className="w-full sm:w-[25vw] aspect-video">
+                            <Figure course={course}/>
                         </SwiperSlide>
                     ))}
 
@@ -87,28 +74,24 @@ const ArticleSwiper = ({ title, articles }: { title: string, articles: ArticleMo
     );
 };
 
-const Figure = ({ article }: { article: ArticleModel }) => (
-    <Link href={`/articles/${article.type.name}/${article.slug}`}>
-        <figure className="relative [&_img]:blur-sm [&_img]:hover:blur-md h-[200px] md:h-[250px] overflow-hidden">
-            <Image fill
-                   alt={article.banner.file_name}
-                   src={article.banner.original_url}
-                   style={{ objectFit: 'cover' }}
-            />
-            <figcaption className={c(
-                'absolute inset-x-0 bottom-0 p-2 md:p-8',
-                'h-full',
-                'opacity-75 active:opacity-0 hover:opacity-90 transition-opacity',
-                'flex flex-col justify-between gap-1',
-                'dark:bg-black bg-white text-black dark:text-white'
-            )}>
-                <h1 className="text-xl font-black capitalize line-clamp-1">{article.title}</h1>
-                <p className="text-sm line-clamp-2 md:line-clamp-3">
-                    {article.excerpt}
-                </p>
-                <span className="text-xs">Published: 2-4-2023</span>
-            </figcaption>
-        </figure>
-    </Link>
-);
-export default ArticleSwiper;
+const Figure = ({ course }: { course: CourseModel }) => {
+    return (
+        <Link  href={courseRoute(course)}>
+            <figure className="relative w-full h-full overflow-hidden">
+                <Image fill
+                       alt={course.title}
+                       src={course.banner.original_url}
+                       style={{ objectFit: 'cover' }}
+                />
+                <figcaption className={c(
+                    'absolute inset-x-0 bottom-0 p-2',
+                    'h-full transition-opacity',
+                    'flex flex-col justify-end gap-1'
+                )}>
+                    <span className="text-xs w-min whitespace-nowrap label py-1 px-4">Published: {calculatePublishedTimestamp(course.published_at, true)}</span>
+                </figcaption>
+            </figure>
+        </Link>
+    );
+};
+export default CourseSwiper;

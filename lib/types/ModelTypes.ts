@@ -1,6 +1,8 @@
+import type {ArticleType} from '@/types/CommonTypes';
+
 export interface ArticleTypeModel {
     id: number;
-    name: string;
+    name: ArticleType;
 }
 
 interface MediaModel {
@@ -28,16 +30,22 @@ interface MediaModel {
     updated_at?: Date;
 }
 
-export interface ArticleModel {
+export interface BaseArticleModel {
     id: number;
     title: string;
-    excerpt: string;
     slug: string;
-    body: string;
     created_at?: string;
     updated_at?: string;
     published_at: string;
+    banner: MediaModel;
+
+}
+
+export interface ArticleModel extends BaseArticleModel {
+    excerpt: string;
+    body: string;
     article_type_id: number;
     type: ArticleTypeModel;
-    banner: MediaModel;
 }
+
+export type CourseModel = BaseArticleModel

@@ -26,6 +26,7 @@ const TouchTipNotification = () => {
                                 exit="exit"
                                 initial="hidden"
                                 variants={variants}
+                                onMouseDown={() => setTouched(true)}
                                 onTouchStart={() => setTouched(true)}>
                         <p className="text-center text-2xl uppercase text-white font-digital">
                             Swipe to see more

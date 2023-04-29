@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@code-hike/mdx": "^0.8.2",
     "@mantine/hooks": "^5.10.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
@@ -18,6 +19,7 @@
     "classnames": "^2.3.2",
     "country-flag-icons": "^1.5.5",
     "framer-motion": "^7.6.4",
+    "moment": "^2.29.4",
     "next": "^13.0.1",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.2.1",
@@ -25,9 +27,14 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-simple-modal-provider": "^1.9.0",
+    "rehype-slug": "^5.1.0",
+    "remark-gfm": "^3.0.1",
+    "remark-toc": "^8.0.1",
     "sass": "^1.55.0",
     "sharp": "^0.31.3",
+    "shiki": "^0.14.2",
     "swiper": "^9.1.0",
+    "swr": "^2.1.5",
     "typescript": "4.8.4"
   },
   "devDependencies": {
@@ -41,6 +48,6 @@
     "eslint-config-next": "^13.0.1",
     "eslint-plugin-import-helpers": "^1.3.1",
     "postcss": "^8.4.18",
-    "tailwindcss": "3.1.8"
+    "tailwindcss": "3.1.7"
   }
 }
