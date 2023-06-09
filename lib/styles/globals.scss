@@ -15,19 +15,16 @@
     @apply w-1.5 h-1.5 md:w-3 md:h-3
   }
 
-  /* Track */
   ::-webkit-scrollbar-track {
-    @apply bg-primary dark:bg-primaryDark
+    @apply  bg-secondary dark:bg-secondaryDark
   }
 
-  /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-secondary dark:bg-secondaryDark
+    @apply bg-bodyLightSecondary dark:bg-bodyDarkSecondary
   }
 
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-secondary dark:bg-secondary
+    @apply bg-secondaryDark dark:bg-secondary
   }
 }
 
