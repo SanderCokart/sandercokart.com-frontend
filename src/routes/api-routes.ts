@@ -8,3 +8,4 @@ import * as process from 'process';
 
 const base = process.env.NEXT_PUBLIC_API_URL;
 export const ApiRouteArticles = (type: ArticleType, includeBaseUrl = false) => `${includeBaseUrl ? base : ''}/articles/${type}`;
+export const ApiRouteArticle = (type: ArticleType, slug: string, includeBaseUrl = false) => `${includeBaseUrl ? base : ''}/articles/${type}/${slug}`;

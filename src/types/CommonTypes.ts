@@ -1,1 +1,1 @@
-export type ArticleType = 'general' | 'tips' | 'course';
+export type ArticleType = 'general' | 'tips';

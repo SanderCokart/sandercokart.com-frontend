@@ -3,9 +3,8 @@
 import type {ArticleModel} from '@/types/ModelTypes';
 
 import ArticleFigure from '@/app/(components)/(figures)/ArticleFigure';
-import {localArticleRoute, localArticlesRoute, localCourseRoute, localTipRoute, localTipsRoute, localCoursesRoute} from '@/routes/local-routes';
+import {localArticleRoute, localArticlesRoute, localCourseRoute, localCoursesRoute} from '@/routes/local-routes';
 import {motion} from 'framer-motion';
-import Link from 'next/link';
 import {SwiperSlide} from 'swiper/react';
 
 import GenericSwiper from '@/components/Swipers/GenericSwiper';
@@ -32,12 +31,6 @@ interface SlidesProps {
     };
 }
 
-const MoreButton = ({ text, route }: { text: string, route: string }) => (
-    <div className="my-4 grid place-items-center">
-        <Link className="label font-bold" href={route}>More {text}</Link>
-    </div>
-);
-
 const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
     return (
         <motion.div
@@ -47,10 +40,10 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
             variants={containerVariants}
         >
             <motion.div className="relative z-10" variants={itemVariants}>
-                <GenericSwiper moreHref={localArticlesRoute()} title="General">
+                <GenericSwiper moreHref={localArticlesRoute('general')} title="General">
                     {general.map((article) => (
                         <SwiperSlide key={article.id} className="aspect-video w-full overflow-hidden border-4 border-primary dark:border-primaryDark sm:w-[min(578px,100%)] md:rounded">
-                            <ArticleFigure article={article} route={localArticleRoute(article)}/>
+                            <ArticleFigure article={article} route={localArticleRoute(article.type.name, article.slug)}/>
                         </SwiperSlide>
                     ))}
                 </GenericSwiper>
@@ -65,10 +58,10 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
                 </GenericSwiper>
             </motion.div>
             <motion.div className="relative z-10" variants={itemVariants}>
-                <GenericSwiper moreHref={localTipsRoute()} title="General">
+                <GenericSwiper moreHref={localArticlesRoute('tips')} title="General">
                     {tips.map((article) => (
                         <SwiperSlide key={article.id} className="aspect-video w-full overflow-hidden border-4 border-primary dark:border-primaryDark sm:w-[min(578px,100%)] md:rounded">
-                            <ArticleFigure article={article} route={localTipRoute(article)}/>
+                            <ArticleFigure article={article} route={localArticleRoute(article.type.name, article.slug)}/>
                         </SwiperSlide>
                     ))}
                 </GenericSwiper>
