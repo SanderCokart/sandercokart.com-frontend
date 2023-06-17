@@ -6,7 +6,8 @@
   ],
   "plugins": [
     "@typescript-eslint",
-    "eslint-plugin-import-helpers"
+    "eslint-plugin-import-helpers",
+    "eslint-plugin-tailwindcss"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -20,6 +21,12 @@
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "tailwindcss/classnames-order": ["warn", {
+      "callees": ["twJoin", "twMerge"]
+    }],
+    "tailwindcss/enforces-shorthand": ["warn",{
+      "callees": ["twJoin", "twMerge"]
+    }],
     "react/jsx-sort-props": [
       "error",
       {

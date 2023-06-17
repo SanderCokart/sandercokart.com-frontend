@@ -1,12 +1,13 @@
 const colors = require('tailwindcss/colors');
-const {fontFamily, screens} = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content:  [
-        './app/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './lib/**/*.{js,ts,jsx,tsx}'],
-    darkMode: ['class'],
+        './src/**/*.{js,ts,jsx,tsx,mdx}'
+    ],
+    darkMode: 'class',
     theme:    {
         extend: {
             animation:      {
@@ -21,7 +22,7 @@ module.exports = {
                     '100%': {boxShadow: `0 0 0 6px ${theme('colors.secondary')}00`}
                 }
             }), fontFamily: {
-                sans:      ['var(--font-roboto)', ...fontFamily.sans],
+                sans:      ['var(--font-roboto)', ...defaultTheme.fontFamily.sans],
                 'code':    'var(--font-cascadia-mono)',
                 'digital': 'var(--font-digital)'
             }, colors:      {
@@ -61,15 +62,18 @@ module.exports = {
                 'vue':     `0 0px 50px ${theme('colors.vue')}`,
                 'next':    `0 0px 50px #fff`,
                 'none':    'none'
-            }), minHeight:  {
-                'desktop': 'calc(100vh - 68px)',
-                'between': 'calc(100vh - 68px - 44px)',
-                'mobile':  'calc(100vh - 56px - 44px)'
+            }), minHeight:  ({theme}) => ({
+                'desktop': `calc(100dvh - ${theme('spacing.header-desktop')})`,
+                'between': `calc(100dvh - ${theme('spacing.header-desktop')} - ${theme('spacing.header-mobile')})`,
+                'mobile':  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`
+            }), spacing:    {
+                'header-desktop': '68px',
+                'header-mobile':  '44px',
+                'nav-mobile':     '56px'
             }
         }
     },
     plugins:  [
-        require('@tailwindcss/line-clamp'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),
         plugin(function ({matchUtilities, theme}) {
