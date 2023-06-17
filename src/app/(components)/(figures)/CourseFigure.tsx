@@ -7,9 +7,13 @@ import {twJoin} from 'tailwind-merge';
 
 import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
 
-const CourseFigure = ({ course }: { course: CourseModel }) => {
+interface CourseFigureProps {
+    course: CourseModel;
+}
+
+const CourseFigure = ({ course }: CourseFigureProps) => {
     return (
-        <Link href={localCourseRoute(course)}>
+        <Link href={localCourseRoute(course.slug)}>
             <figure className="relative h-full w-full overflow-hidden">
                 <Image fill
                        alt={course.title}

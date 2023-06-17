@@ -1,14 +1,15 @@
 import type {ArticleModel} from '@/types/ModelTypes';
 
+import {localArticleRoute} from '@/routes/local-routes';
 import Image from 'next/image';
 import Link from 'next/link';
 import {twJoin} from 'tailwind-merge';
 
 import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
 
-const ArticleFigure = ({ article, route }: { article: ArticleModel, route: string }) => {
+const ArticleFigure = ({ article }: { article: ArticleModel }) => {
     return (
-        <Link className=" group" href={route}>
+        <Link className="group" href={localArticleRoute(article.type.name, article.slug)}>
             <figure className="relative h-full w-full overflow-hidden">
                 <Image fill
                        alt={article.title}

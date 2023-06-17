@@ -1,4 +1,4 @@
-import type {ArticleModel} from '@/types/ModelTypes';
+import type {ArticleModel, CourseModel} from '@/types/ModelTypes';
 
 import Slides from '@/app/(components)/Slides';
 
@@ -8,7 +8,7 @@ import axios from '@/functions/axios';
 const getArticles = async () => {
     const { data: { articles: general } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/general');
     const { data: { articles: tips } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/tips');
-    const { data: { courses } } = await axios.simpleGet<null, SuccessResponse<{ courses: ArticleModel[] }>>('/courses');
+    const { data: { courses } } = await axios.simpleGet<null, SuccessResponse<{ courses: CourseModel[] }>>('/courses');
     return { articles: { general, courses, tips } };
 };
 

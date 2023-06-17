@@ -65,7 +65,7 @@ module.exports = {
             }), minHeight:  ({theme}) => ({
                 'desktop': `calc(100dvh - ${theme('spacing.header-desktop')})`,
                 'between': `calc(100dvh - ${theme('spacing.header-desktop')} - ${theme('spacing.header-mobile')})`,
-                'mobile':  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`
+                'mobile':  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`,
             }), spacing:    {
                 'header-desktop': '68px',
                 'header-mobile':  '44px',

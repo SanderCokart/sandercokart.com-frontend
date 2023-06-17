@@ -1,6 +1,6 @@
 import type {ArticleType} from '@/types/CommonTypes';
 
-import GoBackButton from '@/app/articles/[articleType]/[slug]/(components)/GoBackButton';
+import GoBackButton from '@/app/[articleType]/[slug]/(components)/GoBackButton';
 import {CH} from '@code-hike/mdx/components';
 import {MDXRemote} from 'next-mdx-remote/rsc';
 import Image from 'next/image';
