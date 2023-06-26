@@ -1,13 +1,21 @@
+
+
 import type {ArticleType} from '@/types/CommonTypes';
 import type {ArticleModel} from '@/types/ModelTypes';
+import type {ArticleModelsResponse} from '@/types/ResponseTypes';
 
+import {ApiRouteArticles} from '@/routes/api-routes';
 import {localArticleRoute} from '@/routes/local-routes';
 import Image from 'next/image';
 import Link from 'next/link';
 import {twJoin} from 'tailwind-merge';
 
-import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
-import getArticles from '@/functions/server/getArticles';
+import type {SuccessResponse} from '@/functions/shared/api';
+import api from '@/functions/shared/api';
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+
+
+// import getArticles from '@/functions/server/getArticles';
 
 interface ArticlesPageProps {
     params: {
@@ -18,6 +26,11 @@ interface ArticlesPageProps {
 interface ArticleFigureProps {
     article: ArticleModel;
 }
+
+const getArticles = async (type: ArticleType) => {
+    const { data: { articles } } = await api.simpleGet<null, SuccessResponse<ArticleModelsResponse>>(ApiRouteArticles(type));
+    return articles;
+};
 
 const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
     const articles = await getArticles(articleType);

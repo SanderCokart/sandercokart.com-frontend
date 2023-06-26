@@ -55,7 +55,8 @@ module.exports = {
                 'vue':       `0 0px 10px ${theme('colors.vue')}`,
                 'next':      `0 0px 10px #fff`,
                 'primary':   `0 0px 10px ${theme('colors.primary')}`,
-                'secondary': `0 0px 10px ${theme('colors.secondary')}`
+                'secondary': `0 0px 10px ${theme('colors.secondary')}`,
+                'hard-sm':   '0 2px 0 #000',
             }), textShadow: ({theme}) => ({
                 'react':   `0 0 50px ${theme('colors.react')}`,
                 'laravel': `0 0px 50px ${theme('colors.laravel')}`,
@@ -70,6 +71,8 @@ module.exports = {
                 'header-desktop': '68px',
                 'header-mobile':  '44px',
                 'nav-mobile':     '56px'
+            }, boxShadow: {
+                'hard-sm':   '0 2px 0 0 #000',
             }
         }
     },

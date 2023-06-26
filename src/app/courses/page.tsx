@@ -1,12 +1,20 @@
 import type {CourseModel} from '@/types/ModelTypes';
+import type {CourseModelsResponse} from '@/types/ResponseTypes';
 
+import {ApiRouteCourses} from '@/routes/api-routes';
 import {localCourseRoute} from '@/routes/local-routes';
 import Image from 'next/image';
 import Link from 'next/link';
 import {twJoin} from 'tailwind-merge';
 
-import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
-import getCourses from '@/functions/server/getCourses';
+import type {SuccessResponse} from '@/functions/shared/api';
+import api from '@/functions/shared/api';
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+
+const getCourses = async () => {
+    const { data: { courses } } = await api.simpleGet<null, SuccessResponse<CourseModelsResponse>>(ApiRouteCourses());
+    return courses;
+};
 
 const CoursesPage = async () => {
     const courses = await getCourses();
@@ -55,8 +63,7 @@ const CourseFigure = ({ course }: { course: CourseModel }) => {
                         'bg-bodyLightSecondary text-black dark:bg-bodyDarkSecondary dark:text-white'
                     )}>
                         <p className="line-clamp-5 font-code text-xs font-normal  md:text-base">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis possimus quam tenetur ullam voluptatum. Accusamus autem deserunt enim excepturi exercitationem explicabo facere fugiat incidunt maxime minus mollitia, non possimus quae quas repudiandae saepe sapiente
-                            tempora, vero? Architecto cum doloribus eveniet exercitationem nisi nulla quibusdam quos ratione saepe, sunt, suscipit temporibus!
+                            {course.description}
                         </p>
                     </div>
 

@@ -1,12 +1,7 @@
 import type {ArticleType} from '@/types/CommonTypes';
 
-import * as process from 'process';
-
-//     const { data: { articles: general } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/general');
-//     const { data: { articles: tips } } = await axios.simpleGet<null, SuccessResponse<{ articles: ArticleModel[] }>>('/articles/tips');
-//     const { data: { courses } } = await axios.simpleGet<null, SuccessResponse<{ courses: ArticleModel[] }>>('/courses');
-
-const base = process.env.NEXT_PUBLIC_API_URL;
-export const ApiRouteArticles = (type: ArticleType, includeBaseUrl = false) => `${includeBaseUrl ? base : ''}/articles/${type}`;
-export const ApiRouteArticle = (type: ArticleType, slug: string, includeBaseUrl = false) => `${includeBaseUrl ? base : ''}/articles/${type}/${slug}`;
-export const ApiRouteCourses = (includeBaseUrl = false) => `${includeBaseUrl ? base : ''}/courses`;
+export const ApiRouteArticles = (type: ArticleType) => `/articles/${type}`;
+export const ApiRouteArticle = (type: ArticleType, slug: string) => `/articles/${type}/${slug}`;
+export const ApiRouteCourses = () => `/courses`;
+export const ApiRouteCourse = (courseSlug: string) => `/courses/${courseSlug}}`;
+export const ApiRouteCourseArticle = (courseSlug: string, articleSlug: string) => `/courses/${courseSlug}/${articleSlug}`;

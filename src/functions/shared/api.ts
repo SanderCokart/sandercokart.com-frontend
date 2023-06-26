@@ -1,4 +1,4 @@
-import type {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
+import type { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -65,7 +65,7 @@ const handler = async (promise: AxiosPromise, config?: CustomAxiosRequestConfig)
     }
 };
 
-const toExport = {
+export default {
     ...axiosInstance,
     simpleGet: (url: string, config?: CustomAxiosRequestConfig): Promise<CustomApiResponse> => {
         return handler(axiosInstance.get(url, config), config);
@@ -152,5 +152,3 @@ export interface DefaultErrorResponse {
     status: number;
     type: 'default';
 }
-
-export default toExport;

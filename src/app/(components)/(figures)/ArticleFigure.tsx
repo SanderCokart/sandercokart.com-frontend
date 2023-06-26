@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {twJoin} from 'tailwind-merge';
 
-import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 
 const ArticleFigure = ({ article }: { article: ArticleModel }) => {
     return (

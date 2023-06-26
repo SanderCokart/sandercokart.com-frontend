@@ -52,6 +52,7 @@
           "/^@\/functions/",
           "/^@\/data/",
           "/^@\/hooks/",
+          "/^@\/classes/",
           "/^@\/layouts/",
           "/^@\/providers/",
           "/^@\/types/",

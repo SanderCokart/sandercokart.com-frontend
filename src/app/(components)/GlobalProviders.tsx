@@ -5,12 +5,12 @@ import type {ReactNode} from 'react';
 import {ThemeProvider} from 'next-themes';
 import {SWRConfig} from 'swr';
 
-import axios from '@/functions/axios';
+import api from '@/functions/shared/api';
 
 interface GlobalProvidersProps {
     children: ReactNode;
 }
-const fetcher = (url: string, config: object) => axios.simpleGet(url, config).then(({ data }) => {
+const fetcher = (url: string, config: object) => api.simpleGet(url, config).then(({ data }) => {
     return data;
 });
 

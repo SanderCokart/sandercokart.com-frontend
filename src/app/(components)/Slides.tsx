@@ -14,7 +14,7 @@ const containerVariants = {
     hidden: {},
     show:   {
         transition: {
-            staggerChildren:  .5,
+            staggerChildren: .5
         }
     }
 };

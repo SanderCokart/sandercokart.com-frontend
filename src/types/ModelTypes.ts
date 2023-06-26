@@ -48,4 +48,33 @@ export interface ArticleModel extends BaseArticleModel {
     type: ArticleTypeModel;
 }
 
-export type CourseModel = BaseArticleModel
+export interface CourseModel {
+    id: number;
+    title: string;
+    description: string;
+    published_at: string;
+    created_at: string;
+    updated_at: string;
+    articles_count: number;
+    slug: string;
+    banner: MediaModel;
+}
+
+export interface Models {
+    articles: {
+        model: ArticleModel;
+        routeParams: {
+            type: ArticleType;
+            slug: string;
+        }
+    };
+    courses: {
+        model: CourseModel;
+        routeParams: {
+            slug: string;
+        }
+    };
+    media: {
+        model: MediaModel;
+    };
+}
