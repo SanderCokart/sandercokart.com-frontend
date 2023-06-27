@@ -14,9 +14,9 @@ import CourseFigure from '@/components/CourseFigure';
 import {GenericSwiper} from '@/components/Swipers';
 import TouchTipNotification from '@/components/TouchTipNotification';
 
-import type {SuccessResponse} from '@/functions/axios';
-import axios from '@/functions/axios';
-import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
+import type {SuccessResponse} from '@/functions/shared/axios';
+import axios from '@/functions/shared/axios';
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 
 const Meta = () => (
     <Head>

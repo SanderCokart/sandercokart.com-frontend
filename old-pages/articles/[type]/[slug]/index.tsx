@@ -11,8 +11,8 @@ import {FaChevronLeft} from 'react-icons/fa';
 
 import mdxOptions from '@/constants/mdxOptions';
 
-import axios from '@/functions/axios';
-import calculatePublishedTimestamp from '@/functions/calculatePublishedTimestamp';
+import axios from '@/functions/shared/axios';
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 
 export type BlogPostPageProps = ArticleMDXResponse
 
@@ -26,7 +26,7 @@ const ArticlePage = ({ article }: BlogPostPageProps) => {
     return (
         <main className="section">
             <div className="mx-auto max-w-screen-lg p-2 md:p-0">
-                <button className="mb-2 flex items-center gap-2 text-xl label hover:bg-secondary md:text-2xl" onClick={goBack}><FaChevronLeft/> Go back</button>
+                <button className="label mb-2 flex items-center gap-2 text-xl hover:bg-secondary md:text-2xl" onClick={goBack}><FaChevronLeft/> Go back</button>
                 <div className="relative aspect-[3/2]">
                     <div className="absolute inset-0 z-10 m-16 flex items-center justify-center">
                         {/*<h1 className={c(*/}
@@ -35,14 +35,14 @@ const ArticlePage = ({ article }: BlogPostPageProps) => {
                         {/*)}>{article.title}</h1>*/}
                     </div>
                     <Image fill priority alt={article.banner.file_name} src={article.banner.original_url} style={{ objectFit: 'cover' }}/>
-                    <div className="absolute font-code font-bold inset-x-0 top-0 flex justify-between p-2 text-xs md:text-xl">
-                        <span className="hidden label md:inline-block">Published: {calculatePublishedTimestamp(article.published_at)}</span>
+                    <div className="absolute inset-x-0 top-0 flex justify-between p-2 font-code text-xs font-bold md:text-xl">
+                        <span className="label hidden md:inline-block">Published: {calculatePublishedTimestamp(article.published_at)}</span>
                         <span className="label md:hidden">Published: {calculatePublishedTimestamp(article.published_at, true)}</span>
-                        <span className="capitalize label">{article.type.name}</span>
+                        <span className="label capitalize">{article.type.name}</span>
                     </div>
                 </div>
             </div>
-            <article className="p-4 md:p-0 article">
+            <article className="article p-4 md:p-0">
                 <div className="mx-auto max-w-screen-lg">
                     <MDXRemote components={{
                         CH

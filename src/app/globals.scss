@@ -2,6 +2,7 @@
 @import "swiper/scss";
 @import "swiper/scss/mousewheel";
 @import "swiper/scss/navigation";
+@import "./code-highlight";
 
 @tailwind base;
 @tailwind components;
@@ -22,65 +23,7 @@
     }
   }
 
-  [data-rehype-pretty-code-fragment] {
-    @apply border-secondary dark:border-secondaryDark border-t-4 border-l-4 shadow-black shadow-md bg-bodyLightSecondary dark:bg-bodyDarkSecondary my-8;
-  }
-
-  pre {
-    @apply overflow-auto max-h-[75dvh];
-    &::-webkit-scrollbar-thumb {
-      @apply bg-primary dark:bg-primaryDark;
-    }
-
-    code {
-      @apply grid;
-    }
-  }
-
-  code {
-    counter-reset: line;
-  }
-
-  code > [data-line]::before {
-    counter-increment: line;
-    content: counter(line);
-
-    @apply left-0 sticky pr-2 inline-block mr-8 text-right w-[3ch] bg-bodyLightSecondary dark:bg-bodyDarkSecondary  text-black dark:text-white font-bold;
-  }
-
-  code[data-line-numbers-max-digits="2"] > [data-line]::before {
-    @apply w-[4ch];
-  }
-
-  code[data-line-numbers-max-digits="3"] > [data-line]::before {
-    @apply w-[5ch];
-  }
-
-
-  .dark {
-
-    div[data-theme="light"],
-    pre[data-theme="light"],
-    code[data-theme="light"] {
-      display: none;
-    }
-  }
-
-  .light {
-    div[data-theme="dark"],
-    pre[data-theme="dark"],
-    code[data-theme="dark"] {
-      display: none;
-    }
-  }
-
-  [data-rehype-pretty-code-title] {
-    @apply bg-secondary dark:bg-secondaryDark text-black z-10 relative text-center shadow-hard-sm dark:text-white font-bold p-2;
-  }
-
-  [data-rehype-pretty-code-caption] {
-    @apply bg-secondary dark:bg-secondaryDark text-black dark:text-white font-bold p-2;
-  }
+  @include code-highlighter;
 
   *::-webkit-scrollbar {
     @apply w-1.5 h-1.5 md:w-3 md:h-3;
