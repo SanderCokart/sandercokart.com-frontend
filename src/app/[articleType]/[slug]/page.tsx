@@ -1,10 +1,10 @@
 import type {ArticleType} from '@/types/CommonTypes';
 import type {ArticleModel} from '@/types/ModelTypes';
 import type {ArticleModelResponse} from '@/types/ResponseTypes';
+import type {Metadata} from 'next';
 
 import GoBackButton from '@/app/[articleType]/[slug]/(components)/GoBackButton';
 import {ApiRouteArticle} from '@/routes/api-routes';
-import {CH} from '@code-hike/mdx/components';
 import {MDXRemote} from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 
@@ -44,11 +44,9 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
                 </div>
             </div>
             <article className="article">
-                <div className="mx-auto max-w-screen-lg">
                     <MDXRemote components={mdxComponents}
                                options={{mdxOptions}}
                                source={article.body}/>
-                </div>
             </article>
         </main>
 

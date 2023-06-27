@@ -1,6 +1,6 @@
 import type {SerializeOptions} from 'next-mdx-remote/dist/types';
 
-import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkToc from 'remark-toc';
@@ -40,16 +40,17 @@ const themes = {
 const mdxOptions: SerializeOptions['mdxOptions'] = {
     remarkPlugins:    [
         remarkToc,
-        remarkGfm
+        remarkGfm,
     ],
     rehypePlugins:    [
         rehypeSlug,
-        [rehypePrettyCode, {
-            theme: {
-                light: themes['rose-pine-dawn'],
-                dark:  themes['one-dark-pro']
-            }
-        }]
+        rehypeMdxCodeProps
+        // [rehypePrettyCode, {
+        //     theme: {
+        //         light: themes['rose-pine-dawn'],
+        //         dark:  themes['one-dark-pro']
+        //     }
+        // }]
     ],
     useDynamicImport: true
 };

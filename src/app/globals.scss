@@ -75,89 +75,91 @@
   }
 
   .article {
-    @apply leading-relaxed;
-    & > div {
+    @apply leading-relaxed mx-auto max-w-screen-lg flex flex-col gap-4;
 
-      table {
-        @apply w-full table-auto overflow-auto max-h-[80vh];
+    table {
+      @apply w-full table-auto overflow-auto max-h-[80vh];
+    }
+
+    th, td {
+      @apply px-4 py-2
+      border-4 border-bodyLight
+      dark:border-bodyDark;
+    }
+
+    tr {
+      @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark transition-all dark:bg-primaryDark;
+    }
+
+    thead tr {
+      @apply drop-shadow-hard-sm;
+    }
+
+    tbody tr {
+      @apply md:hover:scale-x-105 md:hover:shadow-hard-sm;
+    }
+
+    th {
+      @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
+    }
+
+    > {
+      p {
+        @apply md:text-xl;
       }
 
-      th, td {
-        @apply px-4 py-2
-        border-4 border-bodyLight
-        dark:border-bodyDark;
+      h1, h2, h3, h4, h5, h6 {
+        @apply md:scroll-mt-header-desktop sm:scroll-m-header-mobile;
       }
 
-      tr {
-        @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark transition-all dark:bg-primaryDark;
+      h1 {
+        @apply p-4 text-5xl font-bold label;
       }
 
-      thead tr {
-        @apply drop-shadow-hard-sm;
+      h2 {
+        @apply w-min whitespace-nowrap text-3xl font-bold label;
       }
 
-      tbody tr {
-        @apply md:hover:scale-x-105 md:hover:shadow-hard-sm;
+      h3 {
+        @apply w-min whitespace-nowrap text-2xl font-bold label;
       }
 
-      th {
-        @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
+      img {
+        @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
       }
 
-      > {
-        p {
-          @apply mb-4 md:text-xl;
-        }
+      ul {
+        @apply flex flex-col gap-2;
+      }
 
-        h1 {
-          @apply mb-4 text-5xl font-bold label;
-        }
+      ul li {
+        @apply border-l-4 border-secondary dark:border-secondaryDark px-2;
+      }
 
-        h2 {
-          @apply mb-4 w-min whitespace-nowrap text-3xl font-bold label;
-        }
-
-        h3 {
-          @apply mb-4 w-min whitespace-nowrap text-2xl font-bold label;
-        }
-
-        img {
-          @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
-        }
-
-        ul {
-          @apply flex flex-col gap-2 mb-4;
-        }
-
-        ul li {
-          @apply border-l-4 border-secondary dark:border-secondaryDark px-2;
-        }
-
-        #table-of-contents {
-          @apply w-min whitespace-nowrap;
+      #table-of-contents {
+        @apply w-min whitespace-nowrap;
 
 
-          + ul {
-            @apply list-none flex flex-col gap-1;
+        + ul {
+          @apply list-none flex flex-col gap-1;
 
-            li {
-              @apply border-none p-0;
+          li {
+            @apply border-none p-0;
+          }
+
+          li a {
+            @apply block p-2 my-1 hover:bg-primary dark:hover:bg-primaryDark border-l-4 border-secondary dark:border-secondaryDark;
+          }
+
+          ul {
+            @apply mt-2;
+            > li {
+              @apply ml-4;
             }
+          }
 
-            li a {
-              @apply block p-2 my-1 hover:bg-primary dark:hover:bg-primaryDark border-l-4 border-secondary dark:border-secondaryDark;
-            }
-
-            ul {
-              @apply mt-2;
-              > li {
-                @apply ml-4;
-              }
-            }
-
-            > li a {
-              @apply font-bold no-underline text-black dark:text-white;
-            }
+          > li a {
+            @apply font-bold no-underline text-black dark:text-white;
           }
         }
       }

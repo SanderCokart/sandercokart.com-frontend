@@ -2,6 +2,10 @@
 import type {MDXProvider} from '@mdx-js/react';
 import type React from 'react';
 
-const mdxComponents: React.ComponentProps<typeof MDXProvider>['components'] = {};
+import {Pre} from '@/components/MDXComponents';
+
+const mdxComponents: React.ComponentProps<typeof MDXProvider>['components'] = {
+    pre: Pre,
+};
 
 export default mdxComponents;
