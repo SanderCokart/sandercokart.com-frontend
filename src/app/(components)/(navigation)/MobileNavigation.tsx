@@ -1,8 +1,9 @@
 import type {ComponentType} from 'react';
 import type {IconBaseProps} from 'react-icons';
 
-import Link from 'next/link';
 import {IoPlanetSharp} from 'react-icons/io5';
+
+import Link from 'next/link';
 
 interface NavButtonProps {
     href: string,
@@ -11,7 +12,7 @@ interface NavButtonProps {
 }
 
 const NavButton = ({ Icon, text, href }: NavButtonProps) => (
-    <Link className="flex w-full flex-col items-center gap-1 py-2 text-center hover:bg-primary dark:hover:bg-primary"
+    <Link className="flex w-full flex-col items-center gap-1 py-2 text-center hover:bg-primary-active"
           href={href}>
         <Icon className="text-xl"/>
         <span className="text-xs">{text}</span>
@@ -21,7 +22,7 @@ const NavButton = ({ Icon, text, href }: NavButtonProps) => (
 export default function MobileNavigation() {
     return (
         <nav aria-label="mobile"
-             className="fixed bottom-0 left-0 flex w-full bg-primary font-bold text-white dark:bg-primaryDark md:hidden">
+             className="fixed bottom-0 left-0 flex w-full bg-primary font-bold text-white md:hidden">
             <NavButton Icon={IoPlanetSharp} href="/#discover" text="Discover"/>
             {/*<NavButton Icon={BsFillLightningFill} href="/#techstack" text={t('nav:tech-stack')}/>*/}
             {/*<NavButton Icon={FaComment} href="/#testimonials" text={t('nav:testimonials')}/>*/}

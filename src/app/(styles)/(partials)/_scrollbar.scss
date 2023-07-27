@@ -1,0 +1,15 @@
+*::-webkit-scrollbar {
+  @apply w-1.5 h-1.5 md:w-3 md:h-3;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-body;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-secondary;
+
+  &:hover {
+    @apply bg-secondary-active;
+  }
+}

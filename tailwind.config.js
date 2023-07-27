@@ -26,17 +26,20 @@ module.exports = {
                 'code':    'var(--font-cascadia-mono)',
                 'digital': 'var(--font-digital)'
             }, colors:      {
-                bodyLight:          colors.slate[100],
-                bodyLightSecondary: colors.slate[200],
-                bodyDark:           colors.slate[900],
-                bodyDarkSecondary:  colors.slate[800],
-                primary:            colors.blue[500],
-                primaryDark:        colors.blue[900],
-                secondary:          colors.amber[400],
-                secondaryDark:      colors.amber[600],
-                react:              '#61dafb',
-                laravel:            '#ff2d20',
-                vue:                '#42b883'
+                'body':                 'hsl(var(--color-body) / <alpha-value>)',
+                'body-muted':           'hsl(var(--color-body-muted) / <alpha-value>)',
+                'body-foreground':      'hsl(var(--color-body-foreground) / <alpha-value>)',
+                'primary':              'hsl(var(--color-primary) / <alpha-value>)',
+                'primary-foreground':   'hsl(var(--color-primary-foreground) / <alpha-value>)',
+                'primary-active':       'hsl(var(--color-primary-active) / <alpha-value>)',
+                'secondary':            'hsl(var(--color-secondary) / <alpha-value>)',
+                'secondary-foreground': 'hsl(var(--color-secondary-foreground) / <alpha-value>)',
+                'secondary-active':     'hsl(var(--color-secondary-active) / <alpha-value>)',
+
+
+                react:   '#61dafb',
+                laravel: '#ff2d20',
+                vue:     '#42b883'
             }, screens:     {
                 'sm':  '640px',
                 'md':  '768px',
@@ -56,7 +59,7 @@ module.exports = {
                 'next':      `0 0px 10px #fff`,
                 'primary':   `0 0px 10px ${theme('colors.primary')}`,
                 'secondary': `0 0px 10px ${theme('colors.secondary')}`,
-                'hard-sm':   '0 2px 0 #000',
+                'hard-sm':   '0 2px 0 #000'
             }), textShadow: ({theme}) => ({
                 'react':   `0 0 50px ${theme('colors.react')}`,
                 'laravel': `0 0px 50px ${theme('colors.laravel')}`,
@@ -66,13 +69,13 @@ module.exports = {
             }), minHeight:  ({theme}) => ({
                 'desktop': `calc(100dvh - ${theme('spacing.header-desktop')})`,
                 'between': `calc(100dvh - ${theme('spacing.header-desktop')} - ${theme('spacing.header-mobile')})`,
-                'mobile':  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`,
+                'mobile':  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`
             }), spacing:    {
                 'header-desktop': '68px',
                 'header-mobile':  '44px',
                 'nav-mobile':     '56px'
-            }, boxShadow: {
-                'hard-sm':   '0 2px 0 0 #000',
+            }, boxShadow:   {
+                'hard-sm': '0 2px 0 0 #000'
             }
         }
     },
@@ -86,13 +89,27 @@ module.exports = {
                 })
             }, {values: theme('textShadow')});
         }),
-        //w-screen-{theme.screens}
         plugin(function ({matchUtilities, theme}) {
             matchUtilities({
                 'w-screen': (value) => ({
                     width: value
                 })
             }, {values: theme('screens')});
+        }),
+        plugin(function ({addComponents, theme}) {
+            addComponents({
+                '.label': {
+                    display:         'block',
+                    fontWeight:      theme('fontWeight.bold'),
+                    paddingTop:      theme('spacing.1'),
+                    paddingRight:    theme('spacing.4'),
+                    paddingBottom:   theme('spacing.1'),
+                    paddingLeft:     theme('spacing.4'),
+                    backgroundColor: 'hsl(var(--color-secondary))',
+                    color:           'hsl(var(--color-secondary-foreground))',
+                    boxShadow:       theme('boxShadow.hard-sm')
+                }
+            });
         })
     ]
 };

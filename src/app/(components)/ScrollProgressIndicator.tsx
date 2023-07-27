@@ -4,7 +4,7 @@ import {useScroll, motion} from 'framer-motion';
 const ScrollProgressIndicator = () => {
     const { scrollYProgress } = useScroll();
     return (
-        <motion.div className="absolute -bottom-0 h-1 w-full bg-secondary dark:bg-secondaryDark"
+        <motion.div className="absolute -bottom-0 h-1 w-full bg-secondary"
                     style={{ scaleX: scrollYProgress }}/>
     );
 };

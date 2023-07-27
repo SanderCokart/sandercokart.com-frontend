@@ -1,0 +1,15 @@
+@import "atom-one-dark";
+@import "atom-one-light";
+@import "a11y-dark";
+@import "a11y-light";
+@import "github-light";
+@import "github-dark";
+@import "tokyo-night-light";
+@import "tokyo-night-dark";
+
+pre {
+  @apply overflow-auto max-h-[75dvh];
+  &::-webkit-scrollbar-thumb {
+    @apply bg-primary dark:bg-primaryDark;
+  }
+}

@@ -26,24 +26,18 @@ const ArticleFigure = ({ article }: { article: ArticleModel }) => {
                 )}>
 
                     <h1 className={twJoin(
-                        'label bg-secondary transition-opacity dark:bg-secondaryDark',
-                        'line-clamp-2 font-code text-sm font-black capitalize text-black dark:text-white md:text-xl'
+                        'label bg-secondary transition-opacity ',
+                        'line-clamp-2 font-code text-sm font-black capitalize text-black  md:text-xl'
                     )}>
                         {article.title}
                     </h1>
 
                     <div className="flex flex-col">
-                        <p className={twJoin(
-                            'bg-white/75 px-2 text-black dark:bg-black/75 dark:text-white',
-                            'line-clamp-3 font-code text-xs font-normal text-white md:text-base'
-                        )}>
+                        <p className="line-clamp-3 bg-body-muted/75 px-2 font-code text-xs font-normal md:text-base">
                             {article.excerpt}
                         </p>
 
-                        <span className={twJoin(
-                            'label',
-                            'text-center font-code text-xs text-black'
-                        )}>Published: {calculatePublishedTimestamp(article.published_at, true)}</span>
+                        <span className="label text-center font-code text-xs text-black">Published: {calculatePublishedTimestamp(article.published_at, true)}</span>
                     </div>
                 </figcaption>
             </figure>

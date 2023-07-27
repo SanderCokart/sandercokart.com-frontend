@@ -55,13 +55,9 @@ export const metadata: Metadata = {
 const RootLayout = (props: RootLayoutProps) => {
     return (
         <html suppressHydrationWarning lang="en">
-        <body className={twJoin(
-            'font-sans',
-            'bg-bodyLight dark:bg-bodyDark',
-            'text-black dark:text-white',
-            fontVariables)}>
+        <body className={twJoin(fontVariables)}>
         <GlobalProviders>
-            <div className="sticky top-0 z-50 bg-primary shadow-2xl dark:bg-primaryDark">
+            <div className="sticky top-0 z-50 bg-primary shadow-2xl">
                 <Header/>
                 <MobileNavigation/>
                 <ScrollProgressIndicator/>
