@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "./lint-react.json",
+    "./lint-import-helpers.json",
+    "prettier"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "newline-before-return": "warn",
+    "no-multiple-empty-lines": ["warn", {"max": 1}]
+  }
+}

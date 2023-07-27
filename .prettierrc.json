@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "semi": true,
+  "jsxSingleQuote": false,
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "bracketSpacing": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "quoteProps": "consistent",
+  "tailwindConfig": "./tailwind.config.js",
+  "tailwindFunctions": [
+    "twMerge",
+    "twJoin",
+    "cn",
+    "clsx"
+  ]
+}

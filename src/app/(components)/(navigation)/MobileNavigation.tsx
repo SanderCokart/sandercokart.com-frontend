@@ -1,9 +1,10 @@
-import type {ComponentType} from 'react';
+import type {ComponentType, HTMLAttributes, ReactNode} from 'react';
 import type {IconBaseProps} from 'react-icons';
 
 import {IoPlanetSharp} from 'react-icons/io5';
 
 import Link from 'next/link';
+import {twMerge} from 'tailwind-merge';
 
 interface NavButtonProps {
     href: string,
@@ -19,10 +20,13 @@ const NavButton = ({ Icon, text, href }: NavButtonProps) => (
     </Link>
 );
 
-export default function MobileNavigation() {
+type MobileNavigationProps = HTMLAttributes<HTMLElement>
+
+export default function MobileNavigation({ className,...restOfProps }: MobileNavigationProps) {
     return (
         <nav aria-label="mobile"
-             className="fixed bottom-0 left-0 flex w-full bg-primary font-bold text-white md:hidden">
+             className={twMerge('fixed bottom-0 left-0 flex w-full bg-primary font-bold text-white', className)}
+             {...restOfProps}>
             <NavButton Icon={IoPlanetSharp} href="/#discover" text="Discover"/>
             {/*<NavButton Icon={BsFillLightningFill} href="/#techstack" text={t('nav:tech-stack')}/>*/}
             {/*<NavButton Icon={FaComment} href="/#testimonials" text={t('nav:testimonials')}/>*/}
