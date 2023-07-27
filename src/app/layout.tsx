@@ -47,7 +47,7 @@ interface RootLayoutProps {
 }
 
 export const metadata: Metadata = {
-    title: 'sandercokart.com'
+    title: 'sandercokart.com',
 };
 
 

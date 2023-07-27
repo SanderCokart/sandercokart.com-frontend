@@ -1,4 +1,4 @@
-
+export const revalidate = 0;
 
 import type {ArticleType} from '@/types/CommonTypes';
 import type {ArticleModel} from '@/types/ModelTypes';
@@ -13,9 +13,6 @@ import {twJoin} from 'tailwind-merge';
 import type {SuccessResponse} from '@/functions/shared/api';
 import api from '@/functions/shared/api';
 import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
-
-
-// import getArticles from '@/functions/server/getArticles';
 
 interface ArticlesPageProps {
     params: {

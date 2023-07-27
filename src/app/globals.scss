@@ -1,8 +1,6 @@
-@import "@code-hike/mdx/dist/index.css";
 @import "swiper/scss";
 @import "swiper/scss/mousewheel";
 @import "swiper/scss/navigation";
-@import "./code-highlight";
 
 @tailwind base;
 @tailwind components;
@@ -15,6 +13,9 @@
     transition-timing-function: theme("transitionTimingFunction.DEFAULT");
   }
 
+  @import "(styles)/code-highlight";
+
+
   html {
     -webkit-tap-highlight-color: transparent;
 
@@ -22,8 +23,6 @@
       scroll-behavior: smooth !important;
     }
   }
-
-  @include code-highlighter;
 
   *::-webkit-scrollbar {
     @apply w-1.5 h-1.5 md:w-3 md:h-3;
@@ -75,8 +74,6 @@
   }
 
   .article {
-    @apply leading-relaxed mx-auto max-w-screen-lg flex flex-col gap-4;
-
     table {
       @apply w-full table-auto overflow-auto max-h-[80vh];
     }
@@ -103,7 +100,6 @@
       @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
     }
 
-    > {
       p {
         @apply md:text-xl;
       }
@@ -163,7 +159,6 @@
           }
         }
       }
-    }
   }
 }
 

@@ -46,7 +46,9 @@
         "groups": [
           "type",
           "absolute",
+          "/^react/",
           "module",
+          ["parent", "sibling", "index"],
           "/^@\/components/",
           "/^@\/constants/",
           "/^@\/functions/",

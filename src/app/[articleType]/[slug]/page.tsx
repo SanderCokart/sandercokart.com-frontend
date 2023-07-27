@@ -3,6 +3,8 @@ import type {ArticleModel} from '@/types/ModelTypes';
 import type {ArticleModelResponse} from '@/types/ResponseTypes';
 import type {Metadata} from 'next';
 
+import {cache} from 'react';
+
 import GoBackButton from '@/app/[articleType]/[slug]/(components)/GoBackButton';
 import {ApiRouteArticle} from '@/routes/api-routes';
 import {MDXRemote} from 'next-mdx-remote/rsc';
@@ -15,20 +17,46 @@ import type {SuccessResponse} from '@/functions/shared/api';
 import api from '@/functions/shared/api';
 import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 
-interface ArticlePageProps {
-    params: {
-        articleType: ArticleType;
-        slug: string;
-    };
+interface MetaDataProps {
+    params: RouteParams;
 }
 
-const getArticle = async (type: ArticleType, slug: ArticleModel['slug']) => {
+export async function generateMetadata({ params }: MetaDataProps) {
+    const article = await getArticle(params.articleType, params.slug);
+
+    const metaData: Metadata = {
+        title:       article.title,
+        description: article.excerpt,
+        authors:     [{ name: 'Sander Cokart', url: 'https://www.github.com/sandercokart' }]
+    };
+
+    return metaData;
+}
+
+interface RouteParams {
+    articleType: ArticleType;
+    slug: string;
+}
+
+interface ArticlePageProps {
+    params: RouteParams;
+}
+
+const getArticle = cache(async (type: ArticleType, slug: ArticleModel['slug']) => {
     const { data: { article } } = await api.simpleGet<null, SuccessResponse<ArticleModelResponse>>(ApiRouteArticle(type, slug));
     return article;
-};
+});
 
 const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) => {
     const article = await getArticle(articleType, slug);
+
+    //get all ids
+    //look for markdown headers and slugify them
+    const regex = /(?<=\n)(#{1,6})\s(.+)/g;
+    const ids = article.body.match(regex)?.map((header) => {
+        const id = header.replace(/#{1,6}\s/, '').toLocaleLowerCase().replace(/\s/g, '-');
+        return id;
+    });
 
     return (
         <main className="min-h-main p-4 md:p-8">
@@ -43,11 +71,23 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
                     </div>
                 </div>
             </div>
-            <article className="article">
+            <div className="relative mx-auto grid max-w-screen-lg grid-cols-[3fr,1fr] gap-8">
+                <article className="article flex flex-col gap-4 leading-relaxed">
                     <MDXRemote components={mdxComponents}
-                               options={{mdxOptions}}
+                               options={{ mdxOptions }}
                                source={article.body}/>
-            </article>
+                </article>
+                <aside className="">
+                    <h1>Table Of Contents</h1>
+                    <ul className="list-inside list-disc">
+                        {ids?.map((id) => (
+                            <li key={id}>
+                                <a href={`#${id}`}>{id}</a>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+            </div>
         </main>
 
     );

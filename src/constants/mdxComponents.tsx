@@ -6,6 +6,7 @@ import {Pre} from '@/components/MDXComponents';
 
 const mdxComponents: React.ComponentProps<typeof MDXProvider>['components'] = {
     pre: Pre,
+    // code: Code,
 };
 
 export default mdxComponents;

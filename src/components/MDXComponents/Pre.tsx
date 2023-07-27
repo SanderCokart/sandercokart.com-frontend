@@ -1,49 +1,44 @@
 'use client';
-import hljs from 'highlight.js';
 import type {ReactNode, ComponentPropsWithoutRef} from 'react';
-import {useEffect} from 'react';
-import {twJoin} from 'tailwind-merge';
-import './styles.scss';
+import {createContext, useContext} from 'react';
+
 import {useSessionStorage} from '@mantine/hooks';
+import {twJoin} from 'tailwind-merge';
 
 interface PreProps extends ComponentPropsWithoutRef<'pre'> {
     children: ReactNode;
+    showLineNumbers?: boolean;
     title?: string;
 }
 
-const Pre = ({ children, title, className, ...restOfProps }: PreProps) => {
+const PreContext = createContext({} as { theme: string; });
+export const usePreContext = () => useContext(PreContext);
 
-    const [theme, setTheme] = useSessionStorage({ key: 'codeTheme', defaultValue: 'tokyo-night-dark' });
-
-    useEffect(() => {
-        hljs.configure({
-            ignoreUnescapedHTML: true
-        });
-        hljs.initHighlighting();
-    }, []);
-
+const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: PreProps) => {
+    const [theme, setTheme] = useSessionStorage({ key: 'codeTheme', defaultValue: 'tokyo-night-dark'});
     return (
         <div className=" flex flex-col">
-
             <div className="flex justify-between">
                 <ul className="flex justify-start">
                     <li className="px-2 py-1 empty:hidden dark:bg-secondaryDark">{title}</li>
                 </ul>
-                <select className="py-0 text-black" id="theme" name="theme" value={theme} onChange={e => setTheme(e.target.value)}>
+                <select className="cursor-pointer rounded-t bg-secondary py-0 text-black dark:bg-secondaryDark dark:text-white" id="theme" name="theme" value={theme} onChange={e => setTheme(e.target.value)}>
                     {themes.map((theme) => (
-                        <option key={theme} value={theme}>
+                        <option key={theme} className="cursor-pointer bg-secondary dark:bg-secondaryDark" value={theme}>
                             {theme}
                         </option>
                     ))}
                 </select>
             </div>
-            <pre {...restOfProps} className={twJoin(
-                className,
-                theme,
-                'border-2 dark:border-secondaryDark'
-            )}>
-            {children}
-        </pre>
+            <PreContext.Provider value={{ theme }}>
+                <pre {...restOfProps} className={twJoin(
+                    className,
+                    theme,
+                    'relative border-2 border-primary dark:border-primaryDark'
+                )}>
+                    {children}
+                </pre>
+            </PreContext.Provider>
         </div>
     );
 };
@@ -70,7 +65,7 @@ const themes = [
     // 'far',
     // 'felipec',
     // 'foundation',
-    'github',
+    'github-light',
     'github-dark',
     // 'github-dark-dimmed',
     // 'gml',
@@ -114,7 +109,7 @@ const themes = [
     // 'stackoverflow-light',
     // 'sunburst',
     'tokyo-night-dark',
-    'tokyo-night-light',
+    'tokyo-night-light'
     // 'tomorrow-night-blue',
     // 'tomorrow-night-bright',
     // 'vs',
