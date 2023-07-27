@@ -1,1 +1,1 @@
-export {default} from './TouchTipNotification';
+export { default } from './TouchTipNotification';

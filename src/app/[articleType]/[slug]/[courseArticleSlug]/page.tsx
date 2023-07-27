@@ -1,15 +1,9 @@
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
-interface CourseArticlePageProps {
-
-}
+interface CourseArticlePageProps {}
 
 const CourseArticlePage = (props: CourseArticlePageProps) => {
-    return (
-        <>
-
-        </>
-    );
+  return <></>;
 };
 
 export default CourseArticlePage;

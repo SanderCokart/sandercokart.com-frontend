@@ -1,11 +1,14 @@
 'use client';
-import {useScroll, motion} from 'framer-motion';
+import { useScroll, motion } from 'framer-motion';
 
 const ScrollProgressIndicator = () => {
-    const { scrollYProgress } = useScroll();
-    return (
-        <motion.div className="absolute -bottom-0 h-1 w-full bg-secondary"
-                    style={{ scaleX: scrollYProgress }}/>
-    );
+  const { scrollYProgress } = useScroll();
+
+  return (
+    <motion.div
+      className="absolute -bottom-0 h-1 w-full bg-secondary"
+      style={{ scaleX: scrollYProgress }}
+    />
+  );
 };
-export default ScrollProgressIndicator
+export default ScrollProgressIndicator;

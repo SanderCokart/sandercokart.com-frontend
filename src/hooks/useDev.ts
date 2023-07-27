@@ -1,16 +1,15 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import useEnv from '@/hooks/useEnv';
 
 const UseDev = (callback: () => void) => {
-    const { isDevelopment } = useEnv();
+  const { isDevelopment } = useEnv();
 
-    useEffect(() => {
-        if (isDevelopment)
-            callback();
-    }, []);
+  useEffect(() => {
+    if (isDevelopment) callback();
+  }, []);
 
-    return;
+  return;
 };
 
 export default UseDev;

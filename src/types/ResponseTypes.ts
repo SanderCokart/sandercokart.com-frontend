@@ -1,22 +1,22 @@
-import type {ArticleModel, CourseModel} from '@/types/ModelTypes';
-import type {MDXRemoteSerializeResult} from 'next-mdx-remote';
+import type { ArticleModel, CourseModel } from '@/types/ModelTypes';
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 export interface ArticleMDXResponse {
-    article: Omit<ArticleModel, 'body'> & { body: MDXRemoteSerializeResult };
+  article: Omit<ArticleModel, 'body'> & { body: MDXRemoteSerializeResult };
 }
 
 export interface ArticleModelResponse {
-    article: ArticleModel;
+  article: ArticleModel;
 }
 
 export interface ArticleModelsResponse {
-    articles: ArticleModel[];
+  articles: ArticleModel[];
 }
 
 export interface CourseModelResponse {
-    course: CourseModel;
+  course: CourseModel;
 }
 
 export interface CourseModelsResponse {
-    courses: CourseModel[];
+  courses: CourseModel[];
 }

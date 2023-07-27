@@ -1,6 +1,6 @@
-@import "swiper/scss";
-@import "swiper/scss/mousewheel";
-@import "swiper/scss/navigation";
+@import 'swiper/scss';
+@import 'swiper/scss/mousewheel';
+@import 'swiper/scss/navigation';
 
 @tailwind base;
 @tailwind components;
@@ -24,7 +24,7 @@
 
     &.dark {
       --color-body: 222 47% 11%;
-        --color-body-muted: 229 84% 5%;
+      --color-body-muted: 229 84% 5%;
       --color-body-foreground: 0 0% 90%;
 
       --color-primary: 224 64% 33%;
@@ -42,9 +42,9 @@
   }
 
   * {
-    transition-duration: theme("transitionDuration.DEFAULT");
-    transition-property:  background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: theme("transitionTimingFunction.DEFAULT");
+    transition-duration: theme('transitionDuration.DEFAULT');
+    transition-property: background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: theme('transitionTimingFunction.DEFAULT');
   }
   //
   //@import "(styles)/(code-highlighting)";
@@ -68,101 +68,101 @@
 //}
 //
 @layer components {
-//  .base-input {
-//    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
-//  }
-//
-//  .title {
-//    @apply mb-4 text-center text-5xl font-bold;
-//  }
-//
-//  .article {
-//    table {
-//      @apply w-full table-auto overflow-auto max-h-[80vh];
-//    }
-//
-//    th, td {
-//      @apply px-4 py-2
-//      border-4 border-bodyLight
-//      dark:border-bodyDark;
-//    }
-//
-//    tr {
-//      @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark transition-all dark:bg-primaryDark;
-//    }
-//
-//    thead tr {
-//      @apply drop-shadow-hard-sm;
-//    }
-//
-//    tbody tr {
-//      @apply md:hover:scale-x-105 md:hover:shadow-hard-sm;
-//    }
-//
-//    th {
-//      @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
-//    }
-//
-//    p {
-//      @apply md:text-xl;
-//    }
-//
-//    h1, h2, h3, h4, h5, h6 {
-//      @apply md:scroll-mt-header-desktop sm:scroll-m-header-mobile;
-//    }
-//
-//    h1 {
-//      @apply p-4 text-5xl font-bold label;
-//    }
-//
-//    h2 {
-//      @apply w-min whitespace-nowrap text-3xl font-bold label;
-//    }
-//
-//    h3 {
-//      @apply w-min whitespace-nowrap text-2xl font-bold label;
-//    }
-//
-//    img {
-//      @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
-//    }
-//
-//    ul {
-//      @apply flex flex-col gap-2;
-//    }
-//
-//    ul li {
-//      @apply border-l-4 border-secondary dark:border-secondaryDark px-2;
-//    }
-//
-//    #table-of-contents {
-//      @apply w-min whitespace-nowrap;
-//
-//
-//      + ul {
-//        @apply list-none flex flex-col gap-1;
-//
-//        li {
-//          @apply border-none p-0;
-//        }
-//
-//        li a {
-//          @apply block p-2 my-1 hover:bg-primary dark:hover:bg-primaryDark border-l-4 border-secondary dark:border-secondaryDark;
-//        }
-//
-//        ul {
-//          @apply mt-2;
-//          > li {
-//            @apply ml-4;
-//          }
-//        }
-//
-//        > li a {
-//          @apply font-bold no-underline text-black dark:text-white;
-//        }
-//      }
-//    }
-//  }
+  //  .base-input {
+  //    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
+  //  }
+  //
+  //  .title {
+  //    @apply mb-4 text-center text-5xl font-bold;
+  //  }
+  //
+  //  .article {
+  //    table {
+  //      @apply w-full table-auto overflow-auto max-h-[80vh];
+  //    }
+  //
+  //    th, td {
+  //      @apply px-4 py-2
+  //      border-4 border-bodyLight
+  //      dark:border-bodyDark;
+  //    }
+  //
+  //    tr {
+  //      @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark transition-all dark:bg-primaryDark;
+  //    }
+  //
+  //    thead tr {
+  //      @apply drop-shadow-hard-sm;
+  //    }
+  //
+  //    tbody tr {
+  //      @apply md:hover:scale-x-105 md:hover:shadow-hard-sm;
+  //    }
+  //
+  //    th {
+  //      @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
+  //    }
+  //
+  //    p {
+  //      @apply md:text-xl;
+  //    }
+  //
+  //    h1, h2, h3, h4, h5, h6 {
+  //      @apply md:scroll-mt-header-desktop sm:scroll-m-header-mobile;
+  //    }
+  //
+  //    h1 {
+  //      @apply p-4 text-5xl font-bold label;
+  //    }
+  //
+  //    h2 {
+  //      @apply w-min whitespace-nowrap text-3xl font-bold label;
+  //    }
+  //
+  //    h3 {
+  //      @apply w-min whitespace-nowrap text-2xl font-bold label;
+  //    }
+  //
+  //    img {
+  //      @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
+  //    }
+  //
+  //    ul {
+  //      @apply flex flex-col gap-2;
+  //    }
+  //
+  //    ul li {
+  //      @apply border-l-4 border-secondary dark:border-secondaryDark px-2;
+  //    }
+  //
+  //    #table-of-contents {
+  //      @apply w-min whitespace-nowrap;
+  //
+  //
+  //      + ul {
+  //        @apply list-none flex flex-col gap-1;
+  //
+  //        li {
+  //          @apply border-none p-0;
+  //        }
+  //
+  //        li a {
+  //          @apply block p-2 my-1 hover:bg-primary dark:hover:bg-primaryDark border-l-4 border-secondary dark:border-secondaryDark;
+  //        }
+  //
+  //        ul {
+  //          @apply mt-2;
+  //          > li {
+  //            @apply ml-4;
+  //          }
+  //        }
+  //
+  //        > li a {
+  //          @apply font-bold no-underline text-black dark:text-white;
+  //        }
+  //      }
+  //    }
+  //  }
 }
 //
 //.swiper-pagination-bullet {
