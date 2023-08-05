@@ -1,17 +1,13 @@
-export const revalidate = 0;
+import Image from 'next/image';
+import Link from 'next/link';
 
+import type { SuccessResponse } from '@/functions/shared/api';
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { twJoin } from 'tailwind-merge';
-
-import type { SuccessResponse } from '@/functions/shared/api';
 import api from '@/functions/shared/api';
-import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
-
+import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';
 import { ApiRouteArticles } from '@/routes/api-routes';
 import { localArticleRoute } from '@/routes/local-routes';
 
@@ -39,9 +35,10 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
   return (
     <main className="min-h-main p-8">
       <div
-        className={twJoin(
-          'pointer-events-none grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
-          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity'
+        className={cn(
+          'supports-[grid-template-rows:masonry]:grid-template-rows-[masonry] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
+          'pointer-events-none',
+          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-30 [&_>*]:transition-opacity'
         )}>
         {articles.map(article => (
           <ArticleFigure key={article.id} article={article} />
@@ -54,12 +51,13 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
 const ArticleFigure = ({ article }: ArticleFigureProps) => (
   <Link
     key={article.id}
-    className="group pointer-events-auto"
+    className="group"
     href={localArticleRoute(article.type.name, article.slug)}>
-    <figure className="dark:border-secondaryDark relative flex flex-col border-2 border-secondary">
+    <figure className="pointer-events-auto relative flex flex-col border-2 border-secondary">
       <div className="relative aspect-video h-full w-full overflow-hidden">
         <Image
           fill
+          priority
           alt={article.title}
           className="transition-transform group-hover:scale-110"
           src={article.banner.original_url}
@@ -67,27 +65,25 @@ const ArticleFigure = ({ article }: ArticleFigureProps) => (
         />
       </div>
 
-      <figcaption
-        className={twJoin('flex h-full flex-col justify-between', 'bg-black/25 text-white')}>
+      <figcaption className="flex h-full flex-col justify-between">
         <h1
-          className={twJoin(
-            'dark:bg-secondaryDark label bg-secondary transition-opacity',
-            'line-clamp-2 font-code text-sm font-black capitalize text-black dark:text-white md:text-xl'
-          )}>
+          className={cn(
+            'label bg-secondary transition-opacity',
+            'line-clamp-2 font-code text-sm font-black capitalize text-black md:text-xl'
+          )}
+          title={article.title}>
           {article.title}
         </h1>
 
-        <div
-          className={twJoin(
-            'flex flex-col p-4',
-            'bg-bodyLightSecondary dark:bg-bodyDarkSecondary text-black dark:text-white'
-          )}>
-          <p className="line-clamp-5 font-code text-xs font-normal md:text-base">
+        <div className="flex flex-col bg-muted p-4 text-black dark:text-white">
+          <p
+            className="line-clamp-5 font-code text-xs font-normal md:text-base"
+            title={article.excerpt}>
             {article.excerpt}
           </p>
         </div>
 
-        <span className={twJoin('label shadow-none', 'text-center font-code text-xs text-black')}>
+        <span className="label text-center font-code text-xs text-black shadow-none ">
           Published: {calculatePublishedTimestamp(article.published_at, true)}
         </span>
       </figcaption>
@@ -96,3 +92,4 @@ const ArticleFigure = ({ article }: ArticleFigureProps) => (
 );
 
 export default ArticlesPage;
+export const revalidate = 0;

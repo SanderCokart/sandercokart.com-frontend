@@ -1,0 +1,10 @@
+{
+  "settings": {
+    "tailwindcss": {
+      "callees": [
+        "cn"
+      ],
+      "config": "tailwind.config.js"
+    }
+  }
+}

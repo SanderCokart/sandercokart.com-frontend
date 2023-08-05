@@ -2,15 +2,20 @@
   "extends": [
     "next/core-web-vitals",
     "./lint-react.json",
-    "./lint-import-helpers.json",
+    "./lint-tailwindcss.json",
     "prettier"
   ],
   "plugins": [
     "@typescript-eslint"
   ],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "warn",
     "newline-before-return": "warn",
+    "@typescript-eslint/consistent-type-imports": ["warn", {"prefer": "type-imports"}],
     "no-multiple-empty-lines": ["warn", {"max": 1}]
+  },
+  "settings": {
+    "next": {
+      "rootDir": ["./"]
+    }
   }
 }

@@ -1,6 +1,6 @@
+import type React from 'react';
 /*@ts-expect-error - MDXProvider is not typed*/
 import type { MDXProvider } from '@mdx-js/react';
-import type React from 'react';
 
 import { Pre } from '@/components/MDXComponents';
 

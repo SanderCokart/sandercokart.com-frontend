@@ -1,9 +1,11 @@
 'use client';
-import type { ReactNode, ComponentPropsWithoutRef } from 'react';
-import { createContext, useContext } from 'react';
 
 import { useSessionStorage } from '@mantine/hooks';
 import { twJoin } from 'tailwind-merge';
+
+import { createContext, useContext } from 'react';
+
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 interface PreProps extends ComponentPropsWithoutRef<'pre'> {
   children: ReactNode;
@@ -14,7 +16,7 @@ interface PreProps extends ComponentPropsWithoutRef<'pre'> {
 const PreContext = createContext({} as { theme: string });
 export const usePreContext = () => useContext(PreContext);
 
-const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: PreProps) => {
+export const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: PreProps) => {
   const [theme, setTheme] = useSessionStorage({
     key: 'codeTheme',
     defaultValue: 'tokyo-night-dark'
@@ -56,8 +58,6 @@ const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: Pr
     </div>
   );
 };
-
-export default Pre;
 
 const themes = [
   // 'agate',

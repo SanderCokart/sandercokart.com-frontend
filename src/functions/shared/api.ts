@@ -1,5 +1,6 @@
-import type { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
+
+import type { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

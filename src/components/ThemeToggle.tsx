@@ -1,37 +1,55 @@
 'use client';
-import type { ComponentProps } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { CgSun } from 'react-icons/cg';
+import { FaDesktop, FaMoon } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
+
+import type { ComponentProps } from 'react';
 
 import BasicAnimation from '@/components/FramerMotion/BasicAnimation';
 
 import { ascendVariant, descendVariant } from '@/constants/animations/ascendAndDecend';
-
+import { fadeVariant } from '@/constants/animations/fade';
 import useMounted from '@/hooks/useMounted';
-export function ThemeToggle({ className, ...props }: ComponentProps<'div'>) {
+
+export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
   const { mounted } = useMounted();
-  const { setTheme, theme, systemTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   if (!mounted) return null;
 
   return (
     <div className={twMerge('relative grid place-items-center', className)} {...props}>
       <AnimatePresence mode="wait">
-        {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
+        {theme === 'light' && (
           <BasicAnimation key="light" variants={ascendVariant}>
-            <FaSun className="cursor-pointer" onClick={() => setTheme('light')} />
+            <CgSun
+              className="cursor-pointer text-black transition-[color] hover:text-secondary"
+              onClick={() => setTheme('dark')}
+            />
           </BasicAnimation>
         )}
 
-        {(theme === 'light' || (theme === 'system' && systemTheme === 'light')) && (
+        {theme === 'dark' && (
           <BasicAnimation key="dark" variants={descendVariant}>
-            <FaMoon className="cursor-pointer" onClick={() => setTheme('dark')} />
+            <FaMoon
+              className="cursor-pointer text-white transition-[color] hover:text-secondary"
+              onClick={() => setTheme('system')}
+            />
+          </BasicAnimation>
+        )}
+
+        {theme === 'system' && (
+          <BasicAnimation key="system" variants={fadeVariant}>
+            <FaDesktop
+              className="cursor-pointer text-white transition-[color] hover:text-secondary"
+              onClick={() => setTheme('light')}
+            />
           </BasicAnimation>
         )}
       </AnimatePresence>
     </div>
   );
-}
+};

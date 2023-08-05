@@ -1,19 +1,14 @@
-import './globals.scss';
+import './styles/globals.scss';
 
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
-
-import DesktopNavigation from '@/app/(components)/(navigation)/DesktopNavigation';
-import MobileNavigation from '@/app/(components)/(navigation)/MobileNavigation';
-import Footer from '@/app/(components)/Footer';
-import GlobalProviders from '@/app/(components)/GlobalProviders';
-import Header from '@/app/(components)/Header';
-import ScrollProgressIndicator from '@/app/(components)/ScrollProgressIndicator';
-import { Roboto } from 'next/font/google';
-import localFont from 'next/font/local';
 import { twJoin } from 'tailwind-merge';
 
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { Roboto } from 'next/font/google';
+import localFont from 'next/font/local';
+
+import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+
+import { GlobalProviders, TheFooter, TheHeader } from '@/app/components';
 
 const fontLetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',
@@ -49,21 +44,14 @@ export const metadata: Metadata = {
   title: 'sandercokart.com'
 };
 
-const RootLayout = (props: RootLayoutProps) => {
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html suppressHydrationWarning lang="en">
       <body className={twJoin(fontVariables)}>
         <GlobalProviders>
-          <div className="sticky top-0 z-50 bg-primary shadow-2xl">
-            <Header>
-              <DesktopNavigation className="hidden flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl md:flex" />
-              <ThemeToggle className="mx-2 justify-self-end text-2xl" />
-              <MobileNavigation className="md:hidden" />
-            </Header>
-            <ScrollProgressIndicator />
-          </div>
-          {props.children}
-          <Footer />
+          <TheHeader className="sticky top-0 z-50 " />
+          {children}
+          <TheFooter />
         </GlobalProviders>
       </body>
     </html>

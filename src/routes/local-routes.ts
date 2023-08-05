@@ -1,5 +1,5 @@
 import type { ArticleType } from '@/types/CommonTypes';
-import type { CourseModel, ArticleModel } from '@/types/ModelTypes';
+import type { ArticleModel, CourseModel } from '@/types/ModelTypes';
 
 export const localHomeRoute = (hash: string) => (hash ? `/#${hash}` : '/');
 

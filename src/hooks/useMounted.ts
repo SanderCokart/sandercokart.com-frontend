@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const UseMounted = (callback?: () => void) => {
   const [mounted, setMounted] = useState(false);

@@ -1,21 +1,20 @@
+import { MDXRemote } from 'next-mdx-remote/rsc';
+
+import { cache } from 'react';
+import Image from 'next/image';
+
+import type { SuccessResponse } from '@/functions/shared/api';
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelResponse } from '@/types/ResponseTypes';
 import type { Metadata } from 'next';
 
-import { cache } from 'react';
-
-import GoBackButton from '@/app/[articleType]/[slug]/(components)/GoBackButton';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import Image from 'next/image';
-
-import type { SuccessResponse } from '@/functions/shared/api';
-import api from '@/functions/shared/api';
-import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+import { GoBackButton } from '@/app/[articleType]/[slug]/components/GoBackButton';
 
 import mdxComponents from '@/constants/mdxComponents';
 import mdxOptions from '@/constants/mdxOptions';
-
+import api from '@/functions/shared/api';
+import { calculatePublishedTimestamp } from '@/functions/shared/utils';
 import { ApiRouteArticle } from '@/routes/api-routes';
 
 interface MetaDataProps {

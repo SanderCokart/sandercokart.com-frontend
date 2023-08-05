@@ -7,10 +7,10 @@ import { twJoin } from 'tailwind-merge';
 
 import type { SuccessResponse } from '@/functions/shared/api';
 import api from '@/functions/shared/api';
-import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 
 import { ApiRouteCourses } from '@/routes/api-routes';
 import { localCourseRoute } from '@/routes/local-routes';
+import { calculatePublishedTimestamp } from '@/functions/shared/utils';
 
 const getCourses = async () => {
   const {

@@ -1,5 +1,6 @@
 {
   "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
   "semi": true,
@@ -13,11 +14,37 @@
   "singleQuote": true,
   "trailingComma": "none",
   "quoteProps": "consistent",
-  "tailwindConfig": "./tailwind.config.js",
+  "tailwindConfig": "./tailwind.config.mjs",
   "tailwindFunctions": [
     "twMerge",
     "twJoin",
     "cn",
-    "clsx"
-  ]
+    "clsx",
+    "cva"
+  ],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "",
+    "<TYPES>^(react$)",
+    "<TYPES>",
+    "",
+    "^@/components/ui/(.*)$",
+    "",
+    "^@/components/(.*)$",
+    "",
+    "^@/app/(.*)$",
+    "",
+    "^@/(.*)/(.*)$",
+    "",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true,
+  "importOrderBuiltinModulesToTop": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderMergeDuplicateImports": true,
+  "importOrderCombineTypeAndValueImports": true
 }
