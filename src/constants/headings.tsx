@@ -30,5 +30,5 @@ export const h5 = ({ className, ...restOfProps }: HTMLAttributes<HTMLHeadingElem
 );
 
 export const h6 = ({ className, ...restOfProps }: HTMLAttributes<HTMLHeadingElement>) => (
-  <h6 className={cn(globalClass, 'text-base font-bold', className)} {...restOfProps} />
+  <h6 className={cn(globalClass, 'text-base font-bold', className)} tabIndex={0} {...restOfProps} />
 );
