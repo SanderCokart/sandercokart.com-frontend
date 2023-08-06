@@ -59,14 +59,13 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
   //get all ids
   //look for markdown headers and slugify them
   const regex = /(?<=\n)(#{1,6})\s(.+)/g;
-  const ids = article.body.match(regex)?.map(header => {
-    const id = header
-      .replace(/#{1,6}\s/, '')
-      .toLocaleLowerCase()
-      .replace(/\s/g, '-');
-
-    return id;
-  });
+  const ids =
+    article.body.match(regex)?.map(header => {
+      return header
+        .replace(/#{1,6}\s/, '')
+        .toLocaleLowerCase()
+        .replace(/\s/g, '-');
+    }) ?? [];
 
   return (
     <main className="min-h-main p-4 md:p-8">
