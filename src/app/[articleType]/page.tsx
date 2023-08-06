@@ -42,7 +42,8 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
         className={cn(
           'supports-[grid-template-rows:masonry]:grid-template-rows-[masonry] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
           'pointer-events-none',
-          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-30 [&_>*]:transition-opacity'
+          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-30  [&_>*]:transition-opacity',
+          '[&:focus-within>*:focus-within]:opacity-100 [&:focus-within>*]:opacity-30'
         )}>
         {articles.map(article => (
           <ArticleFigure key={article.id} article={article} />
@@ -53,46 +54,48 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
 };
 
 const ArticleFigure = ({ article }: ArticleFigureProps) => (
-  <Link
-    key={article.id}
-    className="group"
-    href={localArticleRoute(article.type.name, article.slug)}>
-    <figure className="pointer-events-auto relative flex flex-col border-2 border-secondary">
-      <div className="relative aspect-video h-full w-full overflow-hidden">
-        <Image
-          fill
-          priority
-          alt={article.title}
-          className="transition-transform group-hover:scale-110"
-          src={article.banner.original_url}
-          style={{ objectFit: 'cover' }}
-        />
-      </div>
-
-      <figcaption className="flex h-full flex-col justify-between">
-        <h1
-          className={cn(
-            'label bg-secondary transition-opacity',
-            'line-clamp-2 font-code text-sm font-black capitalize text-black md:text-xl'
-          )}
-          title={article.title}>
-          {article.title}
-        </h1>
-
-        <div className="flex flex-col bg-muted p-4 text-black dark:text-white">
-          <p
-            className="line-clamp-5 font-code text-xs font-normal md:text-base"
-            title={article.excerpt}>
-            {article.excerpt}
-          </p>
+  <div>
+    <Link
+      key={article.id}
+      className="group"
+      href={localArticleRoute(article.type.name, article.slug)}>
+      <figure className="pointer-events-auto relative flex flex-col border-2 border-secondary">
+        <div className="relative aspect-video h-full w-full overflow-hidden">
+          <Image
+            fill
+            priority
+            alt={article.title}
+            className="transition-transform group-hover:scale-110"
+            src={article.banner.original_url}
+            style={{ objectFit: 'cover' }}
+          />
         </div>
 
-        <span className="label text-center font-code text-xs text-black shadow-none ">
-          Published: {calculatePublishedTimestamp(article.published_at, true)}
-        </span>
-      </figcaption>
-    </figure>
-  </Link>
+        <figcaption className="flex h-full flex-col justify-between">
+          <h1
+            className={cn(
+              'label bg-secondary transition-opacity',
+              'line-clamp-2 font-code text-sm font-black capitalize text-black md:text-xl'
+            )}
+            title={article.title}>
+            {article.title}
+          </h1>
+
+          <div className="flex flex-col bg-muted p-4 text-black dark:text-white">
+            <p
+              className="line-clamp-5 font-code text-xs font-normal md:text-base"
+              title={article.excerpt}>
+              {article.excerpt}
+            </p>
+          </div>
+
+          <span className="label text-center font-code text-xs text-black shadow-none ">
+            Published: {calculatePublishedTimestamp(article.published_at, true)}
+          </span>
+        </figcaption>
+      </figure>
+    </Link>
+  </div>
 );
 
 export default ArticlesPage;
