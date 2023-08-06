@@ -26,7 +26,8 @@ export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
         {theme === 'light' && (
           <BasicAnimation key="light" variants={ascendVariant}>
             <CgSun
-              className="cursor-pointer text-black transition-[color] hover:text-secondary"
+              className="cursor-pointer text-black transition-colors hover-focus:text-secondary"
+              tabIndex={0}
               onClick={() => setTheme('dark')}
             />
           </BasicAnimation>
@@ -35,7 +36,8 @@ export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
         {theme === 'dark' && (
           <BasicAnimation key="dark" variants={descendVariant}>
             <FaMoon
-              className="cursor-pointer text-white transition-[color] hover:text-secondary"
+              className="cursor-pointer text-white transition-colors hover-focus:text-secondary"
+              tabIndex={0}
               onClick={() => setTheme('system')}
             />
           </BasicAnimation>
@@ -44,7 +46,8 @@ export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
         {theme === 'system' && (
           <BasicAnimation key="system" variants={fadeVariant}>
             <FaDesktop
-              className="cursor-pointer text-white transition-[color] hover:text-secondary"
+              className="cursor-pointer text-white transition-colors hover-focus:text-secondary"
+              tabIndex={0}
               onClick={() => setTheme('light')}
             />
           </BasicAnimation>

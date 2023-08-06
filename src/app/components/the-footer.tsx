@@ -40,7 +40,7 @@ function FooterNavigation() {
         <ul className="flex flex-col gap-2">
           {routes.map(({ href, label }) => (
             <li key={href}>
-              <Link className="transition-[color] hover:text-secondary" href={href}>
+              <Link className="transition-colors hover-focus:text-secondary" href={href}>
                 {label}
               </Link>
             </li>
@@ -51,17 +51,17 @@ function FooterNavigation() {
         <h2 className="text-center text-secondary">Library</h2>
         <ul className="flex flex-col gap-2">
           <li>
-            <Link className="transition-[color] hover:text-secondary" href="/#general">
+            <Link className="transition-colors hover-focus:text-secondary" href="/#general">
               General
             </Link>
           </li>
           <li>
-            <Link className="transition-[color] hover:text-secondary" href="/#courses">
+            <Link className="transition-colors hover-focus:text-secondary" href="/#courses">
               Courses
             </Link>
           </li>
           <li>
-            <Link className="transition-[color] hover:text-secondary" href="/#Tips">
+            <Link className="transition-colors hover-focus:text-secondary" href="/#Tips">
               Tips
             </Link>
           </li>
@@ -83,22 +83,22 @@ function Socials() {
   return (
     <>
       <Link
-        className="transition-[color] hover:text-secondary"
+        className="transition-colors hover-focus:text-secondary"
         href="https://github.com/sandercokart">
         <FaGithub />
       </Link>
       <Link
-        className="transition-[color] hover:text-secondary"
+        className="transition-colors hover-focus:text-secondary"
         href="https://www.instagram.com/sandercokart/">
         <FaInstagram />
       </Link>
       <Link
-        className="transition-[color] hover:text-secondary"
+        className="transition-colors hover-focus:text-secondary"
         href="https://youtube.com/SanderCokart">
         <FaYoutube />
       </Link>
       <Link
-        className="transition-[color] hover:text-secondary"
+        className="transition-colors hover-focus:text-secondary"
         href="https://twitter.com/sandercokart">
         <FaTwitter />
       </Link>

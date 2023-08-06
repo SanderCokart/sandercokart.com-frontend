@@ -9,7 +9,10 @@ interface DesktopNavigationProps extends HTMLAttributes<HTMLElement> {}
 export const DesktopNavigation = ({ ...restOfProps }: DesktopNavigationProps) => (
   <nav {...restOfProps}>
     {routes.map(({ href, label }) => (
-      <Link key={href} className="leading-none transition-colors hover:text-secondary" href={href}>
+      <Link
+        key={href}
+        className="leading-none transition-colors hover-focus:text-secondary"
+        href={href}>
         {label}
       </Link>
     ))}

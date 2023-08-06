@@ -137,5 +137,8 @@ export default {
         { values: theme('screens') }
       );
     }),
+    plugin(function({ addVariant, theme }) {
+      addVariant('hover-focus', ['&:hover', '&:focus'])
+    })
   ]
 };

@@ -24,7 +24,7 @@ const GoBackButton = () => {
 
   return (
     <button
-      className="label mb-2 flex items-center gap-2 font-digital text-xl hover:bg-secondary md:text-2xl"
+      className="label mb-2 flex items-center gap-2 font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
       onClick={goBack}>
       <FaArrowCircleLeft />
       <span>Go back</span>
@@ -48,7 +48,7 @@ const BackToTopButton = () => {
 
   return (
     <button
-      className="label mb-2 flex items-center gap-2 font-digital text-xl hover:bg-secondary md:text-2xl"
+      className="label mb-2 flex items-center gap-2 font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
       onClick={scrollToTop}>
       <span>Back top top</span>
     </button>
