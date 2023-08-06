@@ -137,21 +137,5 @@ export default {
         { values: theme('screens') }
       );
     }),
-    plugin(function ({ addComponents, theme }) {
-      addComponents({
-        '.label': {
-          display: 'block',
-          fontWeight: theme('fontWeight.bold'),
-          paddingTop: theme('spacing.1'),
-          paddingRight: theme('spacing.4'),
-          paddingBottom: theme('spacing.1'),
-          paddingLeft: theme('spacing.4'),
-          backgroundColor: 'hsl(var(--secondary))',
-          color: 'hsl(var(--secondary-foreground))',
-          boxShadow: theme('boxShadow.hard-sm'),
-          fontFamily: theme('fontFamily.code'),
-        }
-      });
-    })
   ]
 };

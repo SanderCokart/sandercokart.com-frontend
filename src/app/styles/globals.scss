@@ -93,6 +93,10 @@
   .article {
     @apply whitespace-pre-wrap;
   }
+
+  .label {
+    @apply block font-bold py-1 px-4 bg-secondary text-secondary-foreground shadow-hard-sm font-code;
+  }
   //  .base-input {
   //    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
   //  }
