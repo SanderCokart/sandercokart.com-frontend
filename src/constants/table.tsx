@@ -10,15 +10,22 @@ export const table = ({ className, ...restOfProps }: HTMLAttributes<HTMLTableEle
 );
 
 export const td = ({ className, ...restOfProps }: HTMLAttributes<HTMLTableCellElement>) => (
-  <td className={cn('border-4 border-muted px-4 py-2', className)} {...restOfProps} />
+  <td
+    className={cn(
+      'border-4 border-muted px-4 py-2 selection:bg-primary selection:text-primary-foreground hover-focus:bg-secondary-active hover-focus:font-bold hover-focus:text-white md:hover-focus:shadow-hard-sm',
+      className
+    )}
+    {...restOfProps}
+  />
 );
 
 export const tr = ({ className, ...restOfProps }: HTMLAttributes<HTMLTableRowElement>) => (
   <tr
     className={cn(
-      'transition-colors hover:bg-primary hover:font-bold hover:text-white md:hover:scale-x-105 md:hover:shadow-hard-sm',
+      'bg-primary transition-[theme(transitionProperty.colors),transform] hover-focus:bg-secondary-active hover-focus:font-bold hover-focus:text-white md:hover-focus:shadow-hard-sm',
       className
     )}
+    tabIndex={0}
     {...restOfProps}
   />
 );
@@ -29,7 +36,10 @@ export const thead = ({ className, ...restOfProps }: HTMLAttributes<HTMLTableSec
 
 export const tbody = ({ className, ...restOfProps }: HTMLAttributes<HTMLTableSectionElement>) => (
   <tbody
-    className={cn('md:hover:scale-x-105 md:hover:shadow-hard-sm', className)}
+    className={cn(
+      'md:hover:shadow-hard-sm md:[&>tr:focus]:scale-x-105 md:[&>tr:hover]:scale-x-105',
+      className
+    )}
     {...restOfProps}
   />
 );
