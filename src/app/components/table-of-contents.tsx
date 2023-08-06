@@ -43,9 +43,9 @@ export const TableOfContents = ({ ids }: TableOfContentsProps) => {
             <ul className="bg-muted">
               {ids.map(id => (
                 <li key={id} className="px-4 hover-focus:bg-secondary">
-                  <Link className="block" href={`#${id}`} onClick={close}>
+                  <a className="block" href={`#${id}`} onClick={close}>
                     {id.replace(/-/g, ' ')}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
