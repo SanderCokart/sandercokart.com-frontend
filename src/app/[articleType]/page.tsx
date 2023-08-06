@@ -1,3 +1,5 @@
+import { FaArrowCircleLeft } from 'react-icons/fa';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,12 +8,12 @@ import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
-import { NavigationHelpers } from '@/app/components';
+import { NavigationHelperNavigationButton, NavigationHelpers } from '@/app/components';
 
 import api from '@/functions/shared/api';
 import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';
 import { ApiRouteArticles } from '@/routes/api-routes';
-import { localArticleRoute } from '@/routes/local-routes';
+import { localArticleRoute, localHomeRoute } from '@/routes/local-routes';
 
 interface ArticlesPageProps {
   params: {
@@ -36,7 +38,12 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
 
   return (
     <main className="min-h-main p-8" id="articles">
-      <NavigationHelpers />
+      <NavigationHelpers>
+        <NavigationHelperNavigationButton href={localHomeRoute()}>
+          <FaArrowCircleLeft />
+          Back to discover
+        </NavigationHelperNavigationButton>
+      </NavigationHelpers>
 
       <div
         className={cn(

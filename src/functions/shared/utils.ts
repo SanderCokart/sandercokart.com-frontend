@@ -17,3 +17,16 @@ export const calculatePublishedTimestamp = (timestamp: string, short?: boolean) 
         .utc(timestamp)
         .format('dddd [the] Do [of] MMMM YYYY [at] h:mm A')}`;
 };
+
+export const scrollToTop = () => {
+  let scrollY = window.scrollY;
+  const interval = setInterval(() => {
+    if (scrollY === window.scrollY) {
+      clearInterval(interval);
+      window.scrollTo({
+        top: 0
+      });
+    }
+    scrollY = window.scrollY;
+  }, 100);
+};

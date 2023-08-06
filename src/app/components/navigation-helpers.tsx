@@ -1,54 +1,46 @@
 'use client';
 
-import { FaArrowCircleLeft } from 'react-icons/fa';
+import Link from 'next/link';
 
-import { useRouter } from 'next/navigation';
+import type { HTMLAttributes, ReactNode } from 'react';
 
-interface NavigationHelpersProps {}
+import { scrollToTop } from '@/functions/shared/utils';
 
-export const NavigationHelpers = (props: NavigationHelpersProps) => {
+interface NavigationHelpersProps extends HTMLAttributes<HTMLDivElement> {}
+
+export const NavigationHelpers = ({ children }: NavigationHelpersProps) => {
   return (
-    <div className="sticky top-[theme(spacing.header-mobile)] z-10 flex justify-between sm:top-[calc(theme(spacing.header-desktop)_+_theme(spacing.2))]">
-      <GoBackButton />
+    <div className="sticky top-[theme(spacing.header-mobile)] z-10 mb-2 flex justify-between sm:top-[calc(theme(spacing.header-desktop)_+_theme(spacing.2))]">
+      {children}
       <BackToTopButton />
     </div>
   );
 };
 
-const GoBackButton = () => {
-  const router = useRouter();
+interface NavigationHelperNavigationButtonProps {
+  href: string;
+  children: ReactNode;
+}
 
-  const goBack = () => {
-    router.back();
-  };
-
+export const NavigationHelperNavigationButton = ({
+  href,
+  children
+}: NavigationHelperNavigationButtonProps) => {
   return (
-    <button
-      className="label mb-2 flex items-center gap-2 font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
-      onClick={goBack}>
-      <FaArrowCircleLeft />
-      <span>Go back</span>
-    </button>
+    <Link
+      className="label flex items-center gap-2 whitespace-nowrap font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
+      href={href}
+      type="button">
+      {children}
+    </Link>
   );
 };
 
 const BackToTopButton = () => {
-  const scrollToTop = () => {
-    let scrollY = window.scrollY;
-    const interval = setInterval(() => {
-      if (scrollY === window.scrollY) {
-        clearInterval(interval);
-        window.scrollTo({
-          top: 0
-        });
-      }
-      scrollY = window.scrollY;
-    }, 100);
-  };
-
   return (
     <button
-      className="label mb-2 flex items-center gap-2 font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
+      className="label flex items-center gap-2 whitespace-nowrap font-digital text-xl transition-colors hover-focus:bg-secondary-active md:text-2xl"
+      type="button"
       onClick={scrollToTop}>
       <span>Back top top</span>
     </button>

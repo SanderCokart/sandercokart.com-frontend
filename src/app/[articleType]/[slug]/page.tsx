@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { FaArrowCircleLeft } from 'react-icons/fa';
 
 import { cache } from 'react';
 import Image from 'next/image';
@@ -9,13 +10,15 @@ import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelResponse } from '@/types/ResponseTypes';
 import type { Metadata } from 'next';
 
-import { NavigationHelpers } from '@/app/components';
+import { NavigationHelperNavigationButton, NavigationHelpers } from '@/app/components';
+import { TableOfContents } from '@/app/components/table-of-contents';
 
 import mdxComponents from '@/constants/mdxComponents';
 import mdxOptions from '@/constants/mdxOptions';
 import api from '@/functions/shared/api';
 import { calculatePublishedTimestamp } from '@/functions/shared/utils';
 import { ApiRouteArticle } from '@/routes/api-routes';
+import { localArticlesRoute, localHomeRoute } from '@/routes/local-routes';
 
 interface MetaDataProps {
   params: RouteParams;
@@ -68,7 +71,13 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
   return (
     <main className="min-h-main p-4 md:p-8">
       <div className="mx-auto max-w-screen-lg">
-        <NavigationHelpers />
+        <NavigationHelpers>
+          <NavigationHelperNavigationButton href={localArticlesRoute(articleType)}>
+            <FaArrowCircleLeft />
+            <span>Go to overview</span>
+          </NavigationHelperNavigationButton>
+          <TableOfContents ids={ids} />
+        </NavigationHelpers>
         <div>
           <div className="relative aspect-[3/2]">
             <Image
@@ -91,20 +100,10 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
             </div>
           </div>
         </div>
-        <div className="relative mx-auto grid max-w-screen-lg grid-cols-[3fr,1fr] gap-8">
-          <article className="article flex flex-col gap-4 leading-relaxed">
+        <div className="relative mx-auto max-w-screen-lg">
+          <article className="article space-y-4 leading-relaxed">
             <MDXRemote components={mdxComponents} options={{ mdxOptions }} source={article.body} />
           </article>
-          <aside className="">
-            <h1>Table Of Contents</h1>
-            <ul className="list-inside list-disc">
-              {ids?.map(id => (
-                <li key={id}>
-                  <a href={`#${id}`}>{id}</a>
-                </li>
-              ))}
-            </ul>
-          </aside>
         </div>
       </div>
     </main>
