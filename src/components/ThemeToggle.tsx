@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge';
 
 import type { ComponentProps } from 'react';
 
-import BasicAnimation from '@/components/FramerMotion/BasicAnimation';
+import BasicAnimation from '@/components/FramerMotion/basic-animation';
 
 import { ascendVariant, descendVariant } from '@/constants/animations/ascendAndDecend';
 import { fadeVariant } from '@/constants/animations/fade';

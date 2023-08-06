@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
 
-import BasicAnimation from '@/components/FramerMotion/BasicAnimation';
+import BasicAnimation from '@/components/FramerMotion/basic-animation';
 
 import { heightAutoVariant } from '@/constants/animations/height';
 
