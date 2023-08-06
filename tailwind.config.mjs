@@ -4,52 +4,52 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content:  ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class',
-  theme: {
+  theme:    {
     extend: {
-      animation: {
-        'ring-pulse-primary': 'ring-pulse-primary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      animation:  {
+        'ring-pulse-primary':   'ring-pulse-primary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'ring-pulse-secondary': 'ring-pulse-secondary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
       },
-      keyframes: ({ theme }) => ({
-        'ring-pulse-primary': {
-          '0%': { boxShadow: `0 0 0 0 ${theme('colors.primary')}AA` },
+      keyframes:  ({ theme }) => ({
+        'ring-pulse-primary':   {
+          '0%':   { boxShadow: `0 0 0 0 ${theme('colors.primary')}AA` },
           '100%': { boxShadow: `0 0 0 6px ${theme('colors.primary')}00` }
         },
         'ring-pulse-secondary': {
-          '0%': { boxShadow: `0 0 0 0 ${theme('colors.secondary')}AA` },
+          '0%':   { boxShadow: `0 0 0 0 ${theme('colors.secondary')}AA` },
           '100%': { boxShadow: `0 0 0 6px ${theme('colors.secondary')}00` }
         }
       }),
       fontFamily: {
-        sans: ['var(--font-roboto)', ...defaultTheme.fontFamily.sans],
-        code: 'var(--font-cascadia-mono)',
+        sans:    ['var(--font-roboto)', ...defaultTheme.fontFamily.sans],
+        code:    'var(--font-cascadia-mono)',
         digital: 'var(--font-digital)'
       },
-      colors: {
+      colors:     {
         background: {
-          DEFAULT: 'hsl(var(--background) / <alpha-value>)',
-          foreground: 'hsl(var(--background-foreground) / <alpha-value>)',
+          DEFAULT:    'hsl(var(--background) / <alpha-value>)',
+          foreground: 'hsl(var(--background-foreground) / <alpha-value>)'
         },
-        muted:{
-          DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
-          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+        muted:      {
+          DEFAULT:    'hsl(var(--muted) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)'
         },
-        primary:{
-          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+        primary:    {
+          DEFAULT:    'hsl(var(--primary) / <alpha-value>)',
           foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
-          active: 'hsl(var(--primary-active) / <alpha-value>)',
+          active:     'hsl(var(--primary-active) / <alpha-value>)'
         },
-        secondary:{
-          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+        secondary:  {
+          DEFAULT:    'hsl(var(--secondary) / <alpha-value>)',
           foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
-          active: 'hsl(var(--secondary-active) / <alpha-value>)',
+          active:     'hsl(var(--secondary-active) / <alpha-value>)'
         },
-        misc:{
-          react: '#61dafb',
+        misc:       {
+          react:   '#61dafb',
           laravel: '#ff2d20',
-          vue: '#42b883'
+          vue:     '#42b883'
         }
         // 'body': 'hsl(var(--color-body) / <alpha-value>)',
         // 'body-muted': 'hsl(var(--color-body-muted) / <alpha-value>)',
@@ -65,14 +65,14 @@ export default {
         // 'laravel': '#ff2d20',
         // 'vue': '#42b883'
       },
-      container: {
+      container:  {
         center: true
       },
-      screens: {
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
+      screens:    {
+        'sm':  '640px',
+        'md':  '768px',
+        'lg':  '1024px',
+        'xl':  '1280px',
         '2xl': '1536px',
         '3xl': '1920px',
         '4xl': '2048px',
@@ -80,44 +80,44 @@ export default {
         '6xl': '3840px'
       },
       dropShadow: ({ theme }) => ({
-        'light': `0 0px 10px rgba(0, 0, 0, 0.5)`,
-        'dark': `0 0px 10px ${theme('colors.primary')}`,
-        'react': `0 0px 10px ${theme('colors.react')}`,
-        'laravel': `0 0px 10px ${theme('colors.laravel')}`,
-        'vue': `0 0px 10px ${theme('colors.vue')}`,
-        'next': `0 0px 10px #fff`,
-        'primary': `0 0px 10px ${theme('colors.primary')}`,
+        'light':     `0 0px 10px rgba(0, 0, 0, 0.5)`,
+        'dark':      `0 0px 10px ${theme('colors.primary')}`,
+        'react':     `0 0px 10px ${theme('colors.react')}`,
+        'laravel':   `0 0px 10px ${theme('colors.laravel')}`,
+        'vue':       `0 0px 10px ${theme('colors.vue')}`,
+        'next':      `0 0px 10px #fff`,
+        'primary':   `0 0px 10px ${theme('colors.primary')}`,
         'secondary': `0 0px 10px ${theme('colors.secondary')}`,
-        'hard-sm': '0 2px 0 #000'
+        'hard-sm':   '0 2px 0 #000'
       }),
       textShadow: ({ theme }) => ({
-        react: `0 0 50px ${theme('colors.react')}`,
+        react:   `0 0 50px ${theme('colors.react')}`,
         laravel: `0 0px 50px ${theme('colors.laravel')}`,
-        vue: `0 0px 50px ${theme('colors.vue')}`,
-        next: `0 0px 50px #fff`,
-        none: 'none'
+        vue:     `0 0px 50px ${theme('colors.vue')}`,
+        next:    `0 0px 50px #fff`,
+        none:    'none'
       }),
-      minHeight: ({ theme }) => ({
+      minHeight:  ({ theme }) => ({
         desktop: `calc(100dvh - ${theme('spacing.header-desktop')})`,
         between: `calc(100dvh - ${theme('spacing.header-desktop')} - ${theme(
           'spacing.header-mobile'
         )})`,
-        mobile: `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`
+        mobile:  `calc(100dvh - ${theme('spacing.nav-mobile')} - ${theme('spacing.header-mobile')})`
       }),
-      spacing: {
+      spacing:    {
         'header-desktop': defaultTheme.spacing[16],
-        'header-mobile': defaultTheme.spacing[11],
-        'nav-mobile': defaultTheme.spacing[14]
+        'header-mobile':  defaultTheme.spacing[11],
+        'nav-mobile':     defaultTheme.spacing[14]
       },
-      boxShadow: {
+      boxShadow:  {
         'hard-sm': '0 2px 0 0 #000'
       }
     }
   },
-  plugins: [
+  plugins:  [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
-    plugin(function ({ matchUtilities, theme }) {
+    plugin(function({ matchUtilities, theme }) {
       matchUtilities(
         {
           'text-shadow': value => ({
@@ -127,7 +127,7 @@ export default {
         { values: theme('textShadow') }
       );
     }),
-    plugin(function ({ matchUtilities, theme }) {
+    plugin(function({ matchUtilities, theme }) {
       matchUtilities(
         {
           'w-screen': value => ({

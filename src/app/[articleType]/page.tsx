@@ -89,7 +89,7 @@ const ArticleFigure = ({ article }: ArticleFigureProps) => (
             </p>
           </div>
 
-          <span className="label text-center font-code text-xs text-black shadow-none ">
+          <span className="label text-center font-code text-xs text-black shadow-none">
             Published: {calculatePublishedTimestamp(article.published_at, true)}
           </span>
         </figcaption>
