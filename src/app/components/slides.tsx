@@ -45,7 +45,7 @@ export const Slides = ({ articles: { general, tips, courses } }: SlidesProps) =>
           {general.map(article => (
             <SwiperSlide
               key={article.id}
-              className="aspect-video w-full overflow-hidden border-4 border-primary sm:w-[min(578px,100%)] md:rounded">
+              className="aspect-video w-full overflow-hidden border-4 border-primary transition-colors hover-focus-within:border-secondary sm:w-[min(578px,100%)] md:rounded">
               <ArticleFigure article={article} />
             </SwiperSlide>
           ))}
@@ -56,7 +56,7 @@ export const Slides = ({ articles: { general, tips, courses } }: SlidesProps) =>
           {courses.map(course => (
             <SwiperSlide
               key={course.id}
-              className="aspect-video w-full overflow-hidden border-4 border-primary sm:w-[min(578px,100%)] md:rounded">
+              className="aspect-video w-full overflow-hidden border-4 border-primary transition-colors hover-focus-within:border-secondary sm:w-[min(578px,100%)] md:rounded">
               <CourseFigure course={course} />
             </SwiperSlide>
           ))}
@@ -67,7 +67,7 @@ export const Slides = ({ articles: { general, tips, courses } }: SlidesProps) =>
           {tips.map(article => (
             <SwiperSlide
               key={article.id}
-              className="aspect-video w-full overflow-hidden border-4 border-primary sm:w-[min(578px,100%)] md:rounded">
+              className="aspect-video w-full overflow-hidden border-4 border-primary transition-colors hover-focus-within:border-secondary sm:w-[min(578px,100%)] md:rounded">
               <ArticleFigure article={article} />
             </SwiperSlide>
           ))}

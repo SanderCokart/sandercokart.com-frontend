@@ -19,7 +19,7 @@ export const CourseFigure = ({ course }: CourseFigureProps) => {
         <Image
           fill
           alt={course.title}
-          className="transition-transform group-hover:scale-110"
+          className="transition-transform group-hover-focus:scale-110"
           src={course.banner.original_url}
           style={{ objectFit: 'cover' }}
         />

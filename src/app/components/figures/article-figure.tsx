@@ -14,15 +14,15 @@ export const ArticleFigure = ({ article }: { article: ArticleModel }) => (
       <Image
         fill
         alt={article.title}
-        className="transition-transform group-hover:scale-110"
+        className="transition-transform group-hover-focus:scale-110"
         src={article.banner.original_url}
         style={{ objectFit: 'cover' }}
       />
-      <div className="absolute inset-0 backdrop-blur-[2px] group-hover:backdrop-blur-none" />
+      <div className="absolute inset-0 backdrop-blur-[2px] group-hover-focus:backdrop-blur-none" />
 
       <figcaption
         className={twJoin(
-          'absolute inset-x-0 bottom-0 transition-opacity group-hover:opacity-0',
+          'absolute inset-x-0 bottom-0 transition-opacity group-hover-focus:opacity-0',
           'flex h-full flex-col justify-between',
           'bg-black/25 text-white'
         )}>

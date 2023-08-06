@@ -139,6 +139,8 @@ export default {
     }),
     plugin(function({ addVariant, theme }) {
       addVariant('hover-focus', ['&:hover', '&:focus'])
+      addVariant('hover-focus-within', ['&:hover', '&:focus-within'])
+      addVariant('group-hover-focus', [':merge(.group):hover &', ':merge(.group):focus &'])
     })
   ]
 };
