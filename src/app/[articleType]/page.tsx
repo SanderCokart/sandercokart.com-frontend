@@ -6,6 +6,8 @@ import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
+import { NavigationHelpers } from '@/app/components';
+
 import api from '@/functions/shared/api';
 import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';
 import { ApiRouteArticles } from '@/routes/api-routes';
@@ -33,7 +35,9 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
   const articles = await getArticles(articleType);
 
   return (
-    <main className="min-h-main p-8">
+    <main className="min-h-main p-8" id="articles">
+      <NavigationHelpers />
+
       <div
         className={cn(
           'supports-[grid-template-rows:masonry]:grid-template-rows-[masonry] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',

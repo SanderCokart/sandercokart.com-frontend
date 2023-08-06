@@ -65,7 +65,7 @@
 
 
   body {
-    @apply bg-background text-background-foreground transition-colors;
+    @apply bg-background text-background-foreground transition-colors font-sans;
   }
 
   //
@@ -90,6 +90,9 @@
 //}
 //
 @layer components {
+  .article {
+    @apply whitespace-pre-wrap;
+  }
   //  .base-input {
   //    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
   //  }

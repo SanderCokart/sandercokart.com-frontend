@@ -9,7 +9,7 @@ import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelResponse } from '@/types/ResponseTypes';
 import type { Metadata } from 'next';
 
-import { GoBackButton } from '@/app/[articleType]/[slug]/components/GoBackButton';
+import { NavigationHelpers } from '@/app/components';
 
 import mdxComponents from '@/constants/mdxComponents';
 import mdxOptions from '@/constants/mdxOptions';
@@ -68,42 +68,44 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
   return (
     <main className="min-h-main p-4 md:p-8">
       <div className="mx-auto max-w-screen-lg">
-        <GoBackButton />
-        <div className="relative aspect-[3/2]">
-          <Image
-            fill
-            priority
-            alt={article.banner.file_name}
-            src={article.banner.original_url}
-            style={{ objectFit: 'cover' }}
-          />
-          <div className="absolute inset-x-0 top-0 flex justify-between p-2 font-code text-xs font-bold md:text-xl">
-            <span className="label hidden lg:inline-block">
-              Published: {calculatePublishedTimestamp(article.published_at)}
-            </span>
-            <span
-              className="label lg:hidden"
-              title={`Published: ${calculatePublishedTimestamp(article.published_at)}`}>
-              Published: {calculatePublishedTimestamp(article.published_at, true)}
-            </span>
-            <span className="label capitalize">{article.type.name}</span>
+        <NavigationHelpers />
+        <div>
+          <div className="relative aspect-[3/2]">
+            <Image
+              fill
+              priority
+              alt={article.banner.file_name}
+              src={article.banner.original_url}
+              style={{ objectFit: 'cover' }}
+            />
+            <div className="absolute inset-x-0 top-0 flex justify-between p-2 font-code text-xs font-bold md:text-xl">
+              <span className="label hidden lg:inline-block">
+                Published: {calculatePublishedTimestamp(article.published_at)}
+              </span>
+              <span
+                className="label lg:hidden"
+                title={`Published: ${calculatePublishedTimestamp(article.published_at)}`}>
+                Published: {calculatePublishedTimestamp(article.published_at, true)}
+              </span>
+              <span className="label capitalize">{article.type.name}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="relative mx-auto grid max-w-screen-lg grid-cols-[3fr,1fr] gap-8">
-        <article className="article flex flex-col gap-4 leading-relaxed">
-          <MDXRemote components={mdxComponents} options={{ mdxOptions }} source={article.body} />
-        </article>
-        <aside className="">
-          <h1>Table Of Contents</h1>
-          <ul className="list-inside list-disc">
-            {ids?.map(id => (
-              <li key={id}>
-                <a href={`#${id}`}>{id}</a>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <div className="relative mx-auto grid max-w-screen-lg grid-cols-[3fr,1fr] gap-8">
+          <article className="article flex flex-col gap-4 leading-relaxed">
+            <MDXRemote components={mdxComponents} options={{ mdxOptions }} source={article.body} />
+          </article>
+          <aside className="">
+            <h1>Table Of Contents</h1>
+            <ul className="list-inside list-disc">
+              {ids?.map(id => (
+                <li key={id}>
+                  <a href={`#${id}`}>{id}</a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
       </div>
     </main>
   );

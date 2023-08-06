@@ -148,7 +148,8 @@ export default {
           paddingLeft: theme('spacing.4'),
           backgroundColor: 'hsl(var(--secondary))',
           color: 'hsl(var(--secondary-foreground))',
-          boxShadow: theme('boxShadow.hard-sm')
+          boxShadow: theme('boxShadow.hard-sm'),
+          fontFamily: theme('fontFamily.code'),
         }
       });
     })

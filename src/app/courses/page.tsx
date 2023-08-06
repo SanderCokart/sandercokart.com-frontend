@@ -1,34 +1,22 @@
-import type { CourseModel } from '@/types/ModelTypes';
-import type { CourseModelsResponse } from '@/types/ResponseTypes';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { twJoin } from 'tailwind-merge';
 
-import type { SuccessResponse } from '@/functions/shared/api';
-import api from '@/functions/shared/api';
+import type { CourseModel } from '@/types/ModelTypes';
 
-import { ApiRouteCourses } from '@/routes/api-routes';
+import { getCourses } from '@/functions/server/api';
+import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';
 import { localCourseRoute } from '@/routes/local-routes';
-import { calculatePublishedTimestamp } from '@/functions/shared/utils';
 
-const getCourses = async () => {
-  const {
-    data: { courses }
-  } = await api.simpleGet<null, SuccessResponse<CourseModelsResponse>>(ApiRouteCourses());
-
-  return courses;
-};
-
-const CoursesPage = async () => {
+export default async function CoursesPage() {
   const courses = await getCourses();
 
   return (
     <main className="min-h-main p-8">
       <div
-        className={twJoin(
-          'pointer-events-none grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
-          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity'
+        className={cn(
+          'supports-[grid-template-rows:masonry]:grid-template-rows-[masonry] grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
+          'pointer-events-none',
+          '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-30 [&_>*]:transition-opacity'
         )}>
         {courses.map(course => (
           <CourseFigure key={course.id} course={course} />
@@ -36,12 +24,12 @@ const CoursesPage = async () => {
       </div>
     </main>
   );
-};
+}
 
 const CourseFigure = ({ course }: { course: CourseModel }) => {
   return (
-    <Link className="group pointer-events-auto" href={localCourseRoute(course.slug)}>
-      <figure className="dark:border-secondaryDark relative flex flex-col rounded border-2 border-secondary">
+    <Link className="group" href={localCourseRoute(course.slug)}>
+      <figure className="pointer-events-auto relative flex flex-col rounded border-2 border-secondary">
         <div className="relative aspect-video h-full w-full overflow-hidden">
           <Image
             fill
@@ -52,27 +40,22 @@ const CourseFigure = ({ course }: { course: CourseModel }) => {
           />
         </div>
 
-        <figcaption
-          className={twJoin('flex h-full flex-col justify-between', 'bg-black/25 text-white')}>
+        <figcaption className="flex h-full flex-col justify-between bg-black/25 text-white">
           <h1
-            className={twJoin(
-              'dark:bg-secondaryDark label bg-secondary transition-opacity',
-              'line-clamp-2 font-code text-sm font-black capitalize text-black dark:text-white md:text-xl'
+            className={cn(
+              'label bg-secondary transition-opacity',
+              'line-clamp-2 font-code text-sm font-black capitalize text-black md:text-xl'
             )}>
             {course.title}
           </h1>
 
-          <div
-            className={twJoin(
-              'flex flex-col p-4',
-              'bg-bodyLightSecondary dark:bg-bodyDarkSecondary text-black dark:text-white'
-            )}>
+          <div className="bg-bodyLightSecondary flex flex-col p-4 text-black dark:text-white">
             <p className="line-clamp-5 font-code text-xs font-normal  md:text-base">
               {course.description}
             </p>
           </div>
 
-          <span className={twJoin('label shadow-none', 'text-center font-code text-xs text-black')}>
+          <span className="label text-center font-code text-xs text-black shadow-none">
             Published: {calculatePublishedTimestamp(course.published_at, true)}
           </span>
         </figcaption>
@@ -80,5 +63,3 @@ const CourseFigure = ({ course }: { course: CourseModel }) => {
     </Link>
   );
 };
-
-export default CoursesPage;

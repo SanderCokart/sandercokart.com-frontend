@@ -4,3 +4,4 @@ export * from '@/app/components/slides';
 export * from '@/app/components/logo';
 export * from '@/app/components/the-footer';
 export * from '@/app/components/the-header';
+export * from '@/app/components/navigation-helpers';

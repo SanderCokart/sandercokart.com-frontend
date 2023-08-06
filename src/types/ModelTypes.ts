@@ -57,6 +57,7 @@ export interface CourseModel {
   articles_count: number;
   slug: string;
   banner: MediaModel;
+  articles: ArticleModel[];
 }
 
 export interface Models {
