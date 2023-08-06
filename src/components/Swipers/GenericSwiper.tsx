@@ -27,8 +27,10 @@ const Header = (props: { title: string; href: string }) => (
     )}>
     <span className="flex w-5/6 items-center justify-between">
       <span className="grow">{props.title}</span>
-      <Link className="flex items-center gap-2" href={props.href}>
-        more <FaArrowCircleRight />
+      <Link
+        className="flex items-center gap-2 text-muted-foreground transition-colors hover-focus:text-secondary-foreground"
+        href={props.href}>
+        More <FaArrowCircleRight />
       </Link>
     </span>
   </h1>
