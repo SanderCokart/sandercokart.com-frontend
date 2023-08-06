@@ -1,7 +1,7 @@
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel, CourseModel } from '@/types/ModelTypes';
 
-export const localHomeRoute = (hash: string) => (hash ? `/#${hash}` : '/');
+export const localHomeRoute = (hash?: string) => (hash ? `/#${hash}` : '/');
 
 //articles
 export const localArticleRoute = (typeName: ArticleType, slug: ArticleModel['slug']) =>
