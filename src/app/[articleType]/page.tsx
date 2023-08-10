@@ -8,7 +8,7 @@ import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
-import { NavigationHelperNavigationButton, NavigationHelpers } from '@/app/components';
+import { NavigationHelpers } from '@/app/components';
 
 import api from '@/functions/shared/api';
 import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';
@@ -39,10 +39,10 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
   return (
     <main className="min-h-main p-8" id="articles">
       <NavigationHelpers>
-        <NavigationHelperNavigationButton href={localHomeRoute()}>
+        <NavigationHelpers.NavigationButton href={localHomeRoute()}>
           <FaArrowCircleLeft />
           Back to discover
-        </NavigationHelperNavigationButton>
+        </NavigationHelpers.NavigationButton>
       </NavigationHelpers>
 
       <div

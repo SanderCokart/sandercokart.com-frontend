@@ -4,7 +4,7 @@ import { useLocalStorage } from '@mantine/hooks';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MdSwipeLeft } from 'react-icons/md';
 
-import { fadeWithDelayVariant } from '@/constants/animations/fade';
+import { animateFadeWithDelay } from '@/constants/animations/fade';
 import useDev from '@/hooks/useDev';
 import useMounted from '@/hooks/useMounted';
 
@@ -16,7 +16,7 @@ export const TouchTipNotification = () => {
     setTouched(false);
   });
 
-  const variants = fadeWithDelayVariant(1);
+  const variants = animateFadeWithDelay(1);
 
   if (mounted)
     return (

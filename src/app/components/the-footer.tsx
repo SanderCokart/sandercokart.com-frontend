@@ -18,7 +18,7 @@ export const TheFooter = ({ className, ...restOfProps }: TheFooterProps) => {
       )}
       id="footer"
       {...restOfProps}>
-      <section className="mx-auto flex gap-32 p-8 text-base sm:text-xl">
+      <section className="mx-auto hidden gap-32 p-8 text-base sm:text-xl md:block">
         <FooterNavigation />
       </section>
       <section className="mx-auto my-8">
@@ -34,7 +34,7 @@ export const TheFooter = ({ className, ...restOfProps }: TheFooterProps) => {
 
 function FooterNavigation() {
   return (
-    <nav aria-label="footer" className="hidden justify-between w-screen-sm md:flex">
+    <nav aria-label="footer" className="flex justify-between w-screen-sm">
       <div className="flex flex-col gap-4">
         <h2 className="text-center text-secondary">Pages</h2>
         <ul className="flex flex-col gap-2">

@@ -15,6 +15,7 @@ export const ArticleFigure = ({ article }: { article: ArticleModel }) => (
         fill
         alt={article.title}
         className="transition-transform group-hover-focus:scale-110"
+        sizes="(min-width: 768px) 50vw, 100vw"
         src={article.banner.original_url}
         style={{ objectFit: 'cover' }}
       />
@@ -22,7 +23,7 @@ export const ArticleFigure = ({ article }: { article: ArticleModel }) => (
 
       <figcaption
         className={twJoin(
-          'absolute inset-x-0 bottom-0 transition-opacity group-hover-focus:opacity-0',
+          'absolute inset-x-0 bottom-0 transition-opacity md:group-hover-focus:opacity-0',
           'flex h-full flex-col justify-between',
           'bg-black/25 text-white'
         )}>

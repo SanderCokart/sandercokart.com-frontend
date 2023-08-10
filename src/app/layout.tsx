@@ -49,9 +49,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <html suppressHydrationWarning lang="en">
       <body className={twJoin(fontVariables)}>
         <GlobalProviders>
-          <TheHeader className="sticky top-0 z-50 " />
-          {children}
-          <TheFooter />
+          <TheHeader className="sticky top-0 z-50" />
+          <main className="min-h-main">{children}</main>
+          <TheFooter className="sticky top-full mb-nav-mobile" />
         </GlobalProviders>
       </body>
     </html>

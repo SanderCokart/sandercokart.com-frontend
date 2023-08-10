@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { CgSun } from 'react-icons/cg';
 import { FaDesktop, FaMoon } from 'react-icons/fa';
@@ -8,10 +8,7 @@ import { twMerge } from 'tailwind-merge';
 
 import type { ComponentProps } from 'react';
 
-import BasicAnimation from '@/components/FramerMotion/basic-animation';
-
-import { ascendVariant, descendVariant } from '@/constants/animations/ascendAndDecend';
-import { fadeVariant } from '@/constants/animations/fade';
+import { animateAscend, animateDescend, animateFade } from '@/constants/animations';
 import useMounted from '@/hooks/useMounted';
 
 export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
@@ -24,33 +21,33 @@ export const ThemeToggle = ({ className, ...props }: ComponentProps<'div'>) => {
     <div className={twMerge('relative grid place-items-center', className)} {...props}>
       <AnimatePresence mode="wait">
         {theme === 'light' && (
-          <BasicAnimation key="light" variants={ascendVariant}>
+          <motion.div key="light" {...animateAscend}>
             <CgSun
-              className="cursor-pointer text-black transition-colors hover-focus:text-secondary"
+              className="focusable cursor-pointer text-black transition-colors hover-focus:text-secondary"
               tabIndex={0}
               onClick={() => setTheme('dark')}
             />
-          </BasicAnimation>
+          </motion.div>
         )}
 
         {theme === 'dark' && (
-          <BasicAnimation key="dark" variants={descendVariant}>
+          <motion.div key="dark" {...animateDescend}>
             <FaMoon
-              className="cursor-pointer text-white transition-colors hover-focus:text-secondary"
+              className="focusable cursor-pointer text-white transition-colors hover-focus:text-secondary"
               tabIndex={0}
               onClick={() => setTheme('system')}
             />
-          </BasicAnimation>
+          </motion.div>
         )}
 
         {theme === 'system' && (
-          <BasicAnimation key="system" variants={fadeVariant}>
+          <motion.div key="system" {...animateFade}>
             <FaDesktop
-              className="cursor-pointer text-white transition-colors hover-focus:text-secondary"
+              className="focusable cursor-pointer text-white transition-colors hover-focus:text-secondary"
               tabIndex={0}
               onClick={() => setTheme('light')}
             />
-          </BasicAnimation>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

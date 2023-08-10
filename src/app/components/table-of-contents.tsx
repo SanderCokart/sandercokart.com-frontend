@@ -1,14 +1,11 @@
 'use client';
 
 import { useClickOutside } from '@mantine/hooks';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
-import BasicAnimation from '@/components/FramerMotion/basic-animation';
-
-import { heightAutoVariant } from '@/constants/animations/height';
+import { animateHeightAuto } from '@/constants/animations/height';
 
 interface TableOfContentsProps {
   ids: string[];
@@ -37,19 +34,17 @@ export const TableOfContents = ({ ids }: TableOfContentsProps) => {
       </button>
       <AnimatePresence>
         {open && (
-          <BasicAnimation
-            className="absolute left-0 right-0 top-full flex flex-col gap-2 overflow-hidden text-left"
-            variants={heightAutoVariant}>
-            <ul className="bg-muted">
-              {ids.map(id => (
-                <li key={id} className="px-4 hover-focus:bg-secondary">
-                  <a className="block" href={`#${id}`} onClick={close}>
-                    {id.replace(/-/g, ' ')}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </BasicAnimation>
+          <motion.ul
+            className="absolute left-0 right-0 top-full flex flex-col gap-2 overflow-hidden bg-muted text-left"
+            {...animateHeightAuto}>
+            {ids.map(id => (
+              <li key={id} className="px-4 hover-focus:bg-secondary">
+                <a className="block" href={`#${id}`} onClick={close}>
+                  {id.replace(/-/g, ' ')}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
         )}
       </AnimatePresence>
     </div>

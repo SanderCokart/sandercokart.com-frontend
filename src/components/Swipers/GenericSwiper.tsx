@@ -1,7 +1,7 @@
 'use client';
 
 import { FaArrowCircleRight, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { Grid, Keyboard, Mousewheel, Navigation } from 'swiper';
+import { Keyboard, Mousewheel, Navigation } from 'swiper';
 import { Swiper } from 'swiper/react';
 import { twJoin } from 'tailwind-merge';
 
@@ -41,22 +41,24 @@ export const GenericSwiper = ({ title, children, moreHref }: GenericSwiperProps)
     0: {
       slidesPerGroup: 1,
       spaceBetween: 8,
-      centeredSlides: true
+      centeredSlides: false,
+      slidesPerView: 1.1
     },
-    640: {
+    768: {
       slidesPerGroup: 2,
       spaceBetween: 64,
-      centeredSlides: false
+      centeredSlides: false,
+      slidesPerView: 'auto'
     }
   };
 
   return (
     <section className="relative z-10 shadow-2xl">
       <Header href={moreHref} title={title} />
-      <div className="bg-body-muted relative border-secondary py-4 md:p-8">
+      <div className="bg-body-muted relative border-secondary md:p-8">
         <Swiper
           breakpoints={breakpoints}
-          className="px-6 md:static md:px-10"
+          className="md:static md:px-10"
           keyboard={{ onlyInViewport: true }}
           modules={[Keyboard, Navigation, Mousewheel]}
           mousewheel={{ forceToAxis: true }}

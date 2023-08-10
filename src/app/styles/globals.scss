@@ -65,7 +65,8 @@
 
 
   body {
-    @apply bg-background text-background-foreground transition-colors font-sans;
+    @apply bg-background text-background-foreground transition-colors font-sans
+    min-h-[100dvh];
   }
 
   //
@@ -83,12 +84,10 @@
   @import "partials/scrollbar";
 }
 
-//@layer utilities {
-//  .min-h-main {
-//    @apply min-h-mobile sm:min-h-between md:min-h-desktop;
-//  }
-//}
-//
+@layer utilities {
+
+}
+
 @layer components {
   .article {
     @apply whitespace-pre-wrap;
@@ -98,12 +97,11 @@
     @apply block font-bold py-1 px-4 bg-secondary text-secondary-foreground shadow-hard-sm font-code;
   }
 
-  //
+  .focusable {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background-foreground;
+  }
 
   //
-  //    img {
-  //      @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
-  //    }
   //
   //    ul {
   //      @apply flex flex-col gap-2;

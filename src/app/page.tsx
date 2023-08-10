@@ -6,9 +6,9 @@ export default async function HomePage() {
   const articles = await getArticles();
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <Slides articles={articles} />
-    </main>
+    </div>
   );
 }
 

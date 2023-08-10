@@ -1,3 +1,5 @@
+import { AnimatePresence } from 'framer-motion';
+
 import type { HTMLAttributes } from 'react';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -16,9 +18,9 @@ export const TheHeader = ({ className, ...restOfProps }: TheHeaderProps) => (
       className
     )}
     {...restOfProps}>
-    <div className="container grid h-full grid-cols-[240px,1fr,40px] items-center">
+    <div className="container grid h-full grid-cols-[240px,1fr,40px] items-center px-4">
       <Logo className="justify-self-start" />
-      <MobileNavigation aria-label="mobile" className="md:hidden" />
+      <MobileNavigation aria-label="mobile" className="!md:hidden" />
       <DesktopNavigation
         aria-label="main"
         className="hidden grow flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl md:flex"
