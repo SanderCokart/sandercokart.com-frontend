@@ -1,6 +1,3 @@
 {
-  "extends": [
-    "./eslint/lint-next-13.json"
-  ],
-  "parser": "@typescript-eslint/parser"
+  "extends": ["next/core-web-vitals", "@sandercokart/eslint-config"]
 }

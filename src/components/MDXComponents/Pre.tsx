@@ -4,9 +4,14 @@ import { useSessionStorage } from '@mantine/hooks';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { Animation } from '@/types/CommonTypes';
+
+import { AnimatePresence, motion } from '@/components/framer-motion';
+
+import { cn } from '@/functions/shared/utils';
 
 interface PreProps extends ComponentPropsWithoutRef<'pre'> {
   children: ReactNode;
@@ -17,7 +22,7 @@ interface PreProps extends ComponentPropsWithoutRef<'pre'> {
 export const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: PreProps) => {
   const [theme] = useSessionStorage({
     key: 'codeTheme',
-    defaultValue: 'tokyo-night-dark'
+    defaultValue: 'tokyo-night-dark',
   });
 
   return (
@@ -30,11 +35,7 @@ export const Pre = ({ children, title, className, showLineNumbers, ...restOfProp
       </div>
       <pre
         {...restOfProps}
-        className={twJoin(
-          className,
-          theme,
-          'dark:border-primaryDark relative border-2 border-primary'
-        )}>
+        className={twJoin(className, theme, 'dark:border-primaryDark relative border-2 border-primary')}>
         {children}
       </pre>
     </div>
@@ -44,45 +45,70 @@ export const Pre = ({ children, title, className, showLineNumbers, ...restOfProp
 const SelectTheme = () => {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useSessionStorage({
-    key: 'codeTheme'
+    key: 'codeTheme',
+    defaultValue: 'tokyo-night-dark',
   });
+
+  useEffect(() => {
+    import(`../../app/styles/code-highlighting/${theme}.scss`);
+  }, [theme]);
+
   const [initialTheme, setInitialTheme] = useState(theme);
 
+  const containerAnimation: Animation = {
+    variants: {
+      initial: { height: 0, transition: { duration: 0.15 } },
+      animate: { height: 'auto', transition: { duration: 0.15, staggerChildren: 0.05 } },
+      exit: { height: 0, transition: { duration: 0.15 }, paddingTop: 0, paddingBottom: 0 },
+    },
+    animate: 'animate',
+    initial: 'initial',
+    exit: 'exit',
+  };
+
   return (
-    <div
-      className="relative flex cursor-pointer items-center gap-1 rounded-t bg-secondary px-2 py-1 text-secondary-foreground"
+    <button
+      className="relative flex w-[175px] select-none items-center justify-between gap-1 rounded-t bg-secondary px-2 py-1 font-bold text-secondary-foreground"
+      type="button"
       onClick={() => setOpen(open => !open)}
       onMouseLeave={() => {
         setOpen(false);
+        setTheme(initialTheme);
       }}>
       {theme}
-      {open ? <FaChevronUp /> : <FaChevronDown />}
-      {open && (
-        <div
-          className="bg-secondaryDark absolute right-0 top-8 z-10 flex w-[200px] flex-col gap-1 rounded-b"
-          onMouseLeave={() => setOpen(false)}>
-          {themes.map(themeName => (
-            <div
-              key={themeName}
-              className="cursor-pointer select-none bg-secondary px-2 py-1 text-secondary-foreground hover:bg-secondary-active"
-              onClickCapture={() => {
-                setOpen(false);
-                setInitialTheme(themeName);
-                setTheme(themeName);
-              }}
-              onMouseEnter={() => {
-                import(`../../app/styles/code-highlighting/${themeName}.scss`);
-                setTheme(themeName);
-              }}
-              onMouseLeave={() => {
-                setTheme(initialTheme);
-              }}>
-              {themeName}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      <FaChevronDown className={cn('transition-transform', open && '-rotate-180')} />
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            {...containerAnimation}
+            className="absolute right-0 top-full z-10 w-full cursor-auto space-y-1 overflow-hidden rounded-b-2xl border border-secondary bg-muted p-4 shadow-2xl">
+            {themes.map(themeName => (
+              <motion.div
+                key={themeName}
+                className="origin-top cursor-pointer select-none bg-secondary px-2 py-1 text-secondary-foreground hover:bg-secondary-active"
+                variants={{
+                  initial: {
+                    scale: 0,
+                  },
+                  animate: {
+                    scale: 1,
+                  },
+                }}
+                onClick={() => {
+                  // setOpen(false);
+                  setInitialTheme(themeName);
+                  setTheme(themeName);
+                }}
+                onMouseEnter={() => {
+                  setTheme(themeName);
+                }}>
+                {themeName}
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </button>
   );
 };
 
@@ -150,7 +176,7 @@ const themes = [
   // 'stackoverflow-light',
   // 'sunburst',
   'tokyo-night-dark',
-  'tokyo-night-light'
+  'tokyo-night-light',
   // 'tomorrow-night-blue',
   // 'tomorrow-night-bright',
   // 'vs',

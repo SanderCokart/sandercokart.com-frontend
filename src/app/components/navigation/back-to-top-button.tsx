@@ -2,9 +2,10 @@
 
 import { FaChevronUp } from 'react-icons/fa';
 
-import { MotionButton } from '@/components/framer-motion';
+import { motion } from '@/components/framer-motion';
 
 import { animateWidth } from '@/constants/animations';
+
 import useWindowOverflow from '@/hooks/useWindowOverflow';
 
 interface BackToTopButtonProps {}
@@ -16,12 +17,12 @@ export const BackToTopButton = (props: BackToTopButtonProps) => {
 
   const scrollToTop = () => {
     window.scrollTo({
-      top: 0
+      top: 0,
     });
   };
 
   return (
-    <MotionButton
+    <motion.button
       aria-label="back to top"
       className="grid w-nav-mobile place-items-center bg-secondary"
       title="Back to top"
@@ -30,6 +31,6 @@ export const BackToTopButton = (props: BackToTopButtonProps) => {
       {...animateWidth('56px')}
       exit={{}}>
       <FaChevronUp />
-    </MotionButton>
+    </motion.button>
   );
 };

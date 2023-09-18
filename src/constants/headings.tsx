@@ -3,14 +3,10 @@ import type { HTMLAttributes } from 'react';
 import { cn } from '@/functions/shared/utils';
 
 const globalClass =
-  'md:scroll-mt-[calc(theme(spacing.header-desktop)_+_theme(spacing.16))] sm:scroll-my-header-mobile inline-block label focus:bg-secondary-active';
+  'md:scroll-mt-[calc(theme(spacing.header-desktop)_+_theme(spacing.16))] sm:scroll-my-header-mobile inline-block label';
 
 export const h1 = ({ className, ...restOfProps }: HTMLAttributes<HTMLHeadingElement>) => (
-  <h1
-    className={cn(globalClass, 'p-4 text-5xl font-bold', className)}
-    tabIndex={0}
-    {...restOfProps}
-  />
+  <h1 className={cn(globalClass, 'p-4 text-5xl font-bold', className)} tabIndex={0} {...restOfProps} />
 );
 
 export const h2 = ({ className, ...restOfProps }: HTMLAttributes<HTMLHeadingElement>) => (
