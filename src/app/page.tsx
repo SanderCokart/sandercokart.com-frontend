@@ -1,4 +1,4 @@
-import { Slides } from '@/app/components';
+import { Slides } from '@/app/components/slides';
 
 import { getArticlePaths, getArticles } from '@/functions/server/api';
 

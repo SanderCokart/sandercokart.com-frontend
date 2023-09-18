@@ -1,9 +1,10 @@
 'use client';
 
 import { useSessionStorage } from '@mantine/hooks';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
@@ -13,11 +14,8 @@ interface PreProps extends ComponentPropsWithoutRef<'pre'> {
   title?: string;
 }
 
-const PreContext = createContext({} as { theme: string });
-export const usePreContext = () => useContext(PreContext);
-
 export const Pre = ({ children, title, className, showLineNumbers, ...restOfProps }: PreProps) => {
-  const [theme, setTheme] = useSessionStorage({
+  const [theme] = useSessionStorage({
     key: 'codeTheme',
     defaultValue: 'tokyo-night-dark'
   });
@@ -28,33 +26,62 @@ export const Pre = ({ children, title, className, showLineNumbers, ...restOfProp
         <ul className="flex justify-start">
           <li className="dark:bg-secondaryDark px-2 py-1 empty:hidden">{title}</li>
         </ul>
-        <select
-          className="dark:bg-secondaryDark cursor-pointer rounded-t bg-secondary py-0 text-black dark:text-white"
-          id="theme"
-          name="theme"
-          value={theme}
-          onChange={e => setTheme(e.target.value)}>
-          {themes.map(theme => (
-            <option
-              key={theme}
-              className="dark:bg-secondaryDark cursor-pointer bg-secondary"
-              value={theme}>
-              {theme}
-            </option>
-          ))}
-        </select>
+        <SelectTheme />
       </div>
-      <PreContext.Provider value={{ theme }}>
-        <pre
-          {...restOfProps}
-          className={twJoin(
-            className,
-            theme,
-            'dark:border-primaryDark relative border-2 border-primary'
-          )}>
-          {children}
-        </pre>
-      </PreContext.Provider>
+      <pre
+        {...restOfProps}
+        className={twJoin(
+          className,
+          theme,
+          'dark:border-primaryDark relative border-2 border-primary'
+        )}>
+        {children}
+      </pre>
+    </div>
+  );
+};
+
+const SelectTheme = () => {
+  const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useSessionStorage({
+    key: 'codeTheme'
+  });
+  const [initialTheme, setInitialTheme] = useState(theme);
+
+  return (
+    <div
+      className="relative flex cursor-pointer items-center gap-1 rounded-t bg-secondary px-2 py-1 text-secondary-foreground"
+      onClick={() => setOpen(open => !open)}
+      onMouseLeave={() => {
+        setOpen(false);
+      }}>
+      {theme}
+      {open ? <FaChevronUp /> : <FaChevronDown />}
+      {open && (
+        <div
+          className="bg-secondaryDark absolute right-0 top-8 z-10 flex w-[200px] flex-col gap-1 rounded-b"
+          onMouseLeave={() => setOpen(false)}>
+          {themes.map(themeName => (
+            <div
+              key={themeName}
+              className="cursor-pointer select-none bg-secondary px-2 py-1 text-secondary-foreground hover:bg-secondary-active"
+              onClickCapture={() => {
+                setOpen(false);
+                setInitialTheme(themeName);
+                setTheme(themeName);
+              }}
+              onMouseEnter={() => {
+                import(`../../app/styles/code-highlighting/${themeName}.scss`);
+                setTheme(themeName);
+              }}
+              onMouseLeave={() => {
+                setTheme(initialTheme);
+              }}>
+              {themeName}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -4,8 +4,9 @@ import type { HTMLAttributes } from 'react';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
 
-import { Logo, ScrollProgressIndicator } from '@/app/components';
+import { Logo } from '@/app/components/logo';
 import { DesktopNavigation, MobileNavigation } from '@/app/components/navigation';
+import { ScrollProgressIndicator } from '@/app/components/scroll-progress-indicator';
 
 import { cn } from '@/functions/shared/utils';
 

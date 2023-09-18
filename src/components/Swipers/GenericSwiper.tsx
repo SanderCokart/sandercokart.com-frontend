@@ -1,7 +1,7 @@
 'use client';
 
 import { FaArrowCircleRight, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { Keyboard, Mousewheel, Navigation } from 'swiper';
+import { A11y, Keyboard, Mousewheel, Navigation } from 'swiper';
 import { Swiper } from 'swiper/react';
 import { twJoin } from 'tailwind-merge';
 
@@ -60,7 +60,7 @@ export const GenericSwiper = ({ title, children, moreHref }: GenericSwiperProps)
           breakpoints={breakpoints}
           className="md:static md:px-10"
           keyboard={{ onlyInViewport: true }}
-          modules={[Keyboard, Navigation, Mousewheel]}
+          modules={[Keyboard, Navigation, Mousewheel, A11y]}
           mousewheel={{ forceToAxis: true }}
           navigation={{ prevEl: '#previous-slide', nextEl: '#next-slide' }}
           preventInteractionOnTransition={true}

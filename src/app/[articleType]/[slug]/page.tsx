@@ -10,7 +10,7 @@ import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelResponse } from '@/types/ResponseTypes';
 import type { Metadata } from 'next';
 
-import { NavigationHelperNavigationButton, NavigationHelpers } from '@/app/components';
+import { NavigationHelpers } from '@/app/components/navigation-helpers';
 
 import mdxComponents from '@/constants/mdxComponents';
 import mdxOptions from '@/constants/mdxOptions';
@@ -70,10 +70,10 @@ const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) 
     <main className="min-h-main p-4 md:p-8">
       <div className="relative">
         <NavigationHelpers>
-          <NavigationHelperNavigationButton href={localArticlesRoute(articleType)}>
+          <NavigationHelpers.NavigationButton href={localArticlesRoute(articleType)}>
             <FaArrowCircleLeft />
             <span>Go to overview</span>
-          </NavigationHelperNavigationButton>
+          </NavigationHelpers.NavigationButton>
         </NavigationHelpers>
         <div className=" mx-auto max-w-screen-lg">
           <div>

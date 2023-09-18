@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import type { HTMLMotionProps } from 'framer-motion';
 
-import { AnimatePresence, MotionNav } from '@/components/framer-motion';
+import { AnimatePresence, motion } from '@/components/framer-motion';
 
 import { BackToTopButton } from '@/app/components/navigation/back-to-top-button';
 
@@ -23,7 +23,7 @@ export const MobileNavigation = ({ className, ...restOfProps }: MobileNavigation
   return (
     <AnimatePresence>
       {isMobile && (
-        <MotionNav
+        <motion.nav
           className={cn(
             'fixed bottom-0 left-0 flex w-full bg-primary font-bold text-white',
             className
@@ -41,7 +41,7 @@ export const MobileNavigation = ({ className, ...restOfProps }: MobileNavigation
           ))}
 
           <BackToTopButton />
-        </MotionNav>
+        </motion.nav>
       )}
     </AnimatePresence>
   );

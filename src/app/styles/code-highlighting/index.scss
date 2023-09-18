@@ -10,6 +10,6 @@
 pre {
   @apply max-h-[75dvh] overflow-auto;
   &::-webkit-scrollbar-thumb {
-    @apply dark:bg-primaryDark bg-primary;
+    @apply bg-primary;
   }
 }

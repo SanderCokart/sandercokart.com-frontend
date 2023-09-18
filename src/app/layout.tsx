@@ -1,4 +1,8 @@
 import './styles/globals.scss';
+import 'swiper/scss';
+import 'swiper/scss/mousewheel';
+import 'swiper/scss/navigation';
+import 'swiper/scss/a11y';
 
 import { twJoin } from 'tailwind-merge';
 
@@ -8,7 +12,9 @@ import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-import { GlobalProviders, TheFooter, TheHeader } from '@/app/components';
+import { GlobalProviders } from '@/app/components/global-providers';
+import { TheFooter } from '@/app/components/the-footer';
+import { TheHeader } from '@/app/components/the-header';
 
 const fontLetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',

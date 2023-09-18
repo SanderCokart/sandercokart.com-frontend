@@ -8,7 +8,7 @@ import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
-import { NavigationHelpers } from '@/app/components';
+import { NavigationHelpers } from '@/app/components/navigation-helpers';
 
 import api from '@/functions/shared/api';
 import { calculatePublishedTimestamp, cn } from '@/functions/shared/utils';

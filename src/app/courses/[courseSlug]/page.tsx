@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { NavigationHelpers } from '@/app/components';
+import { NavigationHelpers } from '@/app/components/navigation-helpers';
 
 import { getCourse } from '@/functions/server/api';
 import { calculatePublishedTimestamp } from '@/functions/shared/utils';
