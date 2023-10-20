@@ -1,11 +1,11 @@
-import { clsx } from 'clsx';
+import { cx } from 'class-variance-authority';
 import moment from 'moment/moment';
 import { twMerge } from 'tailwind-merge';
 
-import type { ClassValue } from 'clsx';
+import type { CxOptions } from 'class-variance-authority';
 
-export function cn(...args: ClassValue[]) {
-  return twMerge(clsx(args));
+export function cn(...args: CxOptions[]) {
+  return twMerge(cx(args));
 }
 
 export const calculatePublishedTimestamp = (timestamp: string, short?: boolean) => {
