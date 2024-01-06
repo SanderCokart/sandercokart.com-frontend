@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="dev on network" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="ip=$(ipconfig | grep IPv4 | awk '{print $NF}') &amp;&amp; yarn run dev --hostname $ip --port=80" />
+    <option name="SCRIPT_TEXT" value="ip=$(ipconfig | grep IPv4 | awk '{print $NF}' | grep '^192') &amp;&amp; pnpm dev --hostname $ip --port=80" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
@@ -9,7 +9,7 @@
     <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
     <option name="INTERPRETER_PATH" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
-    <option name="EXECUTE_IN_TERMINAL" value="true" />
+    <option name="EXECUTE_IN_TERMINAL" value="false" />
     <option name="EXECUTE_SCRIPT_FILE" value="false" />
     <envs />
     <method v="2" />
