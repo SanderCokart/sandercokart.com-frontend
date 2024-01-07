@@ -83,7 +83,7 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
         </GenericSwiper>
       </motion.div>
       <motion.div className="relative z-10" variants={itemVariants}>
-        <GenericSwiper moreHref={localArticlesRoute("tips")} title="General">
+        <GenericSwiper moreHref={localArticlesRoute("tips")} title="Tips">
           <ComingSoon active={!tips.length}>
             {tips.map((article) => (
               <SwiperSlide
