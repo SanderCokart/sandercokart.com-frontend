@@ -2,26 +2,20 @@ import type { ArticleType } from "@/types/CommonTypes";
 import type { ArticleModel } from "@/types/ModelTypes";
 import type { ArticleModelsResponse } from "@/types/ResponseTypes";
 
+import { ArticleFigure } from "@/app/[articleType]/articleFigure";
 import { ApiRouteArticles } from "@/routes/api-routes";
-import { localArticleRoute } from "@/routes/local-routes";
 import moment from "moment/moment";
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { twJoin } from "tailwind-merge";
 
 import type { SuccessResponse } from "@/functions/shared/api";
 import api from "@/functions/shared/api";
-import calculatePublishedTimestamp from "@/functions/shared/calculatePublishedTimestamp";
 
 interface ArticlesPageProps {
   params: {
     articleType: ArticleType;
   };
-}
-
-interface ArticleFigureProps {
-  article: ArticleModel;
 }
 
 const getArticles = async (type: ArticleType) => {
@@ -126,61 +120,5 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
     </div>
   );
 };
-
-const ArticleFigure = ({ article }: ArticleFigureProps) => (
-  <Link
-    key={article.id}
-    className="group pointer-events-auto"
-    href={localArticleRoute(article.type.name, article.slug)}
-  >
-    <figure className="relative flex flex-col border-2 border-secondary transition-transform hover:scale-95 dark:border-secondaryDark">
-      <div className="relative aspect-video h-full w-full overflow-hidden">
-        <Image
-          fill
-          alt={article.title}
-          className="transition-transform group-hover:scale-110"
-          src={article.banner.original_url}
-          style={{ objectFit: "cover" }}
-        />
-      </div>
-
-      <figcaption
-        className={twJoin(
-          "flex h-full flex-col justify-between",
-          "bg-black/25 text-white",
-        )}
-      >
-        <h1
-          className={twJoin(
-            "label bg-secondary transition-opacity dark:bg-secondaryDark",
-            "line-clamp-2 font-code text-sm font-black capitalize text-black dark:text-white md:text-xl",
-          )}
-        >
-          {article.title}
-        </h1>
-
-        <div
-          className={twJoin(
-            "flex flex-col p-4",
-            "bg-bodyLightSecondary text-black dark:bg-bodyDarkSecondary dark:text-white",
-          )}
-        >
-          <p className="line-clamp-5 font-code text-xs font-normal md:text-base">
-            {article.excerpt}
-          </p>
-        </div>
-
-        <span
-          className={twJoin(
-            "label shadow-none",
-            "text-center font-code text-xs text-black",
-          )}
-        >
-          Published: {calculatePublishedTimestamp(article.published_at, true)}
-        </span>
-      </figcaption>
-    </figure>
-  </Link>
-);
 
 export default ArticlesPage;
