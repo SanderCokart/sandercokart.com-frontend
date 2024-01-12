@@ -3,8 +3,8 @@
 import type { ArticleModel, CourseModel } from "@/types/ModelTypes";
 import type { ReactNode } from "react";
 
-import ArticleFigure from "@/app/(components)/(figures)/ArticleFigure";
-import CourseFigure from "@/app/(components)/(figures)/CourseFigure";
+import { ArticleSlideItem } from "@/app/(components)/slides/ArticleSlideItem";
+import { CourseSlideItem } from "@/app/(components)/slides/CourseSlideItem";
 import { localArticlesRoute, localCoursesRoute } from "@/routes/local-routes";
 import { motion } from "framer-motion";
 import { SwiperSlide } from "swiper/react";
@@ -62,7 +62,7 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
                 key={article.id}
                 className="aspect-video w-full overflow-hidden border-4 border-primary dark:border-primaryDark sm:w-[min(578px,100%)] md:rounded"
               >
-                <ArticleFigure article={article} />
+                <ArticleSlideItem article={article} />
               </SwiperSlide>
             ))}
           </ComingSoon>
@@ -76,7 +76,7 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
                 key={course.id}
                 className="aspect-video w-full overflow-hidden border-4 border-primary dark:border-primaryDark sm:w-[min(578px,100%)] md:rounded"
               >
-                <CourseFigure course={course} />
+                <CourseSlideItem course={course} />
               </SwiperSlide>
             ))}
           </ComingSoon>
@@ -90,7 +90,7 @@ const Slides = ({ articles: { general, tips, courses } }: SlidesProps) => {
                 key={article.id}
                 className="aspect-video w-full overflow-hidden border-4 border-primary dark:border-primaryDark sm:w-[min(578px,100%)] md:rounded"
               >
-                <ArticleFigure article={article} />
+                <ArticleSlideItem article={article} />
               </SwiperSlide>
             ))}
           </ComingSoon>
