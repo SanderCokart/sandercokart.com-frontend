@@ -7,7 +7,11 @@ import Link from "next/link";
 import calculatePublishedTimestamp from "@/functions/shared/calculatePublishedTimestamp";
 import { cn } from "@/functions/shared/utils";
 
-const ArticleFigure = ({ article }: { article: ArticleModel }) => {
+interface ArticleFigureProps {
+  article: ArticleModel;
+}
+
+const ArticleSlideItem = ({ article }: ArticleFigureProps) => {
   return (
     <Link
       className="group"
@@ -65,4 +69,4 @@ const ArticleFigure = ({ article }: { article: ArticleModel }) => {
   );
 };
 
-export default ArticleFigure;
+export { ArticleSlideItem };
