@@ -38,6 +38,19 @@ const CoursePage = async ({ params: { courseSlug } }: PageProps) => {
     updated_at,
   } = await getCourse(courseSlug);
 
+  const CourseArticleList = () => {
+    if (!!articles.length) {
+      return (
+        <>
+          {articles.map((article) => (
+            <ArticleFigure key={article.id} article={article} />
+          ))}
+        </>
+      );
+    }
+    return <div className="text-center font-code text-2xl">Coming Soon...</div>;
+  };
+
   return (
     <div className="flex">
       <main>
@@ -55,9 +68,7 @@ const CoursePage = async ({ params: { courseSlug } }: PageProps) => {
             "[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity",
           )}
         >
-          {articles.map((article) => (
-            <ArticleFigure key={article.id} article={article} />
-          ))}
+          <CourseArticleList />
         </div>
       </main>
     </div>
