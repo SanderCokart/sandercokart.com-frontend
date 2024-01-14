@@ -1,62 +1,125 @@
-import Link from 'next/link';
-import {FaGithub, FaInstagram, FaYoutube, FaTwitter} from 'react-icons/fa';
-
-const Copyright = () => {
-    const year = new Date().getFullYear();
-    return (
-        <p className="text-center text-sm md:text-xl">
-            © Sander Cokart {year} All rights reserved.
-        </p>
-    );
-};
+import Link from "next/link";
+import { FaGithub, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
-    return (
-        <footer className="fond-bold flex flex-col justify-center bg-primary font-mono text-lg text-white dark:bg-primaryDark"
-                id="footer">
-            <section className="mx-auto flex gap-32 p-8 text-base sm:text-xl">
-                <nav aria-label="footer" className="hidden justify-between w-screen-sm md:flex">
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-center text-secondary">Pages</h2>
-                        <ul className="flex flex-col gap-2">
-                            <li><Link className="text-link" href="/#discover">Discover</Link></li>
-                            <li><Link className="text-link" href="/#discover">About me</Link></li>
-                        </ul>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-center text-secondary">Library</h2>
-                        <ul className="flex flex-col gap-2">
-                            <li><Link className="text-link" href="/#techstack">General</Link></li>
-                            <li><Link className="text-link" href="/#techstack">Courses</Link></li>
-                            <li><Link className="text-link" href="/#techstack">Shorts</Link></li>
-                        </ul>
-                    </div>
-                    {/*<Link className="hover:opacity-70" href="/#techstack"></Link>*/}
-                    {/*<Link className="hover:opacity-70" href="/#testimonials"></Link>*/}
-                    {/*<Link className="hover:opacity-70" href="/#contact"></Link>*/}
-                </nav>
+  return (
+    <footer
+      className="space-y-4 bg-primary p-8 text-primary-foreground"
+      id="footer"
+    >
+      <section>
+        <FooterNavigation />
+      </section>
+      <section>
+        <Copyright />
+      </section>
+      <section>
+        <Socials />
+      </section>
+    </footer>
+  );
+};
 
-            </section>
-            <section className="mx-auto my-8">
-                <Copyright/>
-            </section>
+const FooterNavigation = () => {
+  const pageLinks = [
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: "Library", href: "/library" },
+  ];
 
-            <section className="mx-auto mb-4 flex gap-8 text-4xl">
-                <Link className="transition-colors hover:text-secondary" href="https://github.com/sandercokart">
-                    <FaGithub/>
-                </Link>
-                <Link className="transition-colors hover:text-secondary" href="https://www.instagram.com/sandercokart/">
-                    <FaInstagram/>
-                </Link>
-                <Link className="transition-colors hover:text-secondary" href="https://youtube.com/SanderCokart">
-                    <FaYoutube/>
-                </Link>
-                <Link className="transition-colors hover:text-secondary" href="https://twitter.com/sandercokart">
-                    <FaTwitter/>
-                </Link>
-            </section>
-        </footer>
-    );
+  const libraryLinks = [
+    { name: "General", href: "/#techstack" },
+    { name: "Courses", href: "/#techstack" },
+    { name: "Shorts", href: "/#techstack" },
+  ];
+
+  return (
+    <nav aria-label="footer navigation">
+      <div className="flex justify-center gap-32">
+        <div className="flex flex-col gap-4">
+          <LinkList links={pageLinks} title="pages" />
+        </div>
+        <div className="flex flex-col gap-4">
+          <LinkList links={libraryLinks} title="library" />
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+type Link = {
+  name: string;
+  href: string;
+};
+
+const LinkList = ({ links, title }: { links: Link[]; title: string }) => {
+  return (
+    <>
+      <h1 className="font-code font-bold capitalize text-secondary">{title}</h1>
+      <ul className="flex flex-col gap-2">
+        {links.map((link) => (
+          <li key={link.name}>
+            <Link
+              className="font-code font-bold transition-colors hover:text-secondary"
+              href={link.href}
+            >
+              {link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+const Copyright = () => {
+  const year = new Date().getFullYear();
+  return (
+    <p className="flex justify-center">
+      © Sander Cokart {year} All rights reserved.
+    </p>
+  );
+};
+
+const Socials = () => {
+  const socialLinks = [
+    {
+      name: "GitHub",
+      icon: <FaGithub />,
+      href: "https://github.com/sandercokart",
+    },
+    {
+      name: "Instagram",
+      icon: <FaInstagram />,
+      href: "https://www.instagram.com/sandercokart/",
+    },
+    {
+      name: "YouTube",
+      icon: <FaYoutube />,
+      href: "https://youtube.com/SanderCokart",
+    },
+    {
+      name: "Twitter",
+      icon: <FaTwitter />,
+      href: "https://twitter.com/sandercokart",
+    },
+  ];
+
+  return (
+    <ul className="flex justify-center gap-4">
+      {socialLinks.map((link) => (
+        <li key={link.name}>
+          <Link
+            aria-label={link.name}
+            className="transition-colors hover:text-secondary sm:text-2xl"
+            href={link.href}
+          >
+            {link.icon}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default Footer;
