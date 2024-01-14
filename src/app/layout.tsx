@@ -3,14 +3,14 @@ import "./globals.scss";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import MobileNavigation from "@/app/(components)/(navigation)/MobileNavigation";
 import Footer from "@/app/(components)/Footer";
 import GlobalProviders from "@/app/(components)/GlobalProviders";
-import Header from "@/app/(components)/Header";
 import ScrollProgressIndicator from "@/app/(components)/ScrollProgressIndicator";
 import { Roboto } from "next/font/google";
 import localFont from "next/font/local";
-import { twJoin } from "tailwind-merge";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
+import { cn } from "@/functions/shared/utils";
 
 const fontLetsGoDigital = localFont({
   src: "../fonts/LetsGoDigital.ttf",
@@ -50,24 +50,50 @@ export const metadata: Metadata = {
   title: "sandercokart.com",
 };
 
+const ArrowNavButton = ({ children }: { children: ReactNode }) => (
+  <button
+    className={cn(
+      "flex items-center gap-2 px-4 py-1",
+      "font-digital text-xl md:text-2xl",
+      "hover:bg-accent hover:text-accent-foreground",
+      "bg-secondary transition-colors",
+    )}
+  >
+    {children}
+  </button>
+);
+
+const Header = () => (
+  <header className="sticky top-0 flex h-16 justify-between bg-primary">
+    <ArrowNavButton>
+      <FaArrowLeft />
+      Go Back
+    </ArrowNavButton>
+    <div className="container bg-red-500">test</div>
+    <ArrowNavButton>
+      Continue
+      <FaArrowRight />
+    </ArrowNavButton>
+    <ScrollProgressIndicator />
+  </header>
+);
+
 const RootLayout = (props: RootLayoutProps) => {
   return (
     <html suppressHydrationWarning lang="en">
       <body
-        className={twJoin(
+        className={cn(
           "font-sans",
-          "bg-bodyLight dark:bg-bodyDark",
-          "text-black dark:text-white",
+          "bg-background text-foreground",
           fontVariables,
         )}
       >
         <GlobalProviders>
-          <div className="sticky top-0 z-50 bg-primary shadow-2xl dark:bg-primaryDark">
+          <div className="flex min-h-dvh flex-col">
             <Header />
-            <MobileNavigation />
-            <ScrollProgressIndicator />
+            <div className="grow">{props.children}</div>
           </div>
-          {props.children}
+          {/*footer is always below the fold*/}
           <Footer />
         </GlobalProviders>
       </body>

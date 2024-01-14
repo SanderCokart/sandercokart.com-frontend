@@ -1,19 +1,8 @@
-@import "swiper/scss";
-@import "swiper/scss/mousewheel";
-@import "swiper/scss/navigation";
-@import "./code-highlight";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    transition-duration: theme("transitionDuration.DEFAULT");
-    transition-property: background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: theme("transitionTimingFunction.DEFAULT");
-  }
-
   html {
     -webkit-tap-highlight-color: transparent;
 
@@ -22,160 +11,103 @@
     }
   }
 
-  @include code-highlighter;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-  *::-webkit-scrollbar {
-    @apply w-1.5 h-1.5 md:w-3 md:h-3;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 43 96% 56%;
+    --secondary-foreground: 0 0% 0%;
+
+    --accent: 0 0% 100%;
+    --accent-foreground: 0 0% 0%;
+
+    --success: 145 63% 50%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 100% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --error: 0 100% 50%;
+    --error-foreground: 0 0% 100%;
+
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
   }
 
-  *::-webkit-scrollbar-track {
-    @apply bg-secondary dark:bg-secondaryDark;
-  }
+  //bodyLight: colors.slate[100],
+  //        bodyLightSecondary: colors.slate[200],
+  //        bodyDark: colors.slate[900],
+  //        bodyDarkSecondary: colors.slate[800],
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 0 0% 100%;
 
-  *::-webkit-scrollbar-thumb {
-    @apply bg-bodyLightSecondary dark:bg-bodyDarkSecondary;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
 
-    &:hover {
-      @apply bg-secondaryDark dark:bg-secondary;
-    }
-  }
-}
+    --primary: 224 64% 33%;
+    --primary-foreground: 0 0% 100%;
 
-@layer utilities {
-  .body {
-    @apply bg-slate-200 dark:bg-slate-900;
-  }
+    --secondary: 32 95% 44%;
+    --secondary-foreground: 0 0% 100%;
 
-  .stop-animation {
-    animation-iteration-count: 1;
-  }
+    --accent: 0 0% 100%;
+    --accent-foreground: 0 0% 0%;
 
-  .text-link {
-    @apply transition-colors hover:text-secondary active:text-secondaryDark;
-  }
+    --success: 145 63% 50%;
+    --success-foreground: 0 0% 100%;
 
-  .min-h-main {
-    @apply min-h-mobile sm:min-h-between md:min-h-desktop;
-  }
-}
+    --warning: 35 100% 50%;
+    --warning-foreground: 0 0% 100%;
 
+    --error: 0 100% 50%;
+    --error-foreground: 0 0% 100%;
 
-@layer components {
-  .base-input {
-    @apply w-full rounded-xl p-3 text-xl text-black transition-all focus:ring-primary focus:border-primary focus:drop-shadow-primary sm:text-2xl;
-  }
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
 
-  .title {
-    @apply mb-4 text-center text-5xl font-bold;
-  }
-
-  .label {
-    @apply block py-1 px-4 text-black bg-secondary dark:bg-secondaryDark dark:text-white shadow-hard-sm;
-  }
-
-  .article {
-    @apply leading-relaxed;
-    & > div {
-
-      table {
-        @apply w-full table-auto overflow-auto max-h-[80vh];
-      }
-
-      th, td {
-        @apply px-4 py-2
-        border-4 border-bodyLight
-        dark:border-bodyDark;
-      }
-
-      tr {
-        @apply hover:bg-primary hover:text-white hover:font-bold dark:hover:bg-primaryDark transition-all dark:bg-primaryDark;
-      }
-
-      thead tr {
-        @apply drop-shadow-hard-sm;
-      }
-
-      tbody tr {
-        @apply md:hover:scale-x-105 md:hover:shadow-hard-sm;
-      }
-
-      th {
-        @apply border-separate border-4 text-left text-black bg-secondary border-bodyLight dark:border-bodyDark dark:bg-secondaryDark dark:text-white;
-      }
-
-      > {
-        p {
-          @apply mb-4 md:text-xl;
-        }
-
-        h1 {
-          @apply mb-4 text-5xl font-bold label;
-        }
-
-        h2 {
-          @apply mb-4 w-min whitespace-nowrap text-3xl font-bold label;
-        }
-
-        h3 {
-          @apply mb-4 w-min whitespace-nowrap text-2xl font-bold label;
-        }
-
-        img {
-          @apply mx-auto w-[50vmin] border-4 border-secondary dark:border-secondaryDark transition-colors;
-        }
-
-        ul {
-          @apply flex flex-col gap-2 mb-4;
-        }
-
-        ul li {
-          @apply border-l-4 border-secondary dark:border-secondaryDark px-2;
-        }
-
-        #table-of-contents {
-          @apply w-min whitespace-nowrap;
-
-
-          + ul {
-            @apply list-none flex flex-col gap-1;
-
-            li {
-              @apply border-none p-0;
-            }
-
-            li a {
-              @apply block p-2 my-1 hover:bg-primary dark:hover:bg-primaryDark border-l-4 border-secondary dark:border-secondaryDark;
-            }
-
-            ul {
-              @apply mt-2;
-              > li {
-                @apply ml-4;
-              }
-            }
-
-            > li a {
-              @apply font-bold no-underline text-black dark:text-white;
-            }
-          }
-        }
-      }
-    }
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
   }
 }
 
-.swiper-pagination-bullet {
-  @apply h-2 w-2 ring-1 bg-secondary ring-primary md:h-3 md:w-3;
-}
+/*/!*::-webkit-scrollbar {*/
+/*//  @apply w-1.5 h-1.5 md:w-3 md:h-3;*/
+/*//}*/
+/*//*/
+/*/!*::-webkit-scrollbar-track {*/
+/*//  @apply bg-secondary dark:bg-secondaryDark;*/
+/*//}*/
+/*//*/
+/*/!*::-webkit-scrollbar-thumb {*/
+/*//  @apply bg-bodyLightSecondary dark:bg-bodyDarkSecondary;*/
+/*//*/
+/*//  &:hover {*/
+/*//    @apply bg-secondaryDark dark:bg-secondary;*/
+/*//  }*/
+/*//}*/
 
-.contains-task-list {
-  @apply flex flex-col gap-1 justify-center mb-4;
-
-  li {
-    @apply border-none;
-  }
-
-  input[type="checkbox"] {
-    @apply h-6 w-6 rounded;
-  }
-}
+/*//.contains-task-list {*/
+/*//  @apply flex flex-col gap-1 justify-center mb-4;*/
+/*//*/
+/*//  li {*/
+/*//    @apply border-none;*/
+/*//  }*/
+/*//*/
+/*//  input[type="checkbox"] {*/
+/*//    @apply h-6 w-6 rounded;*/
+/*//  }*/
+/*//}*/

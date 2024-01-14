@@ -23,7 +23,7 @@ module.exports = {
       },
       colors: {
         background: "hsl(var(--background))",
-        "background-foreground": "hsl(var(--background-foreground))",
+        foreground: "hsl(var(--foreground))",
 
         muted: "hsl(var(--muted))",
         "muted-foreground": "hsl(var(--muted-foreground))",
