@@ -45,10 +45,6 @@
     --radius: 0.5rem;
   }
 
-  //bodyLight: colors.slate[100],
-  //        bodyLightSecondary: colors.slate[200],
-  //        bodyDark: colors.slate[900],
-  //        bodyDarkSecondary: colors.slate[800],
   .dark {
     --background: 222 47% 11%;
     --foreground: 0 0% 100%;
@@ -79,7 +75,7 @@
 
     --border: 0 0% 100%;
     --input: 0 0% 100%;
-    --ring: 217 91% 60%;
+    --ring: 0 0% 100%;
     --radius: 0.5rem;
   }
 }
