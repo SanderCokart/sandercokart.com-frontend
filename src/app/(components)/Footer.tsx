@@ -4,7 +4,7 @@ import { FaGithub, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer
-      className="space-y-4 bg-primary p-8 text-primary-foreground"
+      className="space-y-4 bg-primary p-2 text-primary-foreground sm:p-8"
       id="footer"
     >
       <section>
@@ -35,7 +35,7 @@ const FooterNavigation = () => {
 
   return (
     <nav aria-label="footer navigation">
-      <div className="flex justify-center gap-32">
+      <div className="flex justify-center gap-16 sm:gap-32">
         <div className="flex flex-col gap-4">
           <LinkList links={pageLinks} title="pages" />
         </div>
@@ -75,7 +75,7 @@ const LinkList = ({ links, title }: { links: Link[]; title: string }) => {
 const Copyright = () => {
   const year = new Date().getFullYear();
   return (
-    <p className="flex justify-center">
+    <p className="flex justify-center text-balance text-center">
       © Sander Cokart {year} All rights reserved.
     </p>
   );
@@ -111,7 +111,7 @@ const Socials = () => {
         <li key={link.name}>
           <Link
             aria-label={link.name}
-            className="transition-colors hover:text-secondary sm:text-2xl"
+            className="text-2xl transition-colors hover:text-secondary"
             href={link.href}
           >
             {link.icon}
