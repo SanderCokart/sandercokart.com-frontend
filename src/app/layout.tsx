@@ -6,9 +6,18 @@ import type { ReactNode } from "react";
 import Footer from "@/app/(components)/Footer";
 import GlobalProviders from "@/app/(components)/GlobalProviders";
 import ScrollProgressIndicator from "@/app/(components)/ScrollProgressIndicator";
+import { localHomeRoute } from "@/routes/local-routes";
 import { Roboto } from "next/font/google";
 import localFont from "next/font/local";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
+import {
+  FaBuilding,
+  FaInfo,
+  FaPhone,
+  FaProjectDiagram,
+  FaUser,
+} from "react-icons/fa";
+import { IoPlanetSharp } from "react-icons/io5";
 
 import { cn } from "@/functions/shared/utils";
 
@@ -50,32 +59,75 @@ export const metadata: Metadata = {
   title: "sandercokart.com",
 };
 
-const ArrowNavButton = ({ children }: { children: ReactNode }) => (
-  <button
-    className={cn(
-      "flex items-center gap-2 px-4 py-1",
-      "font-digital text-xl md:text-2xl",
-      "hover:bg-accent hover:text-accent-foreground",
-      "bg-secondary transition-colors",
-    )}
-  >
-    {children}
-  </button>
+const TitleLogo = () => (
+  <h1 className="grid w-fit place-items-center whitespace-nowrap font-digital">
+    <Link
+      className="group/logo flex flex-col drop-shadow-lg"
+      href={`${localHomeRoute()}#hero`}
+    >
+      <span className="block text-xl !leading-none transition-colors  group-hover/logo:text-secondary sm:text-3xl">
+        sandercokart.com
+      </span>
+      <span className="block self-end text-lg !leading-none sm:text-xl">
+        Let's Learn...
+      </span>
+    </Link>
+  </h1>
 );
 
-const Header = () => (
-  <header className="sticky top-0 flex h-16 justify-between bg-primary">
-    <ArrowNavButton>
-      <FaArrowLeft />
-      Go Back
-    </ArrowNavButton>
-    <div className="container bg-red-500">test</div>
-    <ArrowNavButton>
-      Continue
-      <FaArrowRight />
-    </ArrowNavButton>
+const Header = ({ children }: { children: ReactNode }) => (
+  <header className="sticky top-0 flex h-16 bg-primary">
+    <div className="container flex justify-between gap-8">
+      <TitleLogo />
+      {children}
+    </div>
     <ScrollProgressIndicator />
   </header>
+);
+
+const links = [
+  {
+    href: `${localHomeRoute()}`,
+    text: "Discover",
+    icon: <IoPlanetSharp />,
+  },
+];
+
+const MobileNavigation = () => (
+  <nav
+    aria-label="mobile navigation"
+    className="fixed inset-x-0 bottom-0 bg-primary sm:hidden"
+  >
+    <ul className="flex h-14">
+      {links.map((link) => (
+        <li key={link.href} className="flex-grow">
+          <NavButton href={link.href} icon={link.icon} text={link.text} />
+        </li>
+      ))}
+    </ul>
+  </nav>
+);
+
+const DesktopNavigation = () => (
+  <nav aria-label="desktop navigation" className="hidden sm:block">
+    <ul className="flex h-full flex-wrap items-center gap-x-8">
+      {links.map((link) => (
+        <li key={link.href} className="grow">
+          <Link
+            className="group/link relative font-digital text-2xl leading-none transition-colors hover:text-secondary"
+            href={link.href}
+          >
+            <div className="absolute inset-0 grid place-items-center">
+              <div className="scale-0 opacity-0 transition-[opacity,transform] md:group-hover/link:scale-[200%] md:group-hover/link:opacity-25">
+                {link.icon}
+              </div>
+            </div>
+            {link.text}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </nav>
 );
 
 const RootLayout = (props: RootLayoutProps) => {
@@ -90,15 +142,40 @@ const RootLayout = (props: RootLayoutProps) => {
       >
         <GlobalProviders>
           <div className="flex min-h-dvh flex-col">
-            <Header />
+            <Header>
+              <DesktopNavigation />
+            </Header>
             <div className="grow">{props.children}</div>
           </div>
           {/*footer is always below the fold*/}
-          <Footer />
+          <div className="mb-14 md:mb-0">
+            <Footer />
+          </div>
+
+          <MobileNavigation />
         </GlobalProviders>
       </body>
     </html>
   );
 };
+
+interface NavButtonProps {
+  href: string;
+  icon: ReactNode;
+  text: string;
+}
+
+const NavButton = ({ icon, text, href }: NavButtonProps) => (
+  <Link
+    className={cn(
+      "flex h-full flex-col place-items-center justify-center gap-1",
+      "hover:bg-accent transition-colors hover:text-accent-foreground",
+    )}
+    href={href}
+  >
+    <span className="text-xl">{icon}</span>
+    <span className="text-xs">{text}</span>
+  </Link>
+);
 
 export default RootLayout;
