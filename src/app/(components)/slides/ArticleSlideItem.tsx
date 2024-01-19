@@ -1,11 +1,12 @@
-import type { ArticleModel } from "@/types/ModelTypes";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { localArticleRoute } from "@/routes/local-routes";
-import Image from "next/image";
-import Link from "next/link";
+import type { ArticleModel } from '@/types/ModelTypes';
 
-import calculatePublishedTimestamp from "@/functions/shared/calculatePublishedTimestamp";
-import { cn } from "@/functions/shared/utils";
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+import { cn } from '@/functions/shared/utils';
+
+import { localArticleRoute } from '@/routes/local-routes';
 
 interface ArticleFigureProps {
   article: ArticleModel;
@@ -13,54 +14,33 @@ interface ArticleFigureProps {
 
 const ArticleSlideItem = ({ article }: ArticleFigureProps) => {
   return (
-    <Link
-      className="group"
-      href={localArticleRoute(article.type.name, article.slug)}
-    >
+    <Link className="group" href={localArticleRoute(article.type.name, article.slug)}>
       <figure className="relative h-full w-full overflow-hidden">
         <Image
           fill
           alt={article.title}
           className="transition-transform group-hover:scale-110"
           src={article.banner.original_url}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
         />
-        <div className="absolute inset-0 backdrop-blur-[2px] group-hover:backdrop-blur-none"></div>
+        <div className="absolute inset-0 backdrop-blur-[2px] group-hover:backdrop-blur-none" />
 
-        <figcaption
-          className={cn(
-            "absolute inset-x-0 bottom-0 transition-opacity group-hover:opacity-0",
-            "flex h-full flex-col justify-between",
-            "bg-black/25",
-          )}
-        >
+        <figcaption className="absolute inset-x-0 bottom-0 flex h-full flex-col justify-between">
           <h1
             className={cn(
-              "label bg-secondary transition-opacity dark:bg-secondaryDark",
-              "line-clamp-2 font-code text-sm font-black capitalize text-black dark:text-white md:text-xl",
-            )}
-          >
+              'bg-secondary text-secondary-foreground ',
+              'line-clamp-2 font-code text-sm font-black capitalize md:text-xl',
+            )}>
             {article.title}
           </h1>
 
           <div className="flex flex-col">
-            <p
-              className={cn(
-                "bg-white/75 px-2 text-black dark:bg-black/75 dark:text-white",
-                "line-clamp-3 font-code text-xs font-normal md:text-base",
-              )}
-            >
+            <p className="line-clamp-3 bg-white/25 px-2 font-code text-xs font-normal text-black dark:bg-black/25 dark:text-white md:text-base">
               {article.excerpt}
             </p>
 
-            <span
-              className={cn(
-                "label",
-                "text-center font-code text-xs text-black",
-              )}
-            >
-              Published:{" "}
-              {calculatePublishedTimestamp(article.published_at, true)}
+            <span className="bg-secondary text-center font-code text-xs text-black text-secondary-foreground">
+              Published: {calculatePublishedTimestamp(article.published_at, true)}
             </span>
           </div>
         </figcaption>

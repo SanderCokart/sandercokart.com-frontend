@@ -1,11 +1,14 @@
-import type { CourseModel } from "@/types/ModelTypes";
+import { twJoin } from 'tailwind-merge';
 
-import { localCourseRoute } from "@/routes/local-routes";
-import Image from "next/image";
-import Link from "next/link";
-import { twJoin } from "tailwind-merge";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import calculatePublishedTimestamp from "@/functions/shared/calculatePublishedTimestamp";
+import type { CourseModel } from '@/types/ModelTypes';
+
+import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+import { cn } from '@/functions/shared/utils';
+
+import { localCourseRoute } from '@/routes/local-routes';
 
 interface CourseFigureProps {
   course: CourseModel;
@@ -15,20 +18,14 @@ const CourseSlideItem = ({ course }: CourseFigureProps) => {
   return (
     <Link href={localCourseRoute(course.slug)}>
       <figure className="relative h-full w-full overflow-hidden">
-        <Image
-          fill
-          alt={course.title}
-          src={course.banner.original_url}
-          style={{ objectFit: "cover" }}
-        />
+        <Image fill alt={course.title} src={course.banner.original_url} style={{ objectFit: 'cover' }} />
         <figcaption
-          className={twJoin(
-            "absolute inset-x-0 bottom-0 p-2",
-            "h-full transition-opacity",
-            "flex flex-col justify-end gap-1",
-          )}
-        >
-          <span className="label w-min whitespace-nowrap px-4 py-1 text-xs">
+          className={cn(
+            'absolute inset-x-0 bottom-0 p-2',
+            'h-full transition-opacity',
+            'flex flex-col justify-end gap-1',
+          )}>
+          <span className="w-min whitespace-nowrap bg-secondary px-4 py-1 font-code text-xs text-secondary-foreground">
             Published: {calculatePublishedTimestamp(course.published_at, true)}
           </span>
         </figcaption>
