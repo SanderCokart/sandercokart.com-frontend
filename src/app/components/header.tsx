@@ -7,7 +7,7 @@ import { localHomeRoute } from '@/routes/local-routes';
 import ScrollProgressIndicator from '@/app/(components)/ScrollProgressIndicator';
 
 export const Header = ({ children }: { children: ReactNode }) => (
-  <header className="sticky top-0 flex h-16 bg-primary">
+  <header className="sticky top-0 z-10 flex h-16 bg-primary">
     <div className="container flex justify-between gap-8">
       <TitleLogo />
       {children}
