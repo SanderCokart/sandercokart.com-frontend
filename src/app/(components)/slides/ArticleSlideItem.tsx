@@ -28,18 +28,19 @@ const ArticleSlideItem = ({ article }: ArticleFigureProps) => {
         <figcaption className="absolute inset-x-0 bottom-0 flex h-full flex-col justify-between">
           <h1
             className={cn(
-              'bg-secondary text-secondary-foreground ',
-              'line-clamp-2 font-code text-sm font-black capitalize md:text-xl',
+              'bg-secondary text-secondary-foreground',
+              'font-code text-sm font-black capitalize md:text-xl',
+              'line-clamp-2 text-balance px-2',
             )}>
             {article.title}
           </h1>
 
           <div className="flex flex-col">
-            <p className="line-clamp-3 bg-white/25 px-2 font-code text-xs font-normal text-black dark:bg-black/25 dark:text-white md:text-base">
+            <p className="line-clamp-3 bg-white/85 px-2 font-code text-xs font-normal text-black dark:bg-black/85 dark:text-white md:text-base">
               {article.excerpt}
             </p>
 
-            <span className="bg-secondary text-center font-code text-xs text-black text-secondary-foreground">
+            <span className="bg-secondary py-1 text-center font-code text-xs text-black text-secondary-foreground">
               Published: {calculatePublishedTimestamp(article.published_at, true)}
             </span>
           </div>
