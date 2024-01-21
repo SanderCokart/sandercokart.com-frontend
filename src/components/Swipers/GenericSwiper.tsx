@@ -36,10 +36,10 @@ const GenericSwiper = ({ title, children, moreHref }: GenericSwiperProps) => {
       <h1
         className={cn(
           'flex items-center justify-center gap-32',
-          'bg-secondary',
+          'bg-secondary text-secondary-foreground transition-colors',
           'py-1 md:py-2',
           'overflow-hidden font-digital',
-          'text-center text-xl text-black dark:text-white md:text-4xl',
+          'text-center text-xl md:text-4xl',
         )}>
         <span className="flex w-5/6 items-center justify-between">
           <span className="grow">{title}</span>
