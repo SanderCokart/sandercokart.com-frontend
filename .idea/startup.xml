@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectStartupSharedConfiguration">
     <configurations>
-      <configuration id="npm.dev --hostname=0.0.0.0" name="dev --hostname=0.0.0.0" />
+      <configuration id="npm.dev --hostname=0.0.0.0 --turbo" name="dev --hostname=0.0.0.0 --turbo" />
     </configurations>
   </component>
 </project>
