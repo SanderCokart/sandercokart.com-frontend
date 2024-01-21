@@ -1,52 +1,22 @@
 'use client';
 
-import { register } from 'swiper/element/bundle';
+import { Mousewheel } from 'swiper/modules';
+import { Swiper as BaseSwiper, SwiperSlide as BaseSwiperSlide } from 'swiper/react';
 
-import { useEffect, useRef } from 'react';
+import type { SwiperProps as BaseSwiperProps, SwiperSlideProps as BaseSwiperSlideProps } from 'swiper/react';
 
-import type { SwiperContainer } from 'swiper/element/bundle';
-import type { SwiperProps, SwiperSlideProps } from 'swiper/react';
-import type { SwiperOptions } from 'swiper/types';
+interface SwiperProps extends BaseSwiperProps {}
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'swiper-container': any;
-      'swiper-slide': any;
-    }
-  }
-}
+const Swiper = (props: SwiperProps) => {
+  props.modules = [Mousewheel];
 
-export const Swiper = (props: SwiperProps) => {
-  const swiperRef = useRef<SwiperContainer | null>(null);
-  const { children, ...rest } = props;
-
-  useEffect(() => {
-    // Register Swiper web component
-    register();
-
-    // pass component props to parameters
-    const params: SwiperOptions = {
-      ...rest,
-    };
-
-    if (swiperRef.current) {
-      // Assign it to swiper element
-      Object.assign(swiperRef.current, params);
-      // initialize swiper
-      swiperRef.current.initialize();
-    }
-  }, []);
-
-  return (
-    <swiper-container ref={swiperRef} init="false">
-      {children}
-    </swiper-container>
-  );
+  return <BaseSwiper {...props} />;
 };
 
-export const SwiperSlide = (props: SwiperSlideProps) => {
-  const { children, ...rest } = props;
+interface SwiperSlideProps extends BaseSwiperSlideProps {}
 
-  return <swiper-slide {...rest}>{children}</swiper-slide>;
+const SwiperSlide = (props: SwiperSlideProps) => {
+  return <BaseSwiperSlide {...props} />;
 };
+
+export { Swiper, SwiperSlide };
