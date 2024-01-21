@@ -1,37 +1,39 @@
 'use client';
-import type {ComponentProps} from 'react';
 
-import {AnimatePresence} from 'framer-motion';
-import {useTheme} from 'next-themes';
-import {FaSun, FaMoon} from 'react-icons/fa';
-import {twMerge} from 'tailwind-merge';
+import { AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 import BasicAnimation from '@/components/FramerMotion/BasicAnimation';
 
-import {ascendVariant, descendVariant} from '@/constants/animations/ascendAndDecend';
+import { ascendVariant, descendVariant } from '@/constants/animations/ascendAndDecend';
 
 import useMounted from '@/hooks/useMounted';
-export function ThemeToggle({ className,...props }:ComponentProps<'div'>) {
-    const { mounted } = useMounted();
-    const { setTheme, theme, systemTheme } = useTheme();
 
-    if (!mounted) return null;
+export function ThemeToggle() {
+  const { mounted } = useMounted();
+  const { setTheme, theme, systemTheme } = useTheme();
 
-    return (
-        <div className={twMerge('relative grid place-items-center', className)} {...props}>
-            <AnimatePresence mode="wait">
-                {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
-                    <BasicAnimation key="light" variants={ascendVariant}>
-                        <FaSun className="cursor-pointer" onClick={() => setTheme('light')}/>
-                    </BasicAnimation>
-                )}
+  if (!mounted) return null;
 
-                {(theme === 'light' || (theme === 'system' && systemTheme === 'light')) && (
-                    <BasicAnimation key="dark" variants={descendVariant}>
-                        <FaMoon className="cursor-pointer" onClick={() => setTheme('dark')}/>
-                    </BasicAnimation>
-                )}
-            </AnimatePresence>
-        </div>
-    );
+  return (
+    <div className="relative grid place-items-center text-2xl">
+      <AnimatePresence mode="wait">
+        {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
+          <BasicAnimation key="light" variants={descendVariant}>
+            <FaSun
+              className="cursor-pointer transition-colors hover:text-yellow-400"
+              onClick={() => setTheme('light')}
+            />
+          </BasicAnimation>
+        )}
+
+        {(theme === 'light' || (theme === 'system' && systemTheme === 'light')) && (
+          <BasicAnimation key="dark" variants={descendVariant}>
+            <FaMoon className="cursor-pointer transition-colors hover:text-white" onClick={() => setTheme('dark')} />
+          </BasicAnimation>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
