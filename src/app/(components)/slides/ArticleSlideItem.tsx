@@ -1,3 +1,5 @@
+import moment from 'moment/moment';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -40,7 +42,9 @@ const ArticleSlideItem = ({ article }: ArticleFigureProps) => {
               {article.excerpt}
             </p>
 
-            <span className="bg-secondary py-1 text-center font-code text-xs text-black text-secondary-foreground">
+            <span
+              className="bg-secondary p-2 py-1 font-code text-xs font-bold text-secondary-foreground"
+              title={moment(article.published_at).calendar()}>
               Published: {calculatePublishedTimestamp(article.published_at, true)}
             </span>
           </div>

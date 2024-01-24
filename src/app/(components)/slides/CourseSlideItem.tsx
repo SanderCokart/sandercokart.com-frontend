@@ -1,5 +1,3 @@
-import { twJoin } from 'tailwind-merge';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,7 +23,7 @@ const CourseSlideItem = ({ course }: CourseFigureProps) => {
             'h-full transition-opacity',
             'flex flex-col justify-end gap-1',
           )}>
-          <span className="w-min whitespace-nowrap bg-secondary px-4 py-1 font-code text-xs text-secondary-foreground">
+          <span className="w-min whitespace-nowrap bg-secondary px-4 py-1 font-code text-xs font-bold text-secondary-foreground">
             Published: {calculatePublishedTimestamp(course.published_at, true)}
           </span>
         </figcaption>

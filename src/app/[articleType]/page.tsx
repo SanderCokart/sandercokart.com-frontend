@@ -22,11 +22,9 @@ interface ArticlesPageProps {
 }
 
 const getArticles = async (type: ArticleType) => {
-  const {
-    data: { articles },
-  } = await api.simpleGet<null, SuccessResponse<ArticleModelsResponse>>(ApiRouteArticles(type));
+  const { data } = await api.simpleGet<null, SuccessResponse<ArticleModelsResponse>>(ApiRouteArticles(type));
 
-  return articles;
+  return data?.articles ?? [];
 };
 
 const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
