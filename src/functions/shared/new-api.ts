@@ -25,7 +25,7 @@ type ResponseType<ResponseData, RequestData> = {
 };
 
 type Config = AxiosRequestConfig & {
-  shouldGoTo404IfNotFound?: boolean;
+  notFoundOn404?: boolean;
   defaultData?: any;
 };
 
@@ -39,7 +39,7 @@ class API {
     });
   }
 
-  public static async get<ResponseData, QueryParams>(
+  public static async get<ResponseData, QueryParams = null>(
     url: string,
     config?: Config,
   ): Promise<ResponseType<ResponseData, QueryParams>> {
@@ -52,7 +52,7 @@ class API {
     }
   }
 
-  public static async post<ResponseData, RequestData>(
+  public static async post<ResponseData, RequestData = null>(
     url: string,
     data: RequestData,
     config?: Config,
@@ -66,7 +66,7 @@ class API {
     }
   }
 
-  public static async put<ResponseData, RequestData>(
+  public static async put<ResponseData, RequestData = null>(
     url: string,
     data?: any,
     config?: Config,
@@ -80,7 +80,7 @@ class API {
     }
   }
 
-  public static async patch<ResponseData, RequestData>(
+  public static async patch<ResponseData, RequestData = null>(
     url: string,
     data?: any,
     config?: Config,
@@ -94,7 +94,7 @@ class API {
     }
   }
 
-  public static async delete<ResponseData, QueryParams>(
+  public static async delete<ResponseData, QueryParams = null>(
     url: string,
     config?: Config,
   ): Promise<ResponseType<ResponseData, QueryParams>> {
@@ -120,7 +120,7 @@ class API {
         const { data, status } = error.response;
         const config = error.config as Config;
 
-        if (this.isServer && error.response.status === 404 && config.shouldGoTo404IfNotFound) {
+        if (this.isServer && error.response.status === 404 && config.notFoundOn404) {
           notFound();
         }
 
@@ -131,7 +131,7 @@ class API {
         return {
           data: null,
           errors: {
-            message: 'Verbinding of server-fout. Probeer het later opnieuw of neem contact op met de klantenservice.',
+            message: 'Verbinding of server-fout. Probeer het later opnieuw.',
           },
           status: 0,
         };

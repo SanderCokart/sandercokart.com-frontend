@@ -1,12 +1,13 @@
-import type { CourseModel } from "@/types/ModelTypes";
-import type { CourseModelResponse } from "@/types/ResponseTypes";
+import type { SuccessResponse } from '@/functions/shared/api';
+import type { CourseModel } from '@/types/ModelTypes';
+import type { CourseModelResponse } from '@/types/ResponseTypes';
 
-import { ArticleFigure } from "@/app/[articleType]/ArticleFigure";
-import { ApiRouteCourse } from "@/routes/api-routes";
-import { twJoin } from "tailwind-merge";
+import api from '@/functions/shared/api';
+import { cn } from '@/functions/shared/utils';
 
-import type { SuccessResponse } from "@/functions/shared/api";
-import api from "@/functions/shared/api";
+import { ApiRouteCourse } from '@/routes/api-routes';
+
+import { ArticleFigure } from '@/app/[articleType]/ArticleFigure';
 
 interface PageProps {
   params: {
@@ -14,60 +15,46 @@ interface PageProps {
   };
 }
 
-const getCourse = async (slug: CourseModel["slug"]) => {
+const getCourse = async (slug: CourseModel['slug']) => {
   const {
     data: { course },
-  } = await api.simpleGet<null, SuccessResponse<CourseModelResponse>>(
-    ApiRouteCourse(slug),
-  );
+  } = await api.simpleGet<null, SuccessResponse<CourseModelResponse>>(ApiRouteCourse(slug));
 
   return course;
 };
 
 const CoursePage = async ({ params: { courseSlug } }: PageProps) => {
-  const {
-    articles,
-    articles_count,
-    banner,
-    created_at,
-    description,
-    id,
-    published_at,
-    slug,
-    title,
-    updated_at,
-  } = await getCourse(courseSlug);
+  const { articles, articles_count, banner, created_at, description, id, published_at, slug, title, updated_at } =
+    await getCourse(courseSlug);
 
   const CourseArticleList = () => {
     if (!!articles.length) {
       return (
         <>
-          {articles.map((article) => (
+          {articles.map(article => (
             <ArticleFigure key={article.id} article={article} />
           ))}
         </>
       );
     }
+
     return <div className="text-center font-code text-2xl">Coming Soon...</div>;
   };
 
   return (
     <div className="flex">
       <main>
-        <div className="grid grid-cols-3 place-items-center bg-secondary dark:bg-secondaryDark">
-          <h1 className="col-start-2 text-center font-digital text-4xl font-bold ">
-            {title}
-          </h1>
+        <div className="dark:bg-secondaryDark grid grid-cols-3 place-items-center bg-secondary">
+          <h1 className="col-start-2 text-center font-digital text-4xl font-bold ">{title}</h1>
           <div className="font-digital">
-            {articles_count} article{articles_count > 1 ? "s" : ""}
+            {articles_count} article{articles_count > 1 ? 's' : ''}
           </div>
         </div>
         <div
-          className={twJoin(
-            "pointer-events-none grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5",
-            "[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity",
-          )}
-        >
+          className={cn(
+            'pointer-events-none grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
+            '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity',
+          )}>
           <CourseArticleList />
         </div>
       </main>

@@ -6,7 +6,7 @@
       <script value="dev" />
     </scripts>
     <arguments value="--hostname=0.0.0.0 --turbo" />
-    <node-interpreter value="project" />
+    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v21.1.0/bin/node" />
     <envs />
     <method v="2">
       <option name="LaunchBrowser.Before.Run" url="http://localhost:3000" />
