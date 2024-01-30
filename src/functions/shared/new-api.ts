@@ -21,7 +21,7 @@ type TopLevelError<D> = {
 
 type ResponseType<ResponseData, RequestData> = {
   data: null | ResponseData;
-  errors: null | TopLevelError<RequestData>;
+  errors: null | Errors<RequestData>;
   status: number;
 };
 
@@ -31,19 +31,44 @@ type ApiConfig = AxiosRequestConfig & {
   throwOnError?: boolean;
 };
 
-class ApiError extends Error {
-  public readonly data: any;
-  public readonly errors: any;
-  public readonly status: number;
-  public readonly config: ApiConfig;
+class Errors<D> extends Error {
+  public message: string;
+  public fields?: FieldErrors<D>;
+  public config?: ApiConfig;
+  public status?: number;
 
-  constructor({ data, status, errors, config }: { data: any; errors: any; status: number; config: ApiConfig }) {
-    super(data?.errors.message ?? errors?.message ?? 'Er ging iets mis met de applicatie.');
-    this.name = 'ApiError';
-    this.data = data;
-    this.errors = errors;
-    this.status = status;
+  constructor({ message, fields, config, status = 0 }: TopLevelError<D> & { config?: ApiConfig; status?: number }) {
+    super(message);
+    this.message = message;
+    this.fields = fields;
     this.config = config;
+    this.status = status;
+  }
+
+  public getFields() {
+    return this.fields;
+  }
+
+  /**
+   * Retrieves the error message associated with a specific field in an object.
+   *
+   * @param {keyof D} field - The field in the object for which to retrieve the error message.
+   * @return {string} - The error message associated with the specified field.
+   */
+  public getErrorMessageFromField(field: keyof D) {
+    return (<FieldError>this.fields?.[field]).message;
+  }
+
+  public getAllErrorsFromField(field: keyof D) {
+    return (<FieldError>this.fields?.[field]).all;
+  }
+
+  public getThrowPayload() {
+    return this;
+  }
+
+  public getMessage() {
+    return this.message;
   }
 }
 
@@ -54,6 +79,8 @@ class API {
     return axios.create({
       baseURL,
       timeout: 10_000,
+      timeoutErrorMessage:
+        'Our server took too long to respond. This may be due to a slow internet connection, high server load, or a bug in our code. Please try again later.',
     });
   }
 
@@ -145,7 +172,13 @@ class API {
           notFound();
         }
 
-        return { data: defaultData, errors: data.errors, status };
+        if (!data.errors) throw new Error('Server response does not contain errors key, contact the developer.');
+
+        return {
+          data: defaultData,
+          errors: new Errors({ message: data.errors?.message, fields: data.errors?.fields, config, status }),
+          status,
+        };
       } else if (error.request) {
         console.error('REQUEST_ERROR: ', error);
         const config = error.config as ApiConfig;
@@ -160,9 +193,7 @@ class API {
 
         return {
           data: defaultData,
-          errors: {
-            message: 'Verbinding of server-fout. Probeer het later opnieuw.',
-          },
+          errors: new Errors({ message: 'Verbinding of server-fout. Probeer het later opnieuw.', config, status: 0 }),
           status: 0,
         };
       } else {
@@ -172,7 +203,7 @@ class API {
 
         return {
           data: defaultData,
-          errors: { message: 'Er ging iets mis met het vormen van het verzoek.' },
+          errors: new Errors({ message: 'Er ging iets mis met het vormen van het verzoek.', config, status: 0 }),
           status: 0,
         };
       }
@@ -182,12 +213,12 @@ class API {
 
       return {
         data: null,
-        errors: { message: 'Er ging iets mis met de applicatie.' },
+        errors: new Errors({ message: 'Er ging iets mis met de applicatie.', config: {}, status: 0 }),
         status: 0,
       };
     }
   }
 }
 
-export { API, ApiError };
+export { API };
 export type { ResponseType, TopLevelError, FieldError, FieldErrors, ApiConfig };

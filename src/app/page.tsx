@@ -1,19 +1,16 @@
-import { cache } from 'react';
+import React, { cache } from 'react';
 
-import type { ApiConfig } from '@/functions/shared/new-api';
+import type { ReactNode } from 'react';
 import type { ArticleModel, CourseModel } from '@/types/ModelTypes';
 
-import { API, ApiError } from '@/functions/shared/new-api';
+import { API } from '@/functions/shared/new-api';
 
 import '@/components/client';
 import 'swiper/css/bundle';
 
 import { FaArrowCircleRight } from 'react-icons/fa';
 
-import React from 'react';
 import Link from 'next/link';
-
-import type { ReactNode } from 'react';
 
 import { MotionDiv } from '@/components/client';
 import { ArticleSwiper } from '@/components/Swipers/article-swiper';
@@ -25,7 +22,10 @@ import { localArticlesRoute } from '@/routes/local-routes';
 export const revalidate = 5;
 
 const getGeneralArticles = cache(async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/general', { defaultData: [], throwOnError: true });
+  return await API.get<{ articles: ArticleModel[] }, { bla: string }>('/articles/general', {
+    defaultData: [],
+    throwOnError: true,
+  });
 });
 
 const getTipsArticles = cache(async () => {
@@ -71,7 +71,7 @@ const SectionHeader = ({ children, href }: { href: string; children: ReactNode }
 const GeneralArticles = async () => {
   const { data, errors } = await getGeneralArticles();
 
-  if (errors) throw new Error(errors.message);
+  if (errors) throw errors.getThrowPayload();
 
   if (!data?.articles.length) {
     return <div className="p-8 text-center font-code text-2xl">Coming Soon...</div>;
