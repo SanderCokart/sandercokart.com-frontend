@@ -14,6 +14,7 @@
     "@mantine/hooks": "^7.5.0",
     "@sandercokart/eslint-config": "^1.0.0",
     "@sandercokart/prettier-config": "^2.0.2",
+    "@sentry/nextjs": "^7.98.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.11.7",

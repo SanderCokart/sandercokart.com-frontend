@@ -1,6 +1,9 @@
+import { cache } from 'react';
+
+import type { ApiConfig } from '@/functions/shared/new-api';
 import type { ArticleModel, CourseModel } from '@/types/ModelTypes';
 
-import { API } from '@/functions/shared/new-api';
+import { API, ApiError } from '@/functions/shared/new-api';
 
 import '@/components/client';
 import 'swiper/css/bundle';
@@ -19,31 +22,19 @@ import { cn } from '@/functions/shared/utils';
 
 import { localArticlesRoute } from '@/routes/local-routes';
 
-export const revalidate = 60;
+export const revalidate = 5;
 
-const getGeneralArticles = async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/general');
-};
+const getGeneralArticles = cache(async () => {
+  return await API.get<{ articles: ArticleModel[] }>('/articles/general', { defaultData: [], throwOnError: true });
+});
 
-const getTipsArticles = async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/tips');
-};
+const getTipsArticles = cache(async () => {
+  return await API.get<{ articles: ArticleModel[] }>('/articles/tips', { defaultData: [], throwOnError: true });
+});
 
-const getCourses = async () => {
-  return await API.get<{ courses: CourseModel[] }>('/courses');
-};
-
-const getArticles = async () => {
-  const { data: generalData } = await API.get<{ articles: ArticleModel[] }>('/articles/general');
-  const { data: tipsData } = await API.get<{ articles: ArticleModel[] }>('/articles/tips');
-  const { data: coursesData } = await API.get<{ courses: CourseModel[] }>('/courses');
-
-  const general = generalData?.articles ?? [];
-  const tips = tipsData?.articles ?? [];
-  const courses = coursesData?.courses ?? [];
-
-  return { general, tips, courses };
-};
+const getCourses = cache(async () => {
+  return await API.get<{ courses: CourseModel[] }>('/courses', { defaultData: [], throwOnError: true });
+});
 
 const containerVariants = {
   hidden: {},
@@ -80,9 +71,7 @@ const SectionHeader = ({ children, href }: { href: string; children: ReactNode }
 const GeneralArticles = async () => {
   const { data, errors } = await getGeneralArticles();
 
-  if (errors) {
-    throw errors.message;
-  }
+  if (errors) throw new Error(errors.message);
 
   if (!data?.articles.length) {
     return <div className="p-8 text-center font-code text-2xl">Coming Soon...</div>;

@@ -1,3 +1,4 @@
+import { captureException } from '@sentry/nextjs';
 import axios, { isAxiosError } from 'axios';
 
 import { notFound } from 'next/navigation';
@@ -24,10 +25,27 @@ type ResponseType<ResponseData, RequestData> = {
   status: number;
 };
 
-type Config = AxiosRequestConfig & {
+type ApiConfig = AxiosRequestConfig & {
   notFoundOn404?: boolean;
   defaultData?: any;
+  throwOnError?: boolean;
 };
+
+class ApiError extends Error {
+  public readonly data: any;
+  public readonly errors: any;
+  public readonly status: number;
+  public readonly config: ApiConfig;
+
+  constructor({ data, status, errors, config }: { data: any; errors: any; status: number; config: ApiConfig }) {
+    super(data?.errors.message ?? errors?.message ?? 'Er ging iets mis met de applicatie.');
+    this.name = 'ApiError';
+    this.data = data;
+    this.errors = errors;
+    this.status = status;
+    this.config = config;
+  }
+}
 
 class API {
   private static readonly isServer: boolean = typeof window === 'undefined';
@@ -41,7 +59,7 @@ class API {
 
   public static async get<ResponseData, QueryParams = null>(
     url: string,
-    config?: Config,
+    config?: ApiConfig,
   ): Promise<ResponseType<ResponseData, QueryParams>> {
     try {
       const response = await this.axiosInstance().get<ResponseData>(url, config);
@@ -55,7 +73,7 @@ class API {
   public static async post<ResponseData, RequestData = null>(
     url: string,
     data: RequestData,
-    config?: Config,
+    config?: ApiConfig,
   ): Promise<ResponseType<ResponseData, RequestData>> {
     try {
       const response = await this.axiosInstance().post<ResponseData>(url, data, config);
@@ -69,7 +87,7 @@ class API {
   public static async put<ResponseData, RequestData = null>(
     url: string,
     data?: any,
-    config?: Config,
+    config?: ApiConfig,
   ): Promise<ResponseType<ResponseData, RequestData>> {
     try {
       const response = await this.axiosInstance().put<ResponseData>(url, data, config);
@@ -83,7 +101,7 @@ class API {
   public static async patch<ResponseData, RequestData = null>(
     url: string,
     data?: any,
-    config?: Config,
+    config?: ApiConfig,
   ): Promise<ResponseType<ResponseData, RequestData>> {
     try {
       const response = await this.axiosInstance().patch<ResponseData>(url, data, config);
@@ -96,7 +114,7 @@ class API {
 
   public static async delete<ResponseData, QueryParams = null>(
     url: string,
-    config?: Config,
+    config?: ApiConfig,
   ): Promise<ResponseType<ResponseData, QueryParams>> {
     try {
       const response = await this.axiosInstance().delete<ResponseData>(url, config);
@@ -115,21 +133,33 @@ class API {
 
   private static handleError<RequestDataOrQueryParams>(error: unknown): ResponseType<null, RequestDataOrQueryParams> {
     if (isAxiosError<ResponseType<null, RequestDataOrQueryParams>>(error)) {
+      const config = error.config as ApiConfig;
+      const defaultData = config.defaultData ?? null;
+
       if (error.response) {
         console.error('RESPONSE_ERROR: ', error);
         const { data, status } = error.response;
-        const config = error.config as Config;
+        const config = error.config as ApiConfig;
 
         if (this.isServer && error.response.status === 404 && config.notFoundOn404) {
           notFound();
         }
 
-        return { data: null, errors: data.errors, status };
+        return { data: defaultData, errors: data.errors, status };
       } else if (error.request) {
         console.error('REQUEST_ERROR: ', error);
+        const config = error.config as ApiConfig;
+
+        if (this.isServer) {
+          captureException(error, {
+            extra: {
+              config,
+            },
+          });
+        }
 
         return {
-          data: null,
+          data: defaultData,
           errors: {
             message: 'Verbinding of server-fout. Probeer het later opnieuw.',
           },
@@ -138,19 +168,26 @@ class API {
       } else {
         console.error('UNKNOWN_ERROR_0: ', error);
 
+        captureException(error, { extra: { config } });
+
         return {
-          data: null,
+          data: defaultData,
           errors: { message: 'Er ging iets mis met het vormen van het verzoek.' },
           status: 0,
         };
       }
     } else {
       console.error('UNKNOWN_ERROR_1: ', error);
+      captureException(error);
 
-      return { data: null, errors: { message: 'Er ging iets mis met de applicatie.' }, status: 0 };
+      return {
+        data: null,
+        errors: { message: 'Er ging iets mis met de applicatie.' },
+        status: 0,
+      };
     }
   }
 }
 
-export { API };
-export type { ResponseType, TopLevelError, FieldError, FieldErrors };
+export { API, ApiError };
+export type { ResponseType, TopLevelError, FieldError, FieldErrors, ApiConfig };
