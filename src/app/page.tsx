@@ -71,7 +71,7 @@ const SectionHeader = ({ children, href }: { href: string; children: ReactNode }
 const GeneralArticles = async () => {
   const { data, errors } = await getGeneralArticles();
 
-  if (errors) throw errors.getThrowPayload();
+  if (errors) throw errors;
 
   if (!data?.articles.length) {
     return <div className="p-8 text-center font-code text-2xl">Coming Soon...</div>;

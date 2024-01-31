@@ -31,6 +31,9 @@ type ApiConfig = AxiosRequestConfig & {
   throwOnError?: boolean;
 };
 
+/**
+ * Represents an error object with optional fields, configuration, and status.
+ */
 class Errors<D> extends Error {
   public message: string;
   public fields?: FieldErrors<D>;
@@ -45,28 +48,38 @@ class Errors<D> extends Error {
     this.status = status;
   }
 
+  /**
+   * Retrieves the fields of the object.
+   *
+   * @returns object of which each key is a field name and each value is an object with a `message` and `all` array.
+   */
   public getFields() {
     return this.fields;
   }
 
   /**
-   * Retrieves the error message associated with a specific field in an object.
+   * Retrieves the error message associated with the specified field.
    *
-   * @param {keyof D} field - The field in the object for which to retrieve the error message.
-   * @return {string} - The error message associated with the specified field.
+   * @param field - The key of the field to retrieve the error message for.
+   * @return The error message for the specified field, or undefined if no error message is found.
    */
   public getErrorMessageFromField(field: keyof D) {
     return (<FieldError>this.fields?.[field]).message;
   }
 
+  /**
+   * Retrieves all errors associated with a specific field.
+   *
+   * @param field - The field name to get errors from.
+   * @return An array of error messages for the specified field.
+   */
   public getAllErrorsFromField(field: keyof D) {
     return (<FieldError>this.fields?.[field]).all;
   }
 
-  public getThrowPayload() {
-    return this;
-  }
-
+  /**
+   * Retrieves the error message associated with the object.
+   */
   public getMessage() {
     return this.message;
   }
