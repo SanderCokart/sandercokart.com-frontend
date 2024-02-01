@@ -64,7 +64,9 @@ class Errors<D> extends Error {
    * @return The error message for the specified field, or undefined if no error message is found.
    */
   public getErrorMessageFromField(field: keyof D) {
-    return (<FieldError>this.fields?.[field]).message;
+    const fieldError = this.fields?.[field] as FieldError;
+
+    return fieldError.message;
   }
 
   /**
@@ -74,7 +76,9 @@ class Errors<D> extends Error {
    * @return An array of error messages for the specified field.
    */
   public getAllErrorsFromField(field: keyof D) {
-    return (<FieldError>this.fields?.[field]).all;
+    const fieldError = this.fields?.[field] as FieldError;
+
+    return fieldError.all;
   }
 
   /**
