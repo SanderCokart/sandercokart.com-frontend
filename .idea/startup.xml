@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectStartupSharedConfiguration">
-    <configurations>
-      <configuration id="npm.dev --hostname=0.0.0.0 --turbo" name="dev --hostname=0.0.0.0 --turbo" />
-    </configurations>
-  </component>
-</project>

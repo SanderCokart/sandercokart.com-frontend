@@ -1,4 +1,3 @@
-import { captureException } from '@sentry/nextjs';
 import axios, { isAxiosError } from 'axios';
 
 import { notFound } from 'next/navigation';
@@ -14,80 +13,29 @@ type FieldErrors<DATA> = {
   [KEY in keyof DATA]: DATA[KEY] extends object ? FieldErrors<DATA[KEY]> : FieldError;
 };
 
-type TopLevelError<D> = {
-  message: string;
-  fields?: FieldErrors<D>;
-};
-
-type ResponseType<ResponseData, RequestData> = {
-  data: null | ResponseData;
-  errors: null | Errors<RequestData>;
+type SuccessResponse<ResponseData> = {
+  data: ResponseData;
+  errors: null;
   status: number;
 };
+
+type ErrorResponse<RequestData> = {
+  data: null;
+  errors: Errors<RequestData>;
+  status: number;
+};
+
+type ResponseType<ResponseData, RequestData> = SuccessResponse<ResponseData> | ErrorResponse<RequestData>;
 
 type ApiConfig = AxiosRequestConfig & {
   notFoundOn404?: boolean;
   defaultData?: any;
-  throwOnError?: boolean;
 };
 
-/**
- * Represents an error object with optional fields, configuration, and status.
- */
-class Errors<D> extends Error {
-  public message: string;
-  public fields?: FieldErrors<D>;
-  public config?: ApiConfig;
-  public status?: number;
-
-  constructor({ message, fields, config, status = 0 }: TopLevelError<D> & { config?: ApiConfig; status?: number }) {
-    super(message);
-    this.message = message;
-    this.fields = fields;
-    this.config = config;
-    this.status = status;
-  }
-
-  /**
-   * Retrieves the fields of the object.
-   *
-   * @returns object of which each key is a field name and each value is an object with a `message` and `all` array.
-   */
-  public getFields() {
-    return this.fields;
-  }
-
-  /**
-   * Retrieves the error message associated with the specified field.
-   *
-   * @param field - The key of the field to retrieve the error message for.
-   * @return The error message for the specified field, or undefined if no error message is found.
-   */
-  public getErrorMessageFromField(field: keyof D) {
-    const fieldError = this.fields?.[field] as FieldError;
-
-    return fieldError.message;
-  }
-
-  /**
-   * Retrieves all errors associated with a specific field.
-   *
-   * @param field - The field name to get errors from.
-   * @return An array of error messages for the specified field.
-   */
-  public getAllErrorsFromField(field: keyof D) {
-    const fieldError = this.fields?.[field] as FieldError;
-
-    return fieldError.all;
-  }
-
-  /**
-   * Retrieves the error message associated with the object.
-   */
-  public getMessage() {
-    return this.message;
-  }
-}
+export type Errors<D> = {
+  message: string;
+  fields?: FieldErrors<D>;
+};
 
 class API {
   private static readonly isServer: boolean = typeof window === 'undefined';
@@ -169,19 +117,20 @@ class API {
     }
   }
 
-  private static handleResponse<Response>(response: AxiosResponse<Response>): ResponseType<Response, any> {
+  private static handleResponse<ResponseData>(response: AxiosResponse<ResponseData>): SuccessResponse<ResponseData> {
     const { data, status } = response;
 
     return { data, errors: null, status };
   }
 
-  private static handleError<RequestDataOrQueryParams>(error: unknown): ResponseType<null, RequestDataOrQueryParams> {
+  private static handleError<RequestDataOrQueryParams>(error: unknown): ErrorResponse<RequestDataOrQueryParams> {
     if (isAxiosError<ResponseType<null, RequestDataOrQueryParams>>(error)) {
       const config = error.config as ApiConfig;
       const defaultData = config.defaultData ?? null;
 
+      console.info('URL: ', `${config.baseURL}${config.url}?${new URLSearchParams(config.params).toString()}`);
+
       if (error.response) {
-        console.error('RESPONSE_ERROR: ', error);
         const { data, status } = error.response;
         const config = error.config as ApiConfig;
 
@@ -189,48 +138,56 @@ class API {
           notFound();
         }
 
-        if (!data.errors) throw new Error('Server response does not contain errors key, contact the developer.');
+        if (data.errors)
+          return {
+            data: defaultData,
+            errors: {
+              message: data.errors?.message,
+              fields: data.errors?.fields,
+            },
+            status,
+          };
+
+        console.error('RESPONSE_ERROR: ', error);
 
         return {
           data: defaultData,
-          errors: new Errors({ message: data.errors?.message, fields: data.errors?.fields, config, status }),
+          errors: {
+            message: 'Er ging iets mis met de server. Probeer het later opnieuw.',
+          },
           status,
         };
       } else if (error.request) {
-        console.error('REQUEST_ERROR: ', error);
         const config = error.config as ApiConfig;
 
-        if (this.isServer) {
-          captureException(error, {
-            extra: {
-              config,
-            },
-          });
-        }
+        console.error('REQUEST_ERROR: ', error);
 
         return {
           data: defaultData,
-          errors: new Errors({ message: 'Verbinding of server-fout. Probeer het later opnieuw.', config, status: 0 }),
+          errors: {
+            message: 'Verbinding of server-fout. Probeer het later opnieuw.',
+          },
           status: 0,
         };
       } else {
         console.error('UNKNOWN_ERROR_0: ', error);
 
-        captureException(error, { extra: { config } });
-
         return {
           data: defaultData,
-          errors: new Errors({ message: 'Er ging iets mis met het vormen van het verzoek.', config, status: 0 }),
+          errors: {
+            message: 'Er ging iets mis met het vormen van het verzoek.',
+          },
           status: 0,
         };
       }
     } else {
       console.error('UNKNOWN_ERROR_1: ', error);
-      captureException(error);
 
       return {
         data: null,
-        errors: new Errors({ message: 'Er ging iets mis met de applicatie.', config: {}, status: 0 }),
+        errors: {
+          message: 'Er ging iets mis met de applicatie.',
+        },
         status: 0,
       };
     }
@@ -238,4 +195,4 @@ class API {
 }
 
 export { API };
-export type { ResponseType, TopLevelError, FieldError, FieldErrors, ApiConfig };
+export type { ResponseType, FieldError, FieldErrors, ApiConfig };

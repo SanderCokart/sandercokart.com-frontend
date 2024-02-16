@@ -22,18 +22,15 @@ import { localArticlesRoute } from '@/routes/local-routes';
 export const revalidate = 5;
 
 const getGeneralArticles = cache(async () => {
-  return await API.get<{ articles: ArticleModel[] }, { bla: string }>('/articles/general', {
-    defaultData: [],
-    throwOnError: true,
-  });
+  return await API.get<{ articles: ArticleModel[] }>('/articles/general', { defaultData: [] });
 });
 
 const getTipsArticles = cache(async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/tips', { defaultData: [], throwOnError: true });
+  return await API.get<{ articles: ArticleModel[] }>('/articles/tips', { defaultData: [] });
 });
 
 const getCourses = cache(async () => {
-  return await API.get<{ courses: CourseModel[] }>('/courses', { defaultData: [], throwOnError: true });
+  return await API.get<{ courses: CourseModel[] }>('/courses', { defaultData: [] });
 });
 
 const containerVariants = {
