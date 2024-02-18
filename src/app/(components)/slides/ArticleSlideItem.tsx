@@ -39,7 +39,7 @@ const ArticleSlideItem = ({ article }: ArticleFigureProps) => {
 
           <div className="flex flex-col">
             <p className="line-clamp-3 bg-white/85 px-2 font-code text-xs font-normal text-black dark:bg-black/85 dark:text-white md:text-base">
-              {article.excerpt}
+              {article.description}
             </p>
 
             <span

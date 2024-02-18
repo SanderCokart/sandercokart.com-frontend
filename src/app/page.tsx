@@ -14,6 +14,7 @@ import Link from 'next/link';
 
 import { MotionDiv } from '@/components/client';
 import { ArticleSwiper } from '@/components/Swipers/article-swiper';
+import { CourseSwiper } from '@/components/Swipers/course-swiper';
 
 import { cn } from '@/functions/shared/utils';
 
@@ -22,15 +23,15 @@ import { localArticlesRoute } from '@/routes/local-routes';
 export const revalidate = 5;
 
 const getGeneralArticles = cache(async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/general', { defaultData: [] });
+  return await API.get<ArticleModel[]>('/articles/general', { defaultData: [] });
 });
 
 const getTipsArticles = cache(async () => {
-  return await API.get<{ articles: ArticleModel[] }>('/articles/tips', { defaultData: [] });
+  return await API.get<ArticleModel[]>('/articles/tips', { defaultData: [] });
 });
 
 const getCourses = cache(async () => {
-  return await API.get<{ courses: CourseModel[] }>('/courses', { defaultData: [] });
+  return await API.get<CourseModel[]>('/courses', { defaultData: [] });
 });
 
 const containerVariants = {
@@ -65,16 +66,44 @@ const SectionHeader = ({ children, href }: { href: string; children: ReactNode }
   </h1>
 );
 
+const ComingSoon = () => (
+  <div className="bg-primary p-8 text-center font-code text-2xl text-primary-foreground">Coming Soon...</div>
+);
+
 const GeneralArticles = async () => {
-  const { data, errors } = await getGeneralArticles();
+  const { data: articles, errors } = await getGeneralArticles();
 
-  if (errors) throw errors;
+  if (errors) throw new Error(errors.message);
 
-  if (!data?.articles.length) {
-    return <div className="p-8 text-center font-code text-2xl">Coming Soon...</div>;
+  if (!articles?.length) {
+    return <ComingSoon />;
   }
 
-  return <ArticleSwiper articles={data?.articles} />;
+  return <ArticleSwiper articles={articles} />;
+};
+
+const TipArticles = async () => {
+  const { data: articles, errors } = await getTipsArticles();
+
+  if (errors) throw new Error(errors.message);
+
+  if (!articles.length) {
+    return <ComingSoon />;
+  }
+
+  return <ArticleSwiper articles={articles} />;
+};
+
+const Courses = async () => {
+  const { data: courses, errors } = await getCourses();
+
+  if (errors) throw new Error(errors.message);
+
+  if (!courses.length) {
+    return <ComingSoon />;
+  }
+
+  return <CourseSwiper courses={courses} />;
 };
 
 const HomePage = async () => {
@@ -87,6 +116,22 @@ const HomePage = async () => {
               <SectionHeader href={localArticlesRoute('general')}>General</SectionHeader>
               <div className="relative">
                 <GeneralArticles />
+              </div>
+            </section>
+          </MotionDiv>
+          <MotionDiv className="relative z-10" variants={itemVariants}>
+            <section className="relative z-10 shadow-2xl">
+              <SectionHeader href="/courses">Courses</SectionHeader>
+              <div className="relative">
+                <Courses />
+              </div>
+            </section>
+          </MotionDiv>
+          <MotionDiv className="relative z-10" variants={itemVariants}>
+            <section className="relative z-10 shadow-2xl">
+              <SectionHeader href={localArticlesRoute('tips')}>Tips</SectionHeader>
+              <div className="relative">
+                <TipArticles />
               </div>
             </section>
           </MotionDiv>

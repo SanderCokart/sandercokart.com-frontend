@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,11 +15,8 @@ interface ArticleFigureProps {
 }
 
 export const ArticleFigure = ({ article }: ArticleFigureProps) => (
-  <Link
-    key={article.id}
-    className="group pointer-events-auto"
-    href={localArticleRoute(article.type.name, article.slug)}>
-    <figure className="dark:border-secondaryDark relative flex flex-col border-2 border-secondary transition-transform hover:scale-95">
+  <Link className="group pointer-events-auto" href={localArticleRoute(article.type.name, article.slug)}>
+    <figure className="relative flex flex-col border-2 border-secondary transition-transform hover:scale-95">
       <div className="relative aspect-video h-full w-full overflow-hidden">
         <Image
           fill
@@ -31,22 +30,23 @@ export const ArticleFigure = ({ article }: ArticleFigureProps) => (
       <figcaption className={cn('flex h-full flex-col justify-between bg-black/25 text-white')}>
         <h1
           className={cn(
-            'bg-secondary text-secondary-foreground',
-            'font-code text-sm font-black capitalize  md:text-xl',
+            'bg-primary px-2 text-secondary-foreground',
+            'font-code text-sm font-black capitalize md:text-xl',
             'line-clamp-2',
-          )}>
+          )}
+          title={article.title}>
           {article.title}
         </h1>
 
-        <div
-          className={cn(
-            'flex flex-col p-4',
-            'bg-bodyLightSecondary dark:bg-bodyDarkSecondary text-black dark:text-white',
-          )}>
-          <p className="line-clamp-5 font-code text-xs font-normal md:text-base">{article.excerpt}</p>
+        <div className="flex flex-col p-4 text-black dark:text-white">
+          <p className="line-clamp-5 font-code text-xs font-normal md:text-base" title={article.description}>
+            {article.description}
+          </p>
         </div>
 
-        <span className={cn('shadow-none', 'text-center font-code text-xs text-black')}>
+        <span
+          className="bg-secondary text-center font-code text-secondary-foreground"
+          title={moment(article.published_at).calendar()}>
           Published: {calculatePublishedTimestamp(article.published_at, true)}
         </span>
       </figcaption>

@@ -60,7 +60,7 @@ const links = [
 ];
 
 const MobileNavigation = () => (
-  <nav aria-label="mobile navigation" className="fixed inset-x-0 bottom-0 bg-primary sm:hidden">
+  <nav aria-label="mobile navigation" className="fixed inset-x-0 bottom-0 z-20 bg-primary sm:hidden">
     <ul className="flex h-14">
       {links.map(link => (
         <li key={link.href} className="flex-grow">
@@ -95,7 +95,7 @@ const DesktopNavigation = () => (
 const RootLayout = (props: RootLayoutProps) => {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={cn('font-sans', 'bg-background text-foreground', fontVariables)}>
+      <body className={cn('bg-background font-sans text-foreground', fontVariables)}>
         <GlobalProviders>
           <div className="flex min-h-dvh flex-col">
             <Header>

@@ -1,4 +1,4 @@
-import type { ArticleType } from "@/types/CommonTypes";
+import type { ArticleType } from '@/types/CommonTypes';
 
 export interface ArticleTypeModel {
   id: number;
@@ -41,7 +41,7 @@ export interface BaseArticleModel {
 }
 
 export interface ArticleModel extends BaseArticleModel {
-  excerpt: string;
+  description: string;
   body: string;
   article_type_id: number;
   type: ArticleTypeModel;
