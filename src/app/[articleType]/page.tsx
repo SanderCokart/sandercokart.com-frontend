@@ -1,15 +1,11 @@
 import moment from 'moment/moment';
-import { twJoin } from 'tailwind-merge';
 
 import { Fragment } from 'react';
 import Link from 'next/link';
 
-import type { SuccessResponse } from '@/functions/shared/api';
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
-import type { ArticleModelsResponse } from '@/types/ResponseTypes';
 
-import api from '@/functions/shared/api';
 import { API } from '@/functions/shared/new-api';
 import { cn } from '@/functions/shared/utils';
 
@@ -56,7 +52,7 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
 
   return (
     <div className="flex">
-      <main className="grow bg-white">
+      <main className="grow">
         {articlesByMonth.map(entry => (
           <Fragment key={entry.year}>
             <div>
@@ -72,12 +68,7 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
                     {month}
                   </h2>
 
-                  <div
-                    key={month}
-                    className={cn(
-                      'pointer-events-none grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
-                      '[&:hover_>*:hover]:opacity-100 [&:hover_>*]:opacity-75 [&_>*]:transition-opacity',
-                    )}>
+                  <div key={month} className={cn('grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]', '')}>
                     {articles.map(article => (
                       <ArticleFigure key={article.id} article={article} />
                     ))}
@@ -88,19 +79,19 @@ const ArticlesPage = async ({ params: { articleType } }: ArticlesPageProps) => {
           </Fragment>
         ))}
       </main>
-      <aside className="sticky top-16 h-full min-w-96">
+      <aside className="sticky top-16 max-h-[calc(100dvh-theme(spacing.16))] overflow-y-scroll">
         <h1 className="bg-secondary text-center font-digital text-4xl">History</h1>
-        <ul className="divide-y-2">
+        <ul className="space-y-2 divide-y-2">
           {articlesByMonth.map(entry => (
             <li key={entry.year} className="flex flex-col">
-              <div className=" h-full w-full bg-secondary p-2 text-center font-bold">{entry.year}</div>
-              <ul>
+              <h1 className=" h-full w-full bg-secondary p-2 text-center font-bold">{entry.year}</h1>
+              <ul className="flex flex-col">
                 {Object.entries(entry.months).map(([month]) => (
-                  <li key={month} className="flex">
+                  <li key={month} className="flex flex-col">
                     <Link
-                      className="h-full w-full cursor-pointer bg-primary p-2 text-center font-bold"
+                      className="bg-primary px-16 py-2 text-center font-bold transition-colors hover:bg-accent hover:text-accent-foreground"
                       href={`#${month}`}>
-                      {month}
+                      <h2>{month}</h2>
                     </Link>
                   </li>
                 ))}
