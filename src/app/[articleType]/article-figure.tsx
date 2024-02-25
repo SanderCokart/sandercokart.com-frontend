@@ -15,8 +15,8 @@ interface ArticleFigureProps {
 }
 
 export const ArticleFigure = ({ article }: ArticleFigureProps) => (
-  <Link className="group pointer-events-auto" href={localArticleRoute(article.type.name, article.slug)}>
-    <figure className="relative flex flex-col border-2 border-secondary transition-transform hover:scale-95">
+  <Link className="group pointer-events-auto flex h-full" href={localArticleRoute(article.type.name, article.slug)}>
+    <figure className="relative flex flex-col">
       <div className="relative aspect-video h-full w-full overflow-hidden">
         <Image
           fill
