@@ -15,34 +15,26 @@ interface ArticleFigureProps {
 }
 
 export const ArticleFigure = ({ article }: ArticleFigureProps) => (
-  <Link className="group pointer-events-auto flex h-full" href={localArticleRoute(article.type.name, article.slug)}>
-    <figure className="relative flex flex-col">
-      <div className="relative aspect-video h-full w-full overflow-hidden">
-        <Image
-          fill
-          alt={article.title}
-          className="transition-transform group-hover:scale-110"
-          src={article.banner.original_url}
-          style={{ objectFit: 'cover' }}
-        />
+  <Link className="flex flex-col" href={localArticleRoute(article.type.name, article.slug)}>
+    <figure className="relative flex grow flex-col">
+      <div className="relative aspect-video overflow-hidden">
+        <Image fill alt={article.title} className="object-cover" src={article.banner.original_url} />
       </div>
 
-      <figcaption className={cn('flex h-full flex-col justify-between bg-black/25 text-white')}>
+      <figcaption className="flex grow flex-col bg-black/50 text-white">
         <h1
           className={cn(
-            'bg-primary px-2 text-secondary-foreground',
+            'text-primary-foreground-foreground bg-primary',
             'font-code text-sm font-black capitalize md:text-xl',
-            'line-clamp-2',
+            'line-clamp-2 px-2',
           )}
           title={article.title}>
           {article.title}
         </h1>
 
-        <div className="flex flex-col p-4 text-black dark:text-white">
-          <p className="line-clamp-5 font-code text-xs font-normal md:text-base" title={article.description}>
-            {article.description}
-          </p>
-        </div>
+        <p className="line-clamp-5 grow p-4 font-code text-xs font-normal md:text-base" title={article.description}>
+          {article.description}
+        </p>
 
         <span
           className="bg-secondary text-center font-code text-secondary-foreground"

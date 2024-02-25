@@ -79,9 +79,9 @@ const ArticleGrid = ({ articlesByMonth }: { articlesByMonth: ArticlesByMonth[] }
                   {month}
                 </h2>
 
-                <ul key={month} className={cn('grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]', '')}>
+                <ul key={month} className={cn('grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(300px,1fr))]', '')}>
                   {articles.map(article => (
-                    <li key={article.id}>
+                    <li key={article.id} className="flex">
                       <ArticleFigure article={article} />
                     </li>
                   ))}
