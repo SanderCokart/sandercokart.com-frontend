@@ -1,17 +1,16 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
+import { cache } from 'react';
 import Image from 'next/image';
 
-import type { SuccessResponse } from '@/functions/shared/api';
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
-import type { ArticleModelResponse } from '@/types/ResponseTypes';
 
-import mdxComponents from '@/constants/mdxComponents';
-import mdxOptions from '@/constants/mdxOptions';
+import mdxComponents from '@/constants/mdx-components';
+import mdxOptions from '@/constants/mdx-options';
 
-import api from '@/functions/shared/api';
 import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
+import { API } from '@/functions/shared/new-api';
 
 import { ApiRouteArticle } from '@/routes/api-routes';
 
@@ -24,16 +23,21 @@ interface ArticlePageProps {
   };
 }
 
-const getArticle = async (type: ArticleType, slug: ArticleModel['slug']) => {
-  const {
-    data: { article },
-  } = await api.simpleGet<null, SuccessResponse<ArticleModelResponse>>(ApiRouteArticle(type, slug));
-
-  return article;
-};
+const getArticle = cache(async (type: ArticleType, slug: ArticleModel['slug']) => {
+  return await API.get<ArticleModel>(ApiRouteArticle(type, slug));
+});
 
 const ArticlePage = async ({ params: { articleType, slug } }: ArticlePageProps) => {
-  const article = await getArticle(articleType, slug);
+  const { data: article, errors } = await getArticle(articleType, slug);
+
+  if (errors) {
+    return (
+      <main className="prose dark:prose-invert">
+        <h1>Error</h1>
+        <pre>{JSON.stringify(errors, null, 2)}</pre>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-main p-4 md:p-8">
