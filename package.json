@@ -12,6 +12,7 @@
   "prettier": "@sandercokart/prettier-config",
   "dependencies": {
     "@mantine/hooks": "^7.5.0",
+    "@radix-ui/react-tabs": "^1.0.4",
     "@sandercokart/eslint-config": "^1.0.0",
     "@sandercokart/prettier-config": "^2.0.2",
     "@sentry/nextjs": "^7.98.0",

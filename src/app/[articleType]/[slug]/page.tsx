@@ -6,15 +6,14 @@ import Image from 'next/image';
 import type { ArticleType } from '@/types/CommonTypes';
 import type { ArticleModel } from '@/types/ModelTypes';
 
-import mdxComponents from '@/constants/mdx-components';
-import mdxOptions from '@/constants/mdx-options';
-
 import calculatePublishedTimestamp from '@/functions/shared/calculatePublishedTimestamp';
 import { API } from '@/functions/shared/new-api';
 
 import { ApiRouteArticle } from '@/routes/api-routes';
 
 import GoBackButton from '@/app/[articleType]/[slug]/(components)/GoBackButton';
+import mdxComponents from '@/mdx/mdx-components';
+import mdxOptions from '@/mdx/mdx-options';
 
 interface ArticlePageProps {
   params: {
